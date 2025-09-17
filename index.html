@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Alex Support — Start</title>
+  <meta name="description" content="Minimal launcher for Alex's Support Assistant (Chatbase)." />
+  <style>
+    :root{--bg:#070b14;--text:#e8eefc;--muted:#a7b1c6;--dot:#ffffff;--btnText:#0b1220;--glow:#7dd3fc;--btnHover:#e2e8f0}
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 system-ui,Segoe UI,Roboto,Helvetica,Arial}
+    .wrap{position:relative;min-height:100%;display:grid;place-items:center}
+
+    /* Top message */
+    .msg{position:absolute;top:40px;left:0;right:0;text-align:center;opacity:0;transform:translateY(-6px);transition:opacity .5s ease, transform .5s ease;font-size:24px;font-weight:700;letter-spacing:.2px}
+    .msg.show{opacity:1;transform:none}
+
+    /* Center column for the animated button + extras */
+    .center{display:flex;flex-direction:column;align-items:center;gap:14px}
+
+    /* Seed dot that morphs into ASK button */
+    .seed{--w:12px;--h:12px;display:inline-grid;place-items:center;width:var(--w);height:var(--h);border-radius:9999px;background:var(--dot);color:var(--btnText);box-shadow:0 10px 30px rgba(0,0,0,.35);animation:morph 1.2s cubic-bezier(.22,1,.36,1) forwards;transition:transform .2s ease}
+    .seed:hover{transform:scale(1.03)}
+    .seed-label{opacity:0;transition:opacity .35s ease,font-size .2s ease; font-size:22px;font-weight:800;letter-spacing:.4px}
+
+    /* The ASK state style */
+    .seed.done{width:340px;height:70px;border-radius:9999px;cursor:pointer;box-shadow:0 0 0 0 rgba(125,211,252,.0),0 10px 30px rgba(0,0,0,.35);animation:glow 2.4s ease-in-out infinite}
+    .seed.done .seed-label{opacity:1}
+
+    /* Extra buttons container (hidden until main animation finishes) */
+    .extras{opacity:0;transform:translateY(-6px);transition:opacity .5s ease .1s, transform .5s ease .1s;display:flex;flex-direction:column;gap:10px;width:340px}
+    .extras.show{opacity:1;transform:none}
+
+    /* Secondary button styles */
+    .btn{display:grid;place-items:center;height:56px;border-radius:9999px;background:#ffffff;color:#0b1220;font-weight:800;letter-spacing:.4px;border:none;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.35);font-size:18px;transition:all .25s ease}
+    .btn:hover{background:var(--btnHover);transform:translateY(-2px);box-shadow:0 14px 34px rgba(0,0,0,.45)}
+    .btn:active{transform:translateY(0);box-shadow:0 8px 20px rgba(0,0,0,.3)}
+    .btn:focus-visible{outline:3px solid #7dd3fc;outline-offset:4px}
+
+    /* Fixed keyframes */
+    @keyframes morph{
+      0%{width:12px;height:12px;border-radius:9999px}
+      40%{width:160px;height:12px}
+      70%{width:300px;height:22px}
+      100%{width:340px;height:70px;border-radius:9999px}
+    }
+
+    /* Glow for ASK button */
+    @keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(125,211,252,.0),0 10px 30px rgba(0,0,0,.35)}50%{box-shadow:0 0 24px 6px rgba(125,211,252,.25),0 10px 30px rgba(0,0,0,.35)}}
+
+    /* Accessibility focus */
+    .seed:focus-visible{outline:3px solid #7dd3fc;outline-offset:4px}
+    .hint{position:absolute;bottom:28px;left:0;right:0;text-align:center;color:var(--muted);font-size:14px}
+
+    /* Respect reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      .seed{animation:none}
+      .seed.done{animation:none}
+      .animate,*{transition:none !important}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div id="msg" class="msg">Alex is busy, try me for now!!</div>
+
+    <div class="center">
+      <button id="starter" class="seed" aria-label="Open assistant" title="Open assistant" data-testid="starter">
+        <span class="seed-label">ASK</span>
+      </button>
+
+      <!-- New stacked buttons (appear after animation) -->
+      <div id="extras" class="extras" aria-hidden="true">
+        <button id="btn-manuals" class="btn" aria-label="Open manuals" title="Open manuals">MANUALS</button>
+        <button id="btn-videos" class="btn" aria-label="Open videos" title="Open videos">VIDEOS</button>
+      </div>
+    </div>
+
+    <div class="hint">Press ENTER or click the button to open the assistant</div>
+  </div>
+
+  <script>
+    // Elements
+    const seed   = document.getElementById('starter');
+    const msg    = document.getElementById('msg');
+    const extras = document.getElementById('extras');
+
+    // When the morph animation ends, reveal message, arm the button, and show extras
+    seed.addEventListener('animationend', () => {
+      seed.classList.add('done');
+      msg.classList.add('show');
+      extras.classList.add('show');
+      extras.setAttribute('aria-hidden','false');
+    }, { once: true });
+
+    // Open Chatbase widget safely
+    function openChat(){
+      try {
+        if (typeof window.chatbase === 'function') { window.chatbase('open'); return true; }
+        if (window?.Chatbase?.open) { window.Chatbase.open(); return true; }
+        if (window?.chatbase?.openChat) { window.chatbase.openChat(); return true; }
+      } catch (e) { /* no-op */ }
+      return false;
+    }
+
+    // Click and keyboard handlers
+    seed.addEventListener('click', () => {
+      if (!openChat()) {
+        setTimeout(openChat, 250);
+      }
+    });
+
+    seed.addEventListener('keydown', (e) => {
+      if ((e.key === 'Enter' || e.key === ' ') && seed.classList.contains('done')) {
+        e.preventDefault();
+        seed.click();
+      }
+    });
+
+    // Confirmation before leaving site
+    function confirmAndOpen(url){
+      const leave = confirm("You are leaving alexkid.org and going to Google Drive. Continue?");
+      if(leave){ window.open(url,'_blank'); }
+    }
+
+    // MANUALS button → Google Drive
+    document.getElementById('btn-manuals').addEventListener('click', () => {
+      confirmAndOpen('https://drive.google.com/drive/folders/1tE1E0pKNjEDF-VEPQJxcnqUYNyiOVxWu?usp=sharing');
+    });
+
+    // VIDEOS button → Google Drive
+    document.getElementById('btn-videos').addEventListener('click', () => {
+      confirmAndOpen('https://drive.google.com/drive/folders/1hsC-zKFD8HbvqkCn_9hWzBHPifvSPDQh?usp=sharing');
+    });
+
+    // ---- Minimal diagnostics (run only with #test in URL) ----
+    if (location.hash === '#test') {
+      console.assert(document.querySelector('[data-testid="starter"]'), 'Starter button missing');
+      console.assert(typeof openChat === 'function', 'openChat() is not defined');
+      console.assert(document.getElementById('btn-manuals'), 'MANUALS button missing');
+      console.assert(document.getElementById('btn-videos'), 'VIDEOS button missing');
+    }
+  </script>
+
+  <!-- ===== Chatbase embed (live) ===== -->
+  <script>
+  (function(){
+    if(!window.chatbase || window.chatbase("getState")!=="initialized"){
+      window.chatbase=(...arguments)=>{ if(!window.chatbase.q){ window.chatbase.q=[] } window.chatbase.q.push(arguments) };
+      window.chatbase=new Proxy(window.chatbase,{ get(target,prop){ if(prop==="q"){ return target.q } return(...args)=>target(prop,...args) } });
+    }
+    const onLoad=function(){
+      const script=document.createElement("script");
+      script.src="https://www.chatbase.co/embed.min.js";
+      script.id="js1fXkkuCBxmbyE5dvK4m";
+      script.domain="www.chatbase.co";
+      document.body.appendChild(script);
+    };
+    if(document.readyState==="complete"){ onLoad() } else { window.addEventListener("load", onLoad) }
+  })();
+  </script>
+</body>
+</html>
