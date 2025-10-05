@@ -51,8 +51,26 @@
       title="Chatbase Left Agent">
     </iframe>
     <footer>
-      ← <a href="/">Back to Home</a>
+      ← <a href="/" onclick="return goBackSmart();">Back to Home</a>
     </footer>
   </div>
+
+  <script>
+    function goBackSmart(){
+      try {
+        const ref = document.referrer;
+        // If user navigated here from any page on this same domain, go back
+        if (ref && new URL(ref).origin === location.origin) {
+          history.back();
+          return false; // prevent default link nav
+        }
+      } catch(e) {
+        // ignore parsing issues and fall through to homepage
+      }
+      // If no same-origin referrer, go to homepage explicitly
+      location.href = '/';
+      return false;
+    }
+  </script>
 </body>
 </html>
