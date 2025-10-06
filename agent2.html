@@ -34,3 +34,39 @@
       font-weight:600;
       border-top:1px solid #222;
     }
+    footer a{
+      color:#7dd3fc;
+      text-decoration:none;
+      transition:color .2s ease;
+    }
+    footer a:hover{
+      color:#39ff14;
+    }
+  </style>
+</head>
+<body>
+  <div class="frame-wrap">
+    <iframe
+      src="https://www.chatbase.co/chatbot-iframe/UWRW9yRDHOkjP8alB9N6E"
+      title="Chatbase Commissioning Agent">
+    </iframe>
+    <footer>
+      ← <a href="/" onclick="return goBackSmart();">Back to Home</a>
+    </footer>
+  </div>
+
+  <script>
+    function goBackSmart(){
+      try {
+        const ref = document.referrer;
+        if (ref && new URL(ref).origin === location.origin) {
+          history.back();
+          return false; // prevent default navigation
+        }
+      } catch(e) {}
+      location.href = '/';
+      return false;
+    }
+  </script>
+</body>
+</html>
