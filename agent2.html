@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Alex Support — Commissioning</title>
-  <meta name="description" content="Standalone page for the Commissioning Chatbase agent (iframe)." />
+  <title>Alex Support — Left Agent</title>
+  <meta name="description" content="Standalone page for the left Chatbase agent (iframe)." />
   <style>
     html,body{
       height:100%;
@@ -48,7 +48,7 @@
   <div class="frame-wrap">
     <iframe
       src="https://www.chatbase.co/chatbot-iframe/UWRW9yRDHOkjP8alB9N6E"
-      title="Chatbase Commissioning Agent">
+      title="Chatbase Left Agent">
     </iframe>
     <footer>
       ← <a href="/" onclick="return goBackSmart();">Back to Home</a>
@@ -59,11 +59,15 @@
     function goBackSmart(){
       try {
         const ref = document.referrer;
+        // If user navigated here from any page on this same domain, go back
         if (ref && new URL(ref).origin === location.origin) {
           history.back();
-          return false; // prevent default navigation
+          return false; // prevent default link nav
         }
-      } catch(e) {}
+      } catch(e) {
+        // ignore parsing issues and fall through to homepage
+      }
+      // If no same-origin referrer, go to homepage explicitly
       location.href = '/';
       return false;
     }

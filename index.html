@@ -1,1 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Alex Support — Start</title>
+  <meta name="description" content="Minimal launcher for Alex's Support Assistant (Chatbase)." />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#070b14;
+      --text:#e8eefc;
+      --muted:#a7b1c6;
+      --dot:#ffffff;
+      --btnText:#0b1220;
+      --glow:#7dd3fc;
+      --btnHover:#e2e8f0
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font:12px/1.6 system-ui,Segoe UI,Roboto,Helvetica,Arial;
+    }
+    .wrap{position:relative;min-height:100%;display:grid;place-items:center}
 
+    .msg{
+      position:absolute;top:40px;left:0;right:0;text-align:center;
+      opacity:0;transform:translateY(-6px);
+      transition:opacity .5s ease, transform .5s ease;
+      font-size:34px;font-weight:800;letter-spacing:.5px;
+      font-family:"Courier New", Courier, monospace;
+      color:#39ff14;text-shadow:0 0 6px rgba(57,255,20,0.8),0 0 12px rgba(57,255,20,0.6);
+    }
+    .msg.show{opacity:1;transform:none}
+
+    .center{display:flex;flex-direction:column;align-items:center;gap:14px}
+
+    .seed{--w:12px;--h:12px;display:inline-grid;place-items:center;width:var(--w);height:var(--h);border-radius:9999px;background:var(--dot);color:var(--btnText);box-shadow:0 10px 30px rgba(0,0,0,.35);animation:morph 1.2s cubic-bezier(.22,1,.36,1) forwards;transition:transform .2s ease}
+    .seed:hover{transform:scale(1.05)}
+    .seed-label{opacity:0;transition:opacity .35s ease,font-size .2s ease;font-size:26px;font-weight:800;letter-spacing:.4px}
+    .seed.done{width:338px;height:74px;border-radius:9999px;cursor:pointer;box-shadow:0 0 0 0 rgba(125,211,252,.0),0 10px 30px rgba(0,0,0,.35);animation:glow 2.4s ease-in-out infinite}
+    .seed.done .seed-label{opacity:1;font-size:29px;}
+
+    .extras{opacity:0;transform:translateY(-6px);transition:opacity .5s ease .1s, transform .5s ease .1s;display:flex;flex-direction:column;gap:12px;width:338px}
+    .extras.show{opacity:1;transform:none}
+
+    .btn{display:grid;place-items:center;height:59px;border-radius:9999px;background:#ffffff;color:#0b1220;font-weight:800;letter-spacing:.4px;border:none;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.35);transition:all .25s ease}
+    .btn:hover{background:var(--btnHover);transform:translateY(-2px);box-shadow:0 14px 34px rgba(0,0,0,.45)}
+    .btn:active{transform:translateY(0);box-shadow:0 8px 20px rgba(0,0,0,.3)}
+    .btn:focus-visible{outline:3px solid #7dd3fc;outline-offset:4px}
+    #btn-manuals, #btn-videos, #btn-enorms, #btn-commission { font-size:21px; }
+
+    @keyframes morph{
+      0%{width:12px;height:12px;border-radius:9999px}
+      40%{width:162px;height:12px}
+      70%{width:288px;height:22px}
+      100%{width:338px;height:74px;border-radius:9999px}
+    }
+    @keyframes glow{
+      0%,100%{box-shadow:0 0 0 0 rgba(125,211,252,.0),0 10px 30px rgba(0,0,0,.35)}
+      50%{box-shadow:0 0 28px 7px rgba(125,211,252,.25),0 10px 30px rgba(0,0,0,.35)}
+    }
+
+    .hint{
+      position:absolute;bottom:20px;left:0;right:0;text-align:center;
+      font-size:11px;font-weight:900;font-family:"Cinzel","Times New Roman",serif;
+      text-transform:uppercase;letter-spacing:2px;color:#b0b4c0;
+      text-shadow:0 1px 0 #000,0 -1px 0 #000,1px 0 0 #000,-1px 0 0 #000,0 0 3px rgba(255,255,255,0.12);
+      opacity:.8;
+    }
+
+    /* LEFT STACK: text + arrow + bubble */
+    .left-stack{
+      position:fixed;
+      left:30px; /* slightly moved right */
+      bottom:24px;
+      width:64px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:10px;
+      z-index:9998;
+    }
+
+    .bubble-label{
+      color:#c9ced8;
+      font-family:"Cinzel","Times New Roman",serif;
+      font-size:19px;
+      font-style:italic;
+      font-weight:900;
+      letter-spacing:.6px;
+      text-align:center;
+      text-shadow:0 0 6px rgba(255,255,255,0.22),0 0 12px rgba(170,170,170,0.18);
+    }
+
+    .label-arrow{
+      width:36px;  /* slightly bigger */
+      height:36px;
+      margin-bottom:4px; /* extra space before bubble */
+      animation:arrowGlow 2.6s ease-in-out infinite;
+    }
+    @keyframes arrowGlow{
+      0%,100%{ filter: drop-shadow(0 0 2px rgba(125,211,252,.6)) drop-shadow(0 0 6px rgba(125,211,252,.35)); opacity:1; }
+      50%    { filter: drop-shadow(0 0 10px rgba(125,211,252,.9)) drop-shadow(0 0 18px rgba(125,211,252,.55)); opacity:.9; }
+    }
+
+    .left-bubble{
+      width:64px;height:64px;border-radius:50%;
+      background:#ffffff;box-shadow:0 10px 30px rgba(0,0,0,.35);
+      display:grid;place-items:center;cursor:pointer;
+      transition:transform .2s ease, box-shadow .2s ease, background .2s ease;
+      text-decoration:none;
+    }
+    .left-bubble:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(0,0,0,.45);background:#eaeef5;}
+    .left-bubble svg{width:28px;height:28px;fill:#0b1220;}
+
+    /* Modal */
+    .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;z-index:9999;}
+    .modal-backdrop.show{display:flex;}
+    .modal{width:min(520px,92vw);background:#0b1220;color:#e8eefc;border:1px solid #1f2a44;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.6);overflow:hidden;}
+    .modal header{padding:12px 16px;font-weight:800;border-bottom:1px solid #1f2a44;display:flex;align-items:center;gap:12px;}
+    .modal header .dot{width:20px;height:20px;border-radius:9999px;background:#f59e0b;box-shadow:0 0 18px rgba(245,158,11,0.9),0 0 32px rgba(245,158,11,0.8);animation:pulse 1.5s infinite;}
+    .modal header #enTitle{font-size:32px;font-family:"Courier New", Courier, monospace;color:#f59e0b;}
+    @keyframes pulse{0%,100%{box-shadow:0 0 18px rgba(245,158,11,0.9),0 0 32px rgba(245,158,11,0.8);}50%{box-shadow:0 0 28px rgba(245,158,11,1),0 0 42px rgba(245,158,11,0.95);}}
+    .modal .content{padding:18px 16px 6px 16px;font-size:16px;line-height:1.6;}
+    .modal .actions{padding:14px 16px 18px 16px;display:flex;gap:10px;justify-content:flex-end;}
+    .modal .btn-sm{padding:10px 14px;border-radius:10px;border:none;cursor:pointer;font-weight:800;box-shadow:0 6px 18px rgba(0,0,0,.3);}
+    .modal .btn-cancel{background:#e2e8f0;color:#0b1220;}
+    .modal .btn-ok{background:#22c55e;color:#0b1220;}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div id="msg" class="msg">Alex is busy, try me for now!!</div>
+
+    <div class="center">
+      <button id="starter" class="seed"><span class="seed-label">ASK</span></button>
+      <div id="extras" class="extras" aria-hidden="true">
+        <button id="btn-manuals" class="btn">MANUALS</button>
+        <button id="btn-videos" class="btn">VIDEOS</button>
+        <button id="btn-commission" class="btn">COMMISSION</button>
+        <button id="btn-enorms" class="btn">EN NORMS</button>
+      </div>
+    </div>
+
+    <div class="hint">In GOD we trust, rest we track!</div>
+  </div>
+
+  <!-- LEFT STACK -->
+  <div class="left-stack">
+    <div class="bubble-label">Commission HelpAgent</div>
+    <svg class="label-arrow" viewBox="0 0 24 24"><path d="M12 3 v12 M6 13 l6 8 6-8" fill="none" stroke="#7dd3fc" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <a id="leftBubble" class="left-bubble" href="agent2.html">
+      <svg viewBox="0 0 24 24"><path d="M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z"/></svg>
+    </a>
+  </div>
+
+  <!-- MODAL -->
+  <div id="enModal" class="modal-backdrop" role="dialog" aria-modal="true">
+    <div class="modal">
+      <header><span class="dot"></span><div id="enTitle">Attention!!!</div></header>
+      <div class="content"><p><strong>Waaaait. There is nothing there...</strong></p></div>
+      <div class="actions">
+        <button id="enCancel" class="btn-sm btn-cancel" type="button">Cancel</button>
+        <button id="enOk" class="btn-sm btn-ok" type="button">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const seed=document.getElementById('starter');
+    const msg=document.getElementById('msg');
+    const extras=document.getElementById('extras');
+    seed.addEventListener('animationend',()=>{seed.classList.add('done');msg.classList.add('show');extras.classList.add('show');extras.setAttribute('aria-hidden','false');},{once:true});
+
+    function openChat(){try{if(typeof window.chatbase==='function'){window.chatbase('open');return true;}if(window?.Chatbase?.open){window.Chatbase.open();return true;}if(window?.chatbase?.openChat){window.chatbase.openChat();return true;}}catch(e){}return false;}
+    seed.addEventListener('click',()=>{if(!openChat())setTimeout(openChat,250);});
+    seed.addEventListener('keydown',(e)=>{if((e.key==='Enter'||e.key===' ')&&seed.classList.contains('done')){e.preventDefault();seed.click();}});
+
+    function confirmAndOpen(url){if(confirm("You are leaving alexkid.org and going to Google Drive. Continue?"))window.open(url,'_blank');}
+    document.getElementById('btn-manuals').addEventListener('click',()=>{confirmAndOpen('https://drive.google.com/drive/folders/1tE1E0pKNjEDF-VEPQJxcnqUYNyiOVxWu?usp=sharing');});
+    document.getElementById('btn-videos').addEventListener('click',()=>{confirmAndOpen('https://drive.google.com/drive/folders/1hsC-zKFD8HbvqkCn_9hWzBHPifvSPDQh?usp=sharing');});
+
+    const comBtn=document.getElementById('btn-commission');
+    const enModal=document.getElementById('enModal');
+    const enOk=document.getElementById('enOk');
+    const enCancel=document.getElementById('enCancel');
+    function openEnModal(){enModal.classList.add('show');setTimeout(()=>enOk.focus(),0);}
+    function closeEnModal(){enModal.classList.remove('show');comBtn.focus();}
+    comBtn.addEventListener('click',(e)=>{e.preventDefault();openEnModal();});
+    enOk.addEventListener('click',closeEnModal);
+    enCancel.addEventListener('click',closeEnModal);
+    enModal.addEventListener('click',(e)=>{if(e.target===enModal)closeEnModal();});
+    document.addEventListener('keydown',(e)=>{if(e.key==='Escape'&&enModal.classList.contains('show'))closeEnModal();});
+
+    document.getElementById('btn-enorms').addEventListener('click',()=>{window.location.href='id.html';});
+  </script>
+
+  <script>
+  (function(){
+    let uid=localStorage.getItem('chatbase_user_id');
+    if(!uid){uid='guest-'+Math.random().toString(36).slice(2,10);try{localStorage.setItem('chatbase_user_id',uid);}catch(e){}}
+    const name=localStorage.getItem('cb_name')||'Anonymous Guest';
+    const email=localStorage.getItem('cb_email')||'unknown@example.com';
+    const company=localStorage.getItem('cb_company')||'Visitor';
+    const pin=localStorage.getItem('cb_pin')||'PIN-0000';
+    window.chatbaseUserConfig={user_id:uid,user_metadata:{name,email,company,pin}};
+  })();
+  </script>
+  <script>
+  (function(){
+    if(!window.chatbase||window.chatbase("getState")!=="initialized"){
+      window.chatbase=(...a)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(a)};
+      window.chatbase=new Proxy(window.chatbase,{get(t,p){if(p==="q"){return t.q}return(...a)=>t(p,...a)}});
+    }
+    const onLoad=function(){const s=document.createElement("script");s.src="https://www.chatbase.co/embed.min.js";s.id="js1fXkkuCBxmbyE5dvK4m";s.domain="www.chatbase.co";document.body.appendChild(s);};
+    if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}
+  })();
+  </script>
+</body>
+</html>

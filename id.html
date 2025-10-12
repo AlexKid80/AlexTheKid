@@ -1,0 +1,158 @@
+<!--
+FILE: id.html  (Login / Identity capture)
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Alex Support — Sign in</title>
+  <meta name="description" content="Identify yourself to personalize the support assistant." />
+  <style>
+    :root{
+      --bg:#070b14;--card:#0f172a;--text:#e8eefc;--muted:#a7b1c6;
+      --accent:#7dd3fc;--ok:#22c55e;--error:#ef4444
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;background:var(--bg);color:var(--text);
+      font:16px/1.55 system-ui,Segoe UI,Roboto,Helvetica,Arial;
+      display:grid;place-items:center
+    }
+    .wrap{
+      width:min(680px,92vw);background:var(--card);
+      border:1px solid #1f2a44;border-radius:20px;
+      box-shadow:0 12px 36px rgba(0,0,0,.35);padding:22px 20px 18px
+    }
+    header{display:flex;align-items:center;gap:12px;margin:6px 0 14px}
+    .badge{
+      width:44px;height:44px;border-radius:14px;
+      background:linear-gradient(135deg,var(--accent),#a5e3ff);
+      display:grid;place-items:center;color:#04101a;font-weight:900
+    }
+    h1{margin:0;font-size:clamp(22px,3vw,28px)}
+    p.lead{color:var(--muted);margin:4px 0 16px}
+    form{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    label{font-size:13px;color:#cdd7ed}
+    input,select{
+      width:100%;padding:10px 12px;border-radius:12px;
+      border:1px solid #243253;background:#0b1426;color:var(--text)
+    }
+    input::placeholder{color:#7e8ca7}
+    .full{grid-column:1 / -1}
+    .row{display:flex;gap:10px;align-items:center}
+    .actions{display:flex;gap:10px;margin-top:8px}
+    .btn{
+      display:inline-grid;place-items:center;padding:12px 16px;border-radius:12px;
+      border:1px solid #243253;background:var(--accent);color:#04101a;
+      font-weight:800;cursor:pointer;box-shadow:0 10px 28px rgba(0,0,0,.35);
+      min-width:160px;
+    }
+    .btn.secondary{background:#ffffff;color:#0b1220}
+    .btn.danger{background:var(--error);color:#0b1220}
+    small.note{color:#92a0bf}
+    footer{margin-top:12px;text-align:center;color:#7f8db0;font-size:13px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="badge">AL</div>
+      <div>
+        <h1>Identify yourself</h1>
+        <p class="lead">This is a restricted area!!</p>
+      </div>
+    </header>
+
+    <form id="idForm" autocomplete="on" novalidate>
+      <div class="full">
+        <label for="name">Name</label>
+        <input id="name" name="name" type="text" placeholder="Alex Kid" required />
+      </div>
+      <div class="full">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" placeholder="alex@example.com" required />
+      </div>
+      <div>
+        <label for="company">Company (optional)</label>
+        <input id="company" name="company" type="text" placeholder="Acme Inc" />
+      </div>
+      <div>
+        <label for="pin">Choose Access:</label>
+        <select id="pin" name="pin" required>
+          <option value="" disabled selected>Select PIN</option>
+          <option>PIN-001</option><option>PIN-002</option><option>PIN-003</option><option>PIN-004</option><option>PIN-005</option>
+        </select>
+      </div>
+
+      <!-- Actions -->
+      <div class="full actions">
+        <button class="btn" type="submit" id="continueBtn">Continue</button>
+        <button class="btn secondary" type="button" id="skip">Continue as guest</button>
+        <button class="btn danger" type="button" id="backHome">Back</button>
+      </div>
+
+      <div class="full">
+        <small class="note">This is <em>not</em> a secure login — it just labels your chat. Don’t use real passwords here.</small>
+      </div>
+    </form>
+
+    <footer>© <span id="y"></span> Alex — After-Sales Support</footer>
+  </div>
+
+  <script>
+    const $ = sel => document.querySelector(sel);
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    const DRIVE_URL = 'https://drive.google.com/drive/folders/1w0zXNXqpIRJISfeFT0WRJbNcElQFRg1i?usp=sharing';
+
+    function randomId(){ return 'guest-' + Math.random().toString(36).slice(2,10); }
+
+    function saveIdentity({name,email,company,pin,uid}){
+      try {
+        localStorage.setItem('cb_name', name || 'Anonymous Guest');
+        localStorage.setItem('cb_email', email || 'unknown@example.com');
+        localStorage.setItem('cb_company', company || 'Visitor');
+        localStorage.setItem('cb_pin', pin || 'PIN-0000');
+        if (uid) localStorage.setItem('chatbase_user_id', uid);
+      } catch (e) {}
+    }
+
+    function confirmAndGo(){
+      if (confirm("You are leaving alexkid.org and going to Google Drive. Continue?")) {
+        window.location.href = DRIVE_URL;
+      }
+    }
+
+    // CONTINUE (requires all fields)
+    $('#idForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const form = e.currentTarget;
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+      const name = $('#name').value.trim();
+      const email = $('#email').value.trim();
+      const company = $('#company').value.trim();
+      const pin = $('#pin').value;
+      const uid = email ? ('email:' + email.toLowerCase()) : randomId();
+      saveIdentity({name,email,company,pin,uid});
+      confirmAndGo();
+    });
+
+    // CONTINUE AS GUEST (no validation)
+    $('#skip').addEventListener('click', () => {
+      const uid = localStorage.getItem('chatbase_user_id') || randomId();
+      saveIdentity({name:'Anonymous Guest',email:'unknown@example.com',company:'Visitor',pin:'PIN-0000',uid});
+      confirmAndGo();
+    });
+
+    // BACK → home
+    $('#backHome').addEventListener('click', () => {
+      window.location.href = '/';
+    });
+  </script>
+</body>
+</html>
