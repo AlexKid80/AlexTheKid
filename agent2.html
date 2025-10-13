@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Alex Support — Left Agent</title>
+  <title>Alex Support — Commissioning</title>
   <meta name="description" content="Standalone page for the left Chatbase agent (iframe)." />
   <style>
     html,body{
@@ -29,15 +29,22 @@
       background:#0b1220;
       color:#e8eefc;
       text-align:center;
-      padding:12px;
+      padding:14px;
       font-size:15px;
       font-weight:600;
       border-top:1px solid #222;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:24px;
     }
     footer a{
       color:#7dd3fc;
       text-decoration:none;
       transition:color .2s ease;
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
     }
     footer a:hover{
       color:#39ff14;
@@ -51,7 +58,8 @@
       title="Chatbase Left Agent">
     </iframe>
     <footer>
-      ← <a href="/" onclick="return goBackSmart();">Back to Home</a>
+      <a href="/" onclick="return goBackSmart();">← Back</a>
+      <a href="https://www.alexkid.org/" target="_self">🏠 Home</a>
     </footer>
   </div>
 
@@ -59,15 +67,15 @@
     function goBackSmart(){
       try {
         const ref = document.referrer;
-        // If user navigated here from any page on this same domain, go back
+        // If user navigated here from same domain, go back
         if (ref && new URL(ref).origin === location.origin) {
           history.back();
-          return false; // prevent default link nav
+          return false;
         }
       } catch(e) {
-        // ignore parsing issues and fall through to homepage
+        // ignore errors
       }
-      // If no same-origin referrer, go to homepage explicitly
+      // Otherwise go to homepage
       location.href = '/';
       return false;
     }
