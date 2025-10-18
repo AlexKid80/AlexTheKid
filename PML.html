@@ -8,11 +8,19 @@
     html, body {
       margin: 0;
       height: 100%;
-      background-color: #000;
+      background: #070b14;
+      color: #e8eefc;
+      font-family: system-ui, Segoe UI, Roboto, Helvetica, Arial;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
+    }
+    .stage {
+      flex: 1;
+      display: flex;
       align-items: center;
+      justify-content: center;
       overflow: hidden;
+      background: #000; /* give the image a neutral backdrop */
     }
     img {
       max-width: 100%;
@@ -23,11 +31,48 @@
     }
     @keyframes glow {
       from { box-shadow: 0 0 25px rgba(125, 211, 252, 0.3), 0 0 60px rgba(125, 211, 252, 0.2); }
-      to { box-shadow: 0 0 50px rgba(125, 211, 252, 0.6), 0 0 100px rgba(125, 211, 252, 0.4); }
+      to   { box-shadow: 0 0 50px rgba(125, 211, 252, 0.6), 0 0 100px rgba(125, 211, 252, 0.4); }
     }
+    footer {
+      background:#0b1220;
+      text-align:center;
+      padding:12px;
+      font-size:15px;
+      border-top:1px solid #222;
+    }
+    footer a {
+      color:#7dd3fc;
+      text-decoration:none;
+      margin:0 10px;
+      font-weight:600;
+      transition: color .2s ease;
+    }
+    footer a:hover { color:#39ff14; }
   </style>
 </head>
 <body>
-  <img src="https://raw.githubusercontent.com/AlexKid80/AlexTheKid/main/PML.jpg" alt="PML Image">
+  <div class="stage">
+    <!-- Use relative path so GitHub Pages serves it from your domain -->
+    <img src="PML.jpg" alt="PML Image (Function Tables)">
+  </div>
+
+  <footer>
+    <a href="/" onclick="return goBackSmart();">← Back</a>
+    <a href="https://www.alexkid.org/" target="_self">🏠 Home</a>
+  </footer>
+
+  <script>
+    function goBackSmart(){
+      try {
+        const ref = document.referrer;
+        if (ref && new URL(ref).origin === location.origin) {
+          history.back();
+          return false;
+        }
+      } catch(e) {}
+      location.href = '/';
+      return false;
+    }
+  </script>
 </body>
 </html>
