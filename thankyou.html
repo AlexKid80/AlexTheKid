@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Thank You — Alex Support</title>
+<style>
+html,body{height:100%;margin:0;background:#070b14;color:#e8eefc;font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+h1{font-size:38px;margin:0 0 14px;color:#39ff14;text-shadow:0 0 6px rgba(57,255,20,.8),0 0 12px rgba(57,255,20,.6);opacity:0;animation:fadeIn 1.6s forwards}
+p{font-size:20px;color:#a7b1c6;margin:0;opacity:0;animation:fadeIn 1.6s forwards 1s}
+@keyframes fadeIn{to{opacity:1}}
+.countdown{margin-top:20px;font-size:18px;font-weight:600;color:#7dd3fc;opacity:0;animation:fadeIn 1s forwards 2s}
+@media(max-width:480px){
+h1{font-size:30px}
+p{font-size:17px}
+.countdown{font-size:16px;margin-top:16px}
+}
+</style>
+</head>
+<body>
+<h1>Thank You!</h1>
+<p>Your message has been sent successfully.</p>
+<div class="countdown" id="countdown">Redirecting in 8...</div>
+<script>
+let n=8;const c=document.getElementById("countdown");
+const i=setInterval(()=>{n--;c.textContent="Redirecting in "+n+"...";if(n<=0){clearInterval(i);window.location.href="/";}},1000);
+</script>
+</body>
+</html>
