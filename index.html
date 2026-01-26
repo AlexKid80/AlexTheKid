@@ -201,7 +201,7 @@
 
     .kicker{
       display:inline-flex;
-      align-items:center;
+      align-items:flex-start;
       gap:10px;
       padding:8px 12px;
       border-radius:999px;
@@ -210,6 +210,8 @@
       color:var(--muted);
       font-size:13px;
       width:fit-content;
+      line-height:1.25;
+      white-space:normal;
     }
 
     .dot{
@@ -217,6 +219,7 @@
       background: var(--green);
       box-shadow:0 0 0 6px rgba(50,213,131,.12);
       flex: 0 0 auto;
+      margin-top:4px;
     }
 
     h1{
@@ -254,7 +257,9 @@
       align-items:flex-start;
       color: rgba(255,255,255,.82);
       font-size: 14px;
-      line-height: 1.35;
+      line-height: 1.45;
+      overflow-wrap:anywhere;
+      word-break:normal;
     }
     .mark{
       width: 18px;
@@ -408,16 +413,25 @@
       .brand span{font-size:11px}
       main{padding-top:16px}
       .hero{padding:16px; border-radius:20px}
-      h1{font-size:26px; margin:12px 0 10px; letter-spacing:-.4px}
-      .feature-box{max-width:420px; width:92vw; padding:12px 12px; margin:10px auto 16px}
-      .features li{font-size:13px; gap:9px}
+      .kicker{width:100%; font-size:12px; padding:8px 10px}
+      h1{font-size:24px; margin:12px 0 10px; letter-spacing:-.4px; line-height:1.12}
+      .feature-box{max-width:100%; width:100%; padding:12px; margin:10px 0 16px}
+      .features{gap:9px}
+      .features li{font-size:13px; line-height:1.45}
       .mark{width:16px; height:16px; flex:0 0 16px; border-radius:6px}
-      .cta-row{justify-content:center}
-      .cta.primary{width:92vw; max-width:420px; height:68px; justify-content:center}
+      .cta-row{justify-content:flex-start}
+      .cta.primary{width:100%; justify-content:center}
       .cta.primary .hint{font-size:10px}
-      #portal{margin-top:10px}
-      .portal{max-width:420px; width:92vw; margin:0 auto; gap:10px}
-      .card{min-height:112px; padding:14px 14px 12px}
+      .art{min-height:170px; margin-top:4px}
+      .art svg{width:min(260px, 92%); height:auto}
+    }
+
+    @media (max-width: 380px){
+      h1{font-size:22px}
+      .kicker{font-size:11px}
+      .features li{font-size:12.5px}
+      .art{min-height:155px}
+      .art svg{width:min(240px, 92%)}
     }
 
     @media (prefers-reduced-motion: reduce){
@@ -505,7 +519,7 @@
               <li><span class="mark" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M20 7l-10 10-5-5" stroke="rgba(255,255,255,.85)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>ΜΕΙΩΝΕΙ ΕΩΣ 70% ΤΗ ΧΡΗΣΗ ΧΗΜΙΚΩΝ ΛΙΠΑΣΜΑΤΩΝ</li>
               <li><span class="mark" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M20 7l-10 10-5-5" stroke="rgba(255,255,255,.85)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>ΜΕΓΙΣΤΗ ΒΙΟΔΙΕΓΕΡΤΙΚΗ ΔΡΑΣΗ</li>
               <li><span class="mark" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M20 7l-10 10-5-5" stroke="rgba(255,255,255,.85)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>ΑΝΑΠΤΥΞΗ ΠΟΛΥ ΙΣΧΥΡΟΥ ΡΙΖΙΚΟΥ ΣΥΣΤΗΜΑΤΟΣ</li>
-              <li><span class="mark" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M20 7l-10 10-5-5" stroke="rgba(255,255,255,.85)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>ΕΦΑΡΜΟΓΗ ΠΡΙΝ ΤΗ ΣΠΟΡΑ, ΜΕΤΑ ΤΗ ΦΥΤΕΥΣΗ ΚΑΙ ΚΑΤΑ ΤΗΝ ΕΝΑΡΞΗ ΤΗΣ ΕΚΒΛΑΣΤΗΣΗΣ</li>
+              <li><span class="mark" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M20 7l-10 10-5-5" stroke="rgba(255,255,255,.85)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>ΕΦΑΡΜΟΓΗ ΠΡΙΝ ΤΟ ΣΠΟΡΑ, ΜΕΤΑ ΤΗ ΦΥΤΕΥΣΗ ΚΑΙ ΚΑΤΑ ΤΗΝ ΕΝΑΡΞΗ ΤΗΣ ΕΚΒΛΑΣΤΗΣΗΣ</li>
             </ul>
           </div>
 
