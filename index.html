@@ -303,6 +303,9 @@
     }
     .art svg{width:min(340px, 100%); height:auto}
 
+    .mobile-only{display:none}
+    .desktop-only{display:flex}
+
     .portal{
       margin-top:18px;
       display:grid;
@@ -396,8 +399,11 @@
     }
     @media (max-width: 980px){
       .hero{grid-template-columns: 1fr; gap:16px}
-      .art{min-height: 210px}
+      .mobile-only{display:flex}
+      .desktop-only{display:none}
       .portal{grid-template-columns: repeat(2, 1fr)}
+      .art{min-height: 190px}
+      .art svg{width:min(300px, 92%)}
     }
     @media (max-width: 520px){
       .portal{grid-template-columns: 1fr}
@@ -422,7 +428,7 @@
       .cta-row{justify-content:flex-start}
       .cta.primary{width:100%; justify-content:center}
       .cta.primary .hint{font-size:10px}
-      .art{min-height:170px; margin-top:4px}
+      .art{min-height:170px; margin:6px 0 4px}
       .art svg{width:min(260px, 92%); height:auto}
     }
 
@@ -510,6 +516,43 @@
 
           <h1>Ενισχύουμε τη δύναμη των φυτών και του εδάφους<br/>με απλές, αποτελεσματικές λύσεις.</h1>
 
+          <div class="art mobile-only" aria-hidden="true">
+            <svg viewBox="0 0 360 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="g1m" x1="30" y1="40" x2="300" y2="280" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#66F2B3" stop-opacity="0.95"/>
+                  <stop offset="1" stop-color="#C8FF7A" stop-opacity="0.65"/>
+                </linearGradient>
+              </defs>
+
+              <circle cx="180" cy="170" r="120" fill="url(#g1m)" opacity="0.16"/>
+
+              <g class="leaf">
+                <path d="M180 110C230 110 270 145 270 190C270 236 230 270 180 270C130 270 90 236 90 190C90 145 130 110 180 110Z"
+                      fill="url(#g1m)" opacity="0.35"/>
+                <path d="M180 132C214 132 242 156 242 190C242 224 214 248 180 248C146 248 118 224 118 190C118 156 146 132 180 132Z"
+                      fill="url(#g1m)" opacity="0.48"/>
+                <path d="M180 145V248" stroke="rgba(255,255,255,.55)" stroke-width="3" stroke-linecap="round"/>
+                <path d="M180 170C205 175 218 190 230 206" stroke="rgba(255,255,255,.38)" stroke-width="2.2" stroke-linecap="round"/>
+                <path d="M180 180C155 185 142 198 130 212" stroke="rgba(255,255,255,.30)" stroke-width="2.2" stroke-linecap="round"/>
+              </g>
+
+              <g class="droplet">
+                <path d="M180 36C196 58 208 78 208 96C208 112 195 125 180 125C165 125 152 112 152 96C152 78 164 58 180 36Z"
+                      fill="url(#g1m)" opacity="0.9"/>
+                <path d="M170 92C176 80 186 66 192 56" stroke="rgba(255,255,255,.42)" stroke-width="3" stroke-linecap="round"/>
+              </g>
+
+              <g class="ripple">
+                <ellipse cx="180" cy="214" rx="42" ry="12" stroke="rgba(200,255,122,.55)" stroke-width="2"/>
+                <ellipse cx="180" cy="214" rx="68" ry="19" stroke="rgba(102,242,179,.35)" stroke-width="2"/>
+              </g>
+
+              <path d="M70 268C106 286 135 290 180 290C226 290 256 286 290 268"
+                    stroke="rgba(255,255,255,.20)" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+
           <div class="feature-box">
             <h3>Δράσεις</h3>
             <ul class="features">
@@ -531,22 +574,22 @@
           </div>
         </div>
 
-        <div class="art" aria-hidden="true">
+        <div class="art desktop-only" aria-hidden="true">
           <svg viewBox="0 0 360 320" fill="none" xmlns="http://www.w3.org/2000/svg">
             <defs>
-              <linearGradient id="g1" x1="30" y1="40" x2="300" y2="280" gradientUnits="userSpaceOnUse">
+              <linearGradient id="g1d" x1="30" y1="40" x2="300" y2="280" gradientUnits="userSpaceOnUse">
                 <stop stop-color="#66F2B3" stop-opacity="0.95"/>
                 <stop offset="1" stop-color="#C8FF7A" stop-opacity="0.65"/>
               </linearGradient>
             </defs>
 
-            <circle cx="180" cy="170" r="120" fill="url(#g1)" opacity="0.16"/>
+            <circle cx="180" cy="170" r="120" fill="url(#g1d)" opacity="0.16"/>
 
             <g class="leaf">
               <path d="M180 110C230 110 270 145 270 190C270 236 230 270 180 270C130 270 90 236 90 190C90 145 130 110 180 110Z"
-                    fill="url(#g1)" opacity="0.35"/>
+                    fill="url(#g1d)" opacity="0.35"/>
               <path d="M180 132C214 132 242 156 242 190C242 224 214 248 180 248C146 248 118 224 118 190C118 156 146 132 180 132Z"
-                    fill="url(#g1)" opacity="0.48"/>
+                    fill="url(#g1d)" opacity="0.48"/>
               <path d="M180 145V248" stroke="rgba(255,255,255,.55)" stroke-width="3" stroke-linecap="round"/>
               <path d="M180 170C205 175 218 190 230 206" stroke="rgba(255,255,255,.38)" stroke-width="2.2" stroke-linecap="round"/>
               <path d="M180 180C155 185 142 198 130 212" stroke="rgba(255,255,255,.30)" stroke-width="2.2" stroke-linecap="round"/>
@@ -554,7 +597,7 @@
 
             <g class="droplet">
               <path d="M180 36C196 58 208 78 208 96C208 112 195 125 180 125C165 125 152 112 152 96C152 78 164 58 180 36Z"
-                    fill="url(#g1)" opacity="0.9"/>
+                    fill="url(#g1d)" opacity="0.9"/>
               <path d="M170 92C176 80 186 66 192 56" stroke="rgba(255,255,255,.42)" stroke-width="3" stroke-linecap="round"/>
             </g>
 
@@ -571,12 +614,10 @@
 
       <section id="portal" style="margin-top:14px">
         <div class="portal" aria-label="Κύριο μενού">
-
           <a class="card reveal" style="--d:0ms" href="about.html">
             <div class="icon" aria-hidden="true">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <path d="M20 4C12 4 6 8 6 16c0 2.5 1.2 4 3 4 3 0 5-3 5-6 0-2-1-3.5-2.5-4.5"
-                      stroke="rgba(255,255,255,.85)" stroke-width="1.8" stroke-linecap="round"/>
+                <path d="M20 4C12 4 6 8 6 16c0 2.5 1.2 4 3 4 3 0 5-3 5-6 0-2-1-3.5-2.5-4.5" stroke="rgba(255,255,255,.85)" stroke-width="1.8" stroke-linecap="round"/>
                 <path d="M6 20c2.5-1 4-3 5-5" stroke="rgba(255,255,255,.55)" stroke-width="1.8" stroke-linecap="round"/>
               </svg>
             </div>
@@ -588,8 +629,7 @@
           <a class="card reveal" style="--d:60ms" href="products.html">
             <div class="icon" aria-hidden="true">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <path d="M9 3h6v3l-1 1v2c3 1 4 3 4 6v4a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2v-4c0-3 1-5 4-6V7L9 6V3Z"
-                      stroke="rgba(255,255,255,.85)" stroke-width="1.8" stroke-linejoin="round"/>
+                <path d="M9 3h6v3l-1 1v2c3 1 4 3 4 6v4a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2v-4c0-3 1-5 4-6V7L9 6V3Z" stroke="rgba(255,255,255,.85)" stroke-width="1.8" stroke-linejoin="round"/>
                 <path d="M9 6h6" stroke="rgba(255,255,255,.55)" stroke-width="1.8" stroke-linecap="round"/>
               </svg>
             </div>
@@ -601,10 +641,8 @@
           <a class="card reveal" style="--d:120ms" href="certifications.html">
             <div class="icon" aria-hidden="true">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <path d="M12 2l3 2 4 1-1 4 1 4-4 1-3 2-3-2-4-1 1-4-1-4 4-1 3-2Z"
-                      stroke="rgba(255,255,255,.85)" stroke-width="1.8" stroke-linejoin="round"/>
-                <path d="M9.2 12.2l1.6 1.6 4-4"
-                      stroke="rgba(255,255,255,.55)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 2l3 2 4 1-1 4 1 4-4 1-3 2-3-2-4-1 1-4-1-4 4-1 3-2Z" stroke="rgba(255,255,255,.85)" stroke-width="1.8" stroke-linejoin="round"/>
+                <path d="M9.2 12.2l1.6 1.6 4-4" stroke="rgba(255,255,255,.55)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </div>
             <h2>Πιστοποιητικά.</h2>
@@ -628,10 +666,8 @@
           <a class="card reveal" style="--d:240ms" href="ai.html">
             <div class="icon" aria-hidden="true">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <path d="M4 6.5C4 5.1 5.1 4 6.5 4h11C19 4 20 5 20 6.5v7C20 15 19 16 17.5 16H9l-4 4v-4.2C4.4 15.4 4 14.5 4 13.5v-7Z"
-                      stroke="rgba(255,255,255,.85)" stroke-width="1.8" stroke-linejoin="round"/>
-                <path d="M16.5 6.2l.6 1.4 1.4.6-1.4.6-.6 1.4-.6-1.4-1.4-.6 1.4-.6.6-1.4Z"
-                      fill="rgba(255,255,255,.55)"/>
+                <path d="M4 6.5C4 5.1 5.1 4 6.5 4h11C19 4 20 5 20 6.5v7C20 15 19 16 17.5 16H9l-4 4v-4.2C4.4 15.4 4 14.5 4 13.5v-7Z" stroke="rgba(255,255,255,.85)" stroke-width="1.8" stroke-linejoin="round"/>
+                <path d="M16.5 6.2l.6 1.4 1.4.6-1.4.6-.6 1.4-.6-1.4-1.4-.6 1.4-.6.6-1.4Z" fill="rgba(255,255,255,.55)"/>
                 <path d="M7.3 9.2h7.2" stroke="rgba(255,255,255,.55)" stroke-width="1.8" stroke-linecap="round"/>
                 <path d="M7.3 12h4.6" stroke="rgba(255,255,255,.35)" stroke-width="1.8" stroke-linecap="round"/>
               </svg>
@@ -653,15 +689,12 @@
             <p>Στείλτε μήνυμα ή καλέστε για παραγγελίες.</p>
             <div class="arrow">Άνοιγμα <span aria-hidden="true">→</span></div>
           </a>
-
         </div>
       </section>
 
       <footer>
         <div>© <span id="y"></span> EcoPlant.bio • Κυκλοφορεί σύμφωνα με την 217217, ΦΕΚ 35/2004.</div>
-        <div>
-          <a href="mailto:info@ecoplant.bio">info@ecoplant.bio</a>
-        </div>
+        <div><a href="mailto:info@ecoplant.bio">info@ecoplant.bio</a></div>
       </footer>
     </main>
   </div>
