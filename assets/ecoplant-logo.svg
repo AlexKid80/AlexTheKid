@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="EcoPlant">
+  <defs>
+    <linearGradient id="leafG" x1="10" y1="10" x2="54" y2="58" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#66F2B3"></stop>
+      <stop offset="1" stop-color="#C8FF7A"></stop>
+    </linearGradient>
+    <linearGradient id="dropG" x1="30" y1="14" x2="42" y2="30" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#C8FF7A"></stop>
+      <stop offset="1" stop-color="#32D583"></stop>
+    </linearGradient>
+  </defs>
+
+  <!-- Leaf body -->
+  <path d="M32 9
+       C45 16 54 28 54 40
+       C54 53 44 59 32 59
+       C20 59 10 53 10 40
+       C10 28 19 16 32 9 Z" fill="url(#leafG)" opacity="0.92"></path>
+
+  <!-- Leaf outline (nice on dark backgrounds) -->
+  <path d="M32 9
+       C45 16 54 28 54 40
+       C54 53 44 59 32 59
+       C20 59 10 53 10 40
+       C10 28 19 16 32 9 Z" fill="none" stroke="rgba(255,255,255,0.65)" stroke-width="2" stroke-linejoin="round"></path>
+
+  <!-- Vein -->
+  <path d="M32 17 V55" stroke="rgba(255,255,255,0.65)" stroke-width="2.2" stroke-linecap="round"></path>
+  <path d="M32 30 C40 32 45 37 49 44" stroke="rgba(255,255,255,0.42)" stroke-width="2" stroke-linecap="round"></path>
+  <path d="M32 33 C24 35 19 39 15 45" stroke="rgba(255,255,255,0.34)" stroke-width="2" stroke-linecap="round"></path>
+
+  <!-- Droplet -->
+  <path d="M40 14
+       C44 20 46.5 23.5 46.5 27
+       C46.5 30.6 43.6 33.5 40 33.5
+       C36.4 33.5 33.5 30.6 33.5 27
+       C33.5 23.5 36 20 40 14 Z" fill="url(#dropG)" opacity="0.95"></path>
+  <path d="M38.2 26.8 C39.1 23.8 40.7 21.5 41.8 19.8" stroke="rgba(255,255,255,0.55)" stroke-width="2" stroke-linecap="round"></path>
+
+  <!-- Tiny sparkle -->
+  <path d="M48 18 L49.5 20.5 L52 22 L49.5 23.5 L48 26 L46.5 23.5 L44 22 L46.5 20.5 Z" fill="rgba(255,255,255,0.55)"></path>
+</svg>
