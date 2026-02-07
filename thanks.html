@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="el">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="EcoPlant - Ευχαριστούμε! Το μήνυμά σας καταχωρήθηκε." />
+  <title>Ευχαριστούμε</title>
+
+  <style>
+    :root{
+      --bg0:#06150c;
+      --bg1:#0b2a15;
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.70);
+      --green:#32d583;
+      --green2:#66f2b3;
+      --lime:#c8ff7a;
+      --shadow: 0 20px 50px rgba(0,0,0,.45);
+      --radius: 22px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 15% 10%, rgba(102,242,179,.18), transparent 60%),
+        radial-gradient(900px 600px at 85% 25%, rgba(200,255,122,.12), transparent 60%),
+        radial-gradient(900px 800px at 35% 110%, rgba(50,213,131,.10), transparent 60%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      overflow:hidden;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:18px;
+    }
+
+    body::before{
+      content:"";
+      position:fixed;
+      inset:-2px;
+      pointer-events:none;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,.05) 0 1px, transparent 2px) 0 0/34px 34px,
+        radial-gradient(circle at 70% 30%, rgba(255,255,255,.035) 0 1px, transparent 2px) 0 0/40px 40px;
+      opacity:.55;
+      mix-blend-mode:soft-light;
+    }
+
+    .card{
+      width:min(720px, 100%);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+      box-shadow: var(--shadow);
+      padding:26px 20px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .card::before,.card::after{
+      content:"";
+      position:absolute;
+      width:520px; height:520px;
+      border-radius:50%;
+      opacity:.22;
+      pointer-events:none;
+    }
+    .card::before{
+      left:-260px; top:-340px;
+      background: radial-gradient(circle at 30% 30%, rgba(102,242,179,.8), transparent 60%);
+      animation: float1 10s ease-in-out infinite;
+    }
+    .card::after{
+      right:-320px; bottom:-360px;
+      background: radial-gradient(circle at 35% 40%, rgba(200,255,122,.7), transparent 62%);
+      animation: float2 12s ease-in-out infinite;
+    }
+    @keyframes float1{ 0%,100%{transform: translate(0,0)} 50%{transform: translate(22px, 16px)}}
+    @keyframes float2{ 0%,100%{transform: translate(0,0)} 50%{transform: translate(-16px, -20px)}}
+
+    .kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:8px 12px;
+      border-radius:999px;
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.10);
+      color:var(--muted);
+      font-size:13px;
+      width:fit-content;
+      line-height:1.25;
+      position:relative;
+      z-index:2;
+      margin:0 auto;
+    }
+    .dot{
+      width:8px; height:8px; border-radius:50%;
+      background: var(--green);
+      box-shadow:0 0 0 6px rgba(50,213,131,.12);
+      flex: 0 0 auto;
+    }
+
+    h1{
+      margin:16px 0 10px;
+      font-size: clamp(28px, 3.4vw, 44px);
+      line-height:1.08;
+      letter-spacing:-.6px;
+      position:relative;
+      z-index:2;
+      opacity:0;
+      transform: translateY(10px);
+      animation: in .65s ease forwards .05s;
+    }
+
+    p{
+      margin:0;
+      color:var(--muted);
+      font-size:16px;
+      line-height:1.6;
+      position:relative;
+      z-index:2;
+      opacity:0;
+      transform: translateY(10px);
+      animation: in .65s ease forwards .18s;
+    }
+
+    .count{
+      margin-top:16px;
+      display:inline-grid;
+      place-items:center;
+      width:56px;
+      height:56px;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.14);
+      box-shadow: 0 18px 45px rgba(0,0,0,.28);
+      color: rgba(255,255,255,.90);
+      font-weight:700;
+      font-size:20px;
+      letter-spacing:.2px;
+      position:relative;
+      z-index:2;
+      opacity:0;
+      transform: translateY(10px);
+      animation: in .65s ease forwards .32s;
+    }
+
+    .btn{
+      margin-top:16px;
+      appearance:none;
+      border:1px solid rgba(255,255,255,.12);
+      background: linear-gradient(135deg, rgba(50,213,131,.22), rgba(200,255,122,.16));
+      color:var(--text);
+      border-radius: 14px;
+      padding:12px 14px;
+      cursor:pointer;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      text-decoration:none;
+      font-size:14px;
+      border-color: rgba(102,242,179,.26);
+      position:relative;
+      z-index:2;
+      opacity:0;
+      transform: translateY(10px);
+      animation: in .65s ease forwards .42s;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.10);
+      border-color: rgba(255,255,255,.18);
+    }
+
+    @keyframes in{
+      to{opacity:1; transform: translateY(0)}
+    }
+
+    @media (max-width: 480px){
+      .card{padding:22px 16px}
+      .count{width:54px; height:54px; font-size:20px}
+      .btn{width:100%; height:56px; font-size:18px}
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      *{animation:none !important; transition:none !important}
+      h1,p,.count,.btn{opacity:1 !important; transform:none !important}
+      .card::before,.card::after{display:none}
+    }
+  </style>
+</head>
+
+<body>
+  <main class="card" aria-live="polite">
+    <div class="kicker">
+      <span class="dot" aria-hidden="true"></span>
+      ΕΥΧΑΡΙΣΤΟΥΜΕ
+    </div>
+
+    <h1>Το μήνυμά σας καταχωρήθηκε ✅</h1>
+    <p>Θα επικοινωνήσουμε μαζί σας το συντομότερο δυνατό.</p>
+
+    <div class="count" id="count">8</div>
+
+    <a class="btn" href="/" aria-label="Επιστροφή στην αρχική">Επιστροφή στην αρχική</a>
+  </main>
+
+  <script>
+    let n = 8;
+    const el = document.getElementById("count");
+    const tick = () => {
+      n -= 1;
+      if(el) el.textContent = String(Math.max(0, n));
+      if(n <= 0){
+        window.location.href = "/";
+      }
+    };
+    const i = setInterval(() => {
+      tick();
+      if(n <= 0) clearInterval(i);
+    }, 1000);
+  </script>
+</body>
+</html>
