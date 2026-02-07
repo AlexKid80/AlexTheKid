@@ -425,7 +425,11 @@
       background: rgba(0,0,0,.12);
       padding:10px;
       overflow:hidden;
+      display:grid;
+      gap:10px;
     }
+
+    .cardLink{display:block; text-decoration:none}
 
     .partner-card img{
       width:100%;
@@ -433,8 +437,10 @@
       border-radius:10px;
       display:block;
       object-fit:cover;
-      max-height: 240px;
+      max-height: 280px;
     }
+
+    .fallbackLink{display:none}
 
     footer{
       margin-top:22px;
@@ -466,6 +472,8 @@
         font-size:18px;
         width:100%;
       }
+      .pill{width:100%; justify-content:center}
+      .partner-card img{max-height:none}
     }
 
     @media (prefers-reduced-motion: reduce){
@@ -543,7 +551,7 @@
 
         <h1>Μιλήστε μαζί μας</h1>
         <p class="lead">
-          Για πληροφορίες, ή συνεργασίες παρακαλώ επικοινωνήστε μαζί μας. Η φόρμα δεν είναι για παραγγελίες.
+          Για πληροφορίες, ή συνεργασίες παρακαλώ συμπληρώστε τη φόρμα επικοινωνίας ή καλέστε μας στο +30 69xxxxxxxx. Παρακαλούμε όχι για παραγγελίες.
         </p>
 
         <div class="grid">
@@ -627,8 +635,14 @@
                   </div>
                   <a class="pill" href="mailto:vikas@ecoplant.bio">vikas@ecoplant.bio</a>
                 </div>
-                <div class="partner-card">
-                  <img class="cardImg" src="assets/cards/vikas-card.jpg" alt="Ψηφιακή κάρτα Vikas" />
+                <div class="partner-card" data-pdf="assets/cards/vikas-card.pdf">
+                  <a class="cardLink" href="assets/cards/vikas-card.pdf" target="_blank" rel="noopener">
+                    <picture>
+                      <source srcset="assets/cards/vikas-card.webp" type="image/webp">
+                      <img class="cardImg" src="assets/cards/vikas-card.jpg" alt="Ψηφιακή κάρτα Vikas" loading="lazy" decoding="async" />
+                    </picture>
+                  </a>
+                  <a class="fallbackLink pill" href="assets/cards/vikas-card.pdf" target="_blank" rel="noopener">Άνοιγμα κάρτας (PDF)</a>
                 </div>
               </div>
 
@@ -640,8 +654,14 @@
                   </div>
                   <a class="pill" href="mailto:georgiadis@ecoplant.bio">georgiadis@ecoplant.bio</a>
                 </div>
-                <div class="partner-card">
-                  <img class="cardImg" src="assets/cards/georgiadis-card.jpg" alt="Ψηφιακή κάρτα Georgiadis" />
+                <div class="partner-card" data-pdf="assets/cards/georgiadis-card.pdf">
+                  <a class="cardLink" href="assets/cards/georgiadis-card.pdf" target="_blank" rel="noopener">
+                    <picture>
+                      <source srcset="assets/cards/georgiadis-card.webp" type="image/webp">
+                      <img class="cardImg" src="assets/cards/georgiadis-card.jpg" alt="Ψηφιακή κάρτα Georgiadis" loading="lazy" decoding="async" />
+                    </picture>
+                  </a>
+                  <a class="fallbackLink pill" href="assets/cards/georgiadis-card.pdf" target="_blank" rel="noopener">Άνοιγμα κάρτας (PDF)</a>
                 </div>
               </div>
             </div>
@@ -658,33 +678,44 @@
 
   <script>
     const img = document.getElementById("brandLogo");
-    img?.addEventListener("error", () => { img.style.display = "none"; });
+    if(img){ img.addEventListener("error", () => { img.style.display = "none"; }); }
 
     (function(){
       const startYear = 2024;
       const currentYear = new Date().getFullYear();
       const text = (currentYear > startYear) ? `${startYear}–${currentYear}` : `${startYear}`;
-      document.getElementById("y").textContent = text;
+      const y = document.getElementById("y");
+      if(y) y.textContent = text;
     })();
 
-    document.querySelectorAll(".cardImg").forEach(el=>{
-      el.addEventListener("error", ()=>{ el.style.display="none"; });
+    document.querySelectorAll(".partner-card").forEach(card=>{
+      const pic = card.querySelector("picture");
+      const imgEl = card.querySelector(".cardImg");
+      const fallback = card.querySelector(".fallbackLink");
+      if(fallback) fallback.style.display = "none";
+      if(imgEl){
+        imgEl.addEventListener("error", ()=>{
+          if(pic) pic.style.display = "none";
+          if(fallback) fallback.style.display = "inline-flex";
+        });
+      }
     });
 
     const form = document.getElementById("feedbackForm");
-    form.addEventListener("submit", (e)=>{
-      e.preventDefault();
-      const data = new FormData(form);
-      if((data.get("website")||"").toString().trim() !== "") return;
+    if(form){
+      form.addEventListener("submit", (e)=>{
+        e.preventDefault();
+        const data = new FormData(form);
+        if((data.get("website")||"").toString().trim() !== "") return;
 
-      const name = (data.get("name")||"").toString().trim();
-      const email = (data.get("email")||"").toString().trim();
-      const phone = (data.get("phone")||"").toString().trim();
-      const rating = (data.get("rating")||"").toString().trim();
-      const message = (data.get("message")||"").toString().trim();
+        const name = (data.get("name")||"").toString().trim();
+        const email = (data.get("email")||"").toString().trim();
+        const phone = (data.get("phone")||"").toString().trim();
+        const rating = (data.get("rating")||"").toString().trim();
+        const message = (data.get("message")||"").toString().trim();
 
-      const subject = `EcoPlant Feedback - ${name || "Χωρίς όνομα"}`;
-      const body =
+        const subject = `EcoPlant Feedback - ${name || "Χωρίς όνομα"}`;
+        const body =
 `Ονοματεπώνυμο: ${name}
 Email: ${email}
 Τηλέφωνο: ${phone || "-"}
@@ -694,10 +725,18 @@ Email: ${email}
 ${message}
 `;
 
-      const to = "info@ecoplant.bio";
-      const url = `mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-      window.location.href = url;
-    });
+        const to = "info@ecoplant.bio";
+        const url = `mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+        const thanksUrl = new URL("thanks.html", window.location.href).toString();
+        sessionStorage.setItem("ecoplant_last_form", JSON.stringify({
+          name, email, phone, rating, message, ts: Date.now()
+        }));
+
+        window.location.assign(thanksUrl);
+        setTimeout(()=>{ window.location.href = url; }, 250);
+      });
+    }
 
     const items = document.querySelectorAll(".reveal");
     const io = new IntersectionObserver((entries) => {
