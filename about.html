@@ -1,0 +1,678 @@
+<!doctype html>
+<html lang="el">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="EcoPlant - Ποιοι είμαστε, τι κάνουμε και πώς υποστηρίζουμε την καλλιέργεια με πρακτικές οδηγίες εφαρμογής." />
+  <title>Εμείς</title>
+
+  <style>
+    :root{
+      --bg0:#06150c;
+      --bg1:#0b2a15;
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.70);
+      --green:#32d583;
+      --green2:#66f2b3;
+      --lime:#c8ff7a;
+      --shadow: 0 20px 50px rgba(0,0,0,.45);
+      --radius: 22px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 15% 10%, rgba(102,242,179,.18), transparent 60%),
+        radial-gradient(900px 600px at 85% 25%, rgba(200,255,122,.12), transparent 60%),
+        radial-gradient(900px 800px at 35% 110%, rgba(50,213,131,.10), transparent 60%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      overflow-x:hidden;
+    }
+
+    body::before{
+      content:"";
+      position:fixed;
+      inset:-2px;
+      pointer-events:none;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,.05) 0 1px, transparent 2px) 0 0/34px 34px,
+        radial-gradient(circle at 70% 30%, rgba(255,255,255,.035) 0 1px, transparent 2px) 0 0/40px 40px;
+      opacity:.55;
+      mix-blend-mode:soft-light;
+    }
+
+    a{color:inherit}
+    .skip{
+      position:absolute; left:-999px; top:0;
+      background:#fff; color:#000;
+      padding:.6rem 1rem; border-radius:10px;
+      z-index:1000;
+    }
+    .skip:focus{left:12px; top:12px}
+
+    .wrap{max-width:1100px; margin:0 auto; padding:22px 18px 60px}
+
+    header{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, rgba(6,21,12,.75), rgba(6,21,12,.25));
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+
+    .topbar{
+      width:100%;
+      padding:14px 22px;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:16px;
+    }
+
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      text-decoration:none;
+      min-width: 220px;
+    }
+
+    .logo{
+      width:34px; height:34px;
+      border-radius:12px;
+      overflow:hidden;
+      display:grid;
+      place-items:center;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(200,255,122,.9), rgba(50,213,131,.9));
+      box-shadow:0 10px 25px rgba(0,0,0,.35);
+    }
+    .logo img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      padding:4px;
+      display:block;
+    }
+
+    .brand strong{letter-spacing:.2px}
+    .brand span{display:block; font-size:12px; color:var(--muted); margin-top:2px}
+
+    .mini-links{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
+      margin-left:auto;
+      justify-content:flex-end;
+    }
+
+    .mini-links a{
+      font-size:13px;
+      color:var(--muted);
+      text-decoration:none;
+      padding:8px 10px;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:999px;
+      transition:transform .15s ease, background .15s ease, border-color .15s ease;
+      letter-spacing:.2px;
+    }
+    .mini-links a:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.14);
+      color:var(--text);
+    }
+
+    .lang-pill{
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      padding:6px 8px;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:999px;
+      background: rgba(255,255,255,.03);
+    }
+
+    a.lang-btn{
+      appearance:none;
+      border:0;
+      background:transparent;
+      cursor:pointer;
+      padding:4px 6px;
+      border-radius:10px;
+      transition: transform .12s ease, background .12s ease;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:6px;
+      text-decoration:none;
+    }
+    a.lang-btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.06);
+    }
+
+    .flag{
+      width:18px;
+      height:12px;
+      border-radius:3px;
+      overflow:hidden;
+      display:block;
+      box-shadow: 0 6px 14px rgba(0,0,0,.25);
+      border: 1px solid rgba(255,255,255,.14);
+    }
+    .flag svg{width:100%; height:100%; display:block}
+
+    main{padding-top:22px}
+
+    .panel{
+      border:1px solid rgba(255,255,255,.10);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+      box-shadow: var(--shadow);
+      padding:22px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .panel::before,.panel::after{
+      content:"";
+      position:absolute;
+      width:520px; height:520px;
+      border-radius:50%;
+      opacity:.22;
+      pointer-events:none;
+    }
+    .panel::before{
+      left:-240px; top:-320px;
+      background: radial-gradient(circle at 30% 30%, rgba(102,242,179,.8), transparent 60%);
+      animation: float1 10s ease-in-out infinite;
+    }
+    .panel::after{
+      right:-300px; bottom:-340px;
+      background: radial-gradient(circle at 35% 40%, rgba(200,255,122,.7), transparent 62%);
+      animation: float2 12s ease-in-out infinite;
+    }
+    @keyframes float1{ 0%,100%{transform: translate(0,0)} 50%{transform: translate(25px, 18px)}}
+    @keyframes float2{ 0%,100%{transform: translate(0,0)} 50%{transform: translate(-18px, -22px)}}
+
+    .kicker{
+      display:inline-flex;
+      align-items:flex-start;
+      gap:10px;
+      padding:8px 12px;
+      border-radius:999px;
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.10);
+      color:var(--muted);
+      font-size:13px;
+      width:fit-content;
+      line-height:1.25;
+      white-space:normal;
+      position:relative;
+      z-index:2;
+    }
+    .dot{
+      width:8px; height:8px; border-radius:50%;
+      background: var(--green);
+      box-shadow:0 0 0 6px rgba(50,213,131,.12);
+      flex: 0 0 auto;
+      margin-top:4px;
+    }
+
+    .grid{
+      margin-top:16px;
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:14px;
+      position:relative;
+      z-index:2;
+      align-items:stretch;
+    }
+
+    .card{
+      border:1px solid rgba(255,255,255,.10);
+      border-radius: 18px;
+      background: rgba(255,255,255,.05);
+      padding:14px;
+      overflow:hidden;
+    }
+
+    .card h1{
+      margin:0 0 10px;
+      font-size: clamp(26px, 3.2vw, 40px);
+      line-height:1.1;
+      letter-spacing:-.6px;
+    }
+
+    .card h2{
+      margin:0 0 10px;
+      font-size:16px;
+      letter-spacing:.1px;
+    }
+
+    .lead{
+      margin:0;
+      color:var(--muted);
+      font-size: 15px;
+      line-height:1.6;
+      max-width: 78ch;
+    }
+    .lead p{margin:0}
+    .lead p + p{margin-top:12px}
+
+    .art-card{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:12px;
+    }
+    .art{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.10);
+      padding:10px;
+      width:100%;
+      min-height: 240px;
+    }
+    .art svg{width:min(240px, 100%); height:auto}
+
+    .droplet{transform-origin: 50% 0%;}
+    @keyframes drop {
+      0%{transform: translateY(-36px); opacity:0}
+      25%{opacity:1}
+      65%{transform: translateY(70px); opacity:1}
+      72%{transform: translateY(70px) scaleY(.9)}
+      100%{transform: translateY(70px) scaleY(.9); opacity:0}
+    }
+    .droplet{animation: drop 2.4s ease-in-out infinite}
+
+    .ripple{opacity:0; transform-origin: 50% 50%;}
+    @keyframes ripple {
+      0%{opacity:0; transform: scale(.6)}
+      60%{opacity:0}
+      75%{opacity:.35; transform: scale(1)}
+      100%{opacity:0; transform: scale(1.18)}
+    }
+    .ripple{animation: ripple 2.4s ease-in-out infinite}
+
+    .leaf{
+      transform-origin: 50% 70%;
+      animation: sway 4.2s ease-in-out infinite;
+    }
+    @keyframes sway{
+      0%,100%{transform: rotate(-1deg)}
+      50%{transform: rotate(2deg)}
+    }
+
+    .stack{
+      margin-top:14px;
+      display:grid;
+      gap:14px;
+      position:relative;
+      z-index:2;
+    }
+
+    .tiny{
+      font-size:12px;
+      color: rgba(255,255,255,.62);
+      line-height:1.45;
+      margin: 6px 0 0;
+    }
+
+    .list{
+      list-style:none;
+      padding:0;
+      margin: 12px 0 0;
+      display:grid;
+      gap:10px;
+    }
+    .list li{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      color: rgba(255,255,255,.86);
+      font-size:14px;
+      line-height:1.4;
+    }
+    .mark{
+      width:18px; height:18px;
+      flex:0 0 18px;
+      border-radius:7px;
+      display:grid;
+      place-items:center;
+      background: linear-gradient(135deg, rgba(50,213,131,.22), rgba(200,255,122,.14));
+      border: 1px solid rgba(102,242,179,.22);
+      margin-top: 2px;
+    }
+    .mark svg{display:block}
+
+    .cta-row{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:12px;
+    }
+
+    .cta-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      color:var(--text);
+      border-radius: 14px;
+      padding:12px 14px;
+      cursor:pointer;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+      text-decoration:none;
+      font-size:14px;
+      width:fit-content;
+      max-width:100%;
+      white-space:normal;
+      text-align:center;
+      line-height:1.25;
+    }
+    .cta-btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.10);
+      border-color: rgba(255,255,255,.18);
+    }
+    .cta-btn.primary{
+      background: linear-gradient(135deg, rgba(50,213,131,.22), rgba(200,255,122,.16));
+      border-color: rgba(102,242,179,.26);
+    }
+
+    footer{
+      margin-top:22px;
+      padding:18px 4px 0;
+      color:rgba(255,255,255,.58);
+      font-size:13px;
+      display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;
+    }
+    footer a{color:rgba(255,255,255,.70); text-decoration:none}
+    footer a:hover{text-decoration:underline}
+
+    .reveal{opacity:0; transform: translateY(10px); transition: opacity .55s ease, transform .55s ease}
+    .reveal.on{opacity:1; transform: translateY(0)}
+
+    @media (max-width: 980px){
+      .grid{grid-template-columns:1fr}
+      .art{min-height: 220px}
+    }
+
+    @media (max-width: 480px){
+      .wrap{padding:16px 14px 54px}
+      .topbar{padding:12px 14px; gap:10px}
+      main{padding-top:16px}
+      .panel{padding:16px; border-radius:20px}
+      .kicker{width:100%; font-size:12px; padding:8px 10px}
+      .card h1{font-size:24px; letter-spacing:-.4px; line-height:1.12}
+      .cta-btn{font-size:16px; padding:14px 14px}
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      *{animation:none !important; transition:none !important; scroll-behavior:auto !important}
+      .reveal{opacity:1; transform:none}
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip" href="#content">Μετάβαση στο περιεχόμενο</a>
+
+  <header>
+    <div class="topbar">
+      <a class="brand" href="index.html" aria-label="EcoPlant αρχική">
+        <div class="logo" aria-hidden="true">
+          <img id="brandLogo" src="assets/ecoplant-logo.svg" alt="EcoPlant logo" />
+        </div>
+        <div>
+          <strong>EcoPlant</strong>
+          <span>• 100% Organic •</span>
+        </div>
+      </a>
+
+      <nav class="mini-links" aria-label="Γρήγορο μενού">
+        <span class="lang-pill" aria-label="Γλώσσα">
+          <a class="lang-btn" href="about.html" aria-label="Ελληνικά (τρέχουσα σελίδα)">
+            <span class="flag" aria-hidden="true">
+              <svg viewBox="0 0 18 12" xmlns="http://www.w3.org/2000/svg">
+                <rect width="18" height="12" fill="#0D5EAF"/>
+                <g fill="#ffffff">
+                  <rect y="1.333" width="18" height="1.333"/>
+                  <rect y="4" width="18" height="1.333"/>
+                  <rect y="6.667" width="18" height="1.333"/>
+                  <rect y="9.333" width="18" height="1.333"/>
+                  <rect x="0" y="0" width="6.666" height="6.666" fill="#0D5EAF"/>
+                  <rect x="2.666" y="0" width="1.333" height="6.666"/>
+                  <rect x="0" y="2.666" width="6.666" height="1.333"/>
+                </g>
+              </svg>
+            </span>
+          </a>
+
+          <a class="lang-btn" href="en/about.html" aria-label="English">
+            <span class="flag" aria-hidden="true">
+              <svg viewBox="0 0 18 12" xmlns="http://www.w3.org/2000/svg">
+                <rect width="18" height="12" fill="#012169"/>
+                <path d="M0 0 L7 0 L18 7 L18 12 L11 12 L0 5 Z" fill="#ffffff" opacity="0.95"/>
+                <path d="M18 0 L11 0 L0 7 L0 12 L7 12 L18 5 Z" fill="#ffffff" opacity="0.95"/>
+                <path d="M18 0 L18 2 L13 0 Z" fill="#C8102E"/>
+                <path d="M0 0 L5 0 L0 3 Z" fill="#C8102E"/>
+                <path d="M18 12 L13 12 L18 9 Z" fill="#C8102E"/>
+                <path d="M0 12 L0 10 L5 12 Z" fill="#C8102E"/>
+                <rect x="0" y="4.5" width="18" height="3" fill="#ffffff"/>
+                <rect x="7.5" y="0" width="3" height="12" fill="#ffffff"/>
+                <rect x="0" y="5.25" width="18" height="1.5" fill="#C8102E"/>
+                <rect x="8.25" y="0" width="1.5" height="12" fill="#C8102E"/>
+              </svg>
+            </span>
+          </a>
+        </span>
+
+        <a href="/">Αρχική</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <main id="content">
+      <section class="panel reveal">
+        <div class="kicker">
+          <span class="dot" aria-hidden="true"></span>
+          Η ΕΤΑΙΡΕΙΑ ΜΑΣ
+        </div>
+
+        <div class="grid">
+          <div class="card">
+            <h1>EcoPlant</h1>
+            <div class="lead">
+              <p>
+                Η EcoPlant ξεκίνησε ως μια ιδέα ενός βιολόγου χημικού πριν από περίπου δύο δεκαετίες: να δημιουργηθούν λύσεις πιο φιλικές προς το περιβάλλον για τη θρέψη και την ενίσχυση των φυτών και του εδάφους. Σήμερα συνεχίζουμε με νέα διοίκηση στον ίδιο στόχο, απλά και αποτελεσματικά προϊόντα με ξεκάθαρη τεχνική καθοδήγηση.
+              </p>
+              <p>
+                Το πρώτο μας προϊόν, EcoPlant, ανήκει στην κατηγορία των βιοδιεγερτών: υποστηρίζει τις διαδικασίες θρέψης του φυτού με σκοπό να βοηθήσει στην καλύτερη αξιοποίηση θρεπτικών συστατικών, στην αντοχή σε βιοτικό ή αβιοτικό στρες, στην ποιότητα και στη διαθεσιμότητα θρεπτικών στη ριζόσφαιρα.
+              </p>
+            </div>
+          </div>
+
+          <div class="card art-card" aria-hidden="true">
+            <div class="art">
+              <svg viewBox="0 0 360 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="g1" x1="30" y1="40" x2="300" y2="280" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#66F2B3" stop-opacity="0.95"/>
+                    <stop offset="1" stop-color="#C8FF7A" stop-opacity="0.65"/>
+                  </linearGradient>
+                </defs>
+
+                <circle cx="180" cy="170" r="120" fill="url(#g1)" opacity="0.16"/>
+
+                <g class="leaf">
+                  <path d="M180 110C230 110 270 145 270 190C270 236 230 270 180 270C130 270 90 236 90 190C90 145 130 110 180 110Z" fill="url(#g1)" opacity="0.35"/>
+                  <path d="M180 132C214 132 242 156 242 190C242 224 214 248 180 248C146 248 118 224 118 190C118 156 146 132 180 132Z" fill="url(#g1)" opacity="0.48"/>
+                  <path d="M180 145V248" stroke="rgba(255,255,255,.55)" stroke-width="3" stroke-linecap="round"/>
+                  <path d="M180 170C205 175 218 190 230 206" stroke="rgba(255,255,255,.38)" stroke-width="2.2" stroke-linecap="round"/>
+                  <path d="M180 180C155 185 142 198 130 212" stroke="rgba(255,255,255,.30)" stroke-width="2.2" stroke-linecap="round"/>
+                </g>
+
+                <g class="droplet">
+                  <path d="M180 36C196 58 208 78 208 96C208 112 195 125 180 125C165 125 152 112 152 96C152 78 164 58 180 36Z" fill="url(#g1)" opacity="0.9"/>
+                  <path d="M170 92C176 80 186 66 192 56" stroke="rgba(255,255,255,.42)" stroke-width="3" stroke-linecap="round"/>
+                </g>
+
+                <g class="ripple">
+                  <ellipse cx="180" cy="214" rx="42" ry="12" stroke="rgba(200,255,122,.55)" stroke-width="2"/>
+                  <ellipse cx="180" cy="214" rx="68" ry="19" stroke="rgba(102,242,179,.35)" stroke-width="2"/>
+                </g>
+
+                <path d="M70 268C106 286 135 290 180 290C226 290 256 286 290 268" stroke="rgba(255,255,255,.20)" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="stack">
+          <div class="card">
+            <h2>Τι προσφέρουμε</h2>
+            <div class="tiny">Δεν “πουλάμε απλά ένα προϊόν”. Δίνουμε και πρακτικό πλάνο εφαρμογής.</div>
+
+            <ul class="list">
+              <li>
+                <span class="mark" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                    <path d="M20 7l-10 10-5-5" stroke="rgba(255,255,255,.85)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                Πλήρεις, αναλυτικές οδηγίες εφαρμογής για <b>50+ καλλιέργειες</b>.
+              </li>
+
+              <li>
+                <span class="mark" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                    <path d="M20 7l-10 10-5-5" stroke="rgba(255,255,255,.85)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                Καθοδήγηση ανά στάδιο: εγκατάσταση/μετά τη φύτευση, ανάπτυξη, πριν/κατά την άνθιση, καρπόδεση, ανάπτυξη καρπών.
+              </li>
+            </ul>
+
+            <div class="cta-row">
+              <a class="cta-btn primary" href="mailto:info@ecoplant.bio?subject=Ecoplant%20%2C%20we%20need%20support&body=%CE%9A%CE%B1%CE%BB%CE%BB%CE%B9%CE%AD%CF%81%CE%B3%CE%B5%CE%B9%CE%B1%3A%20%0A%CE%A0%CE%B5%CF%81%CE%B9%CE%BF%CF%87%CE%AE%3A%20%0A%CE%A3%CF%84%CE%AC%CE%B4%CE%B9%CE%BF%20%CE%BA%CE%B1%CE%BB%CE%BB%CE%B9%CE%AD%CF%81%CE%B3%CE%B5%CE%B9%CE%B1%CF%82%3A%20%0A%CE%95%CF%81%CF%8E%CF%84%CE%B7%CF%83%CE%B7%2F%CE%A3%CF%84%CF%8C%CF%87%CE%BF%CF%82%3A%20%0A%0A%CE%9C%CE%AE%CE%BD%CF%85%CE%BC%CE%B1%3A%20">Πείτε μας την καλλιέργειά σας και εμείς θα σας βοηθήσουμε για την ανάπτυξή της!</a>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2>Στόχος</h2>
+            <div class="tiny">Αποδοτικότητα, κόστος, βιολογικό προϊόν.</div>
+
+            <ul class="list">
+              <li>
+                <span class="mark" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                    <path d="M20 7l-10 10-5-5" stroke="rgba(255,255,255,.85)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                Αποδοτική θρέψη για τις περισσότερες καλλιέργειες.
+              </li>
+
+              <li>
+                <span class="mark" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                    <path d="M20 7l-10 10-5-5" stroke="rgba(255,255,255,.85)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                Με την καθοδήγησή μας έχετε καλύτερη διαχείριση κόστους για την ενίσχυση του εδάφους και των φυτών σας.
+              </li>
+
+              <li>
+                <span class="mark" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                    <path d="M20 7l-10 10-5-5" stroke="rgba(255,255,255,.85)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                Σταθεροποίηση της παραγωγής σας.
+              </li>
+            </ul>
+
+            <div class="cta-row">
+              <a class="cta-btn primary" href="contact.html">Θέλουμε τη γνώμη σας</a>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2>Υποστήριξη</h2>
+            <div class="tiny">Είμαστε δίπλα σας για όλα.</div>
+
+            <ul class="list">
+              <li>
+                <span class="mark" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                    <path d="M20 7l-10 10-5-5" stroke="rgba(255,255,255,.85)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                Συνεχής υποστήριξη για σωστή χρήση.
+              </li>
+
+              <li>
+                <span class="mark" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                    <path d="M20 7l-10 10-5-5" stroke="rgba(255,255,255,.85)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                Δοσολογίες ανάλογα με την καλλιέργεια.
+              </li>
+
+              <li>
+                <span class="mark" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                    <path d="M20 7l-10 10-5-5" stroke="rgba(255,255,255,.85)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                Συχνότητες ανάλογα με την καλλιέργεια.
+              </li>
+            </ul>
+
+            <div class="cta-row">
+              <a class="cta-btn primary" href="ai.html">Ρώτησέ μας ό,τιδήποτε</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <div>© <span id="y"></span> EcoPlant.bio • Κυκλοφορεί σύμφωνα με την 217217, ΦΕΚ 35/2004.</div>
+        <div><a href="mailto:info@ecoplant.bio">info@ecoplant.bio</a></div>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    const img = document.getElementById("brandLogo");
+    img?.addEventListener("error", () => { img.style.display = "none"; });
+
+    (function(){
+      const startYear = 2024;
+      const currentYear = new Date().getFullYear();
+      const text = (currentYear > startYear) ? `${startYear}–${currentYear}` : `${startYear}`;
+      document.getElementById("y").textContent = text;
+    })();
+
+    const items = document.querySelectorAll(".reveal");
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if(e.isIntersecting){
+          e.target.classList.add("on");
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    items.forEach(el => io.observe(el));
+  </script>
+</body>
+</html>
