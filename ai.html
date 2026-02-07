@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI</title>
+  <meta name="description" content="AI"/>
+  <style>
+    :root{
+      --bg:#0a0b0f;
+      --white:#ffffff;
+      --total:5s;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; background:var(--bg); color:var(--white);
+      overflow:hidden; font:16px/1.5 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial;
+    }
+
+    .stage{position:fixed; inset:0; display:grid; place-items:center; overflow:hidden}
+
+    .bg-glow{
+      position:absolute; inset:-20%; z-index:-3; opacity:.12; pointer-events:none;
+      background:
+        radial-gradient(60% 40% at 20% 10%, #fff3, transparent 60%),
+        radial-gradient(60% 40% at 80%  0%, #fff2, transparent 60%);
+    }
+
+    .scratch{
+      position:absolute; inset:0; z-index:-2; pointer-events:none;
+      background:
+        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="1.8" numOctaves="2"/></filter><rect width="100%&quot;" height="100%&quot;" filter="url(%23n)" opacity="0.5"/></svg>'),
+        var(--bg);
+      background-size:cover;
+      mix-blend-mode:lighten;
+      opacity:1;
+      animation:scratchFade 2.2s ease-out forwards 3s;
+      mask-image:radial-gradient(circle at 50% 50%, #fff 60%, transparent 100%);
+      -webkit-mask-image:radial-gradient(circle at 50% 50%, #fff 60%, transparent 100%);
+    }
+
+    .bar{
+      width:72px; height:72px; border-radius:50%;
+      background:var(--white);
+      box-shadow:0 0 0 1px #fff2, 0 0 30px #fff3, 0 0 60px #fff1;
+      opacity:0; transform:translateY(0);
+      animation:
+        fadeIn   .6s ease forwards .2s,
+        stretch  2.2s cubic-bezier(.2,.7,.2,1) forwards .8s,
+        oscillate 2.0s ease-in-out forwards 3s,
+        pulseGlow 2.0s ease-in-out infinite alternate 1.6s;
+    }
+
+    .reflection{
+      position:absolute; left:0; right:0; height:4px; top:50%;
+      transform:translateY(-50%);
+      background:linear-gradient(90deg, transparent, #fff6, transparent);
+      opacity:0; filter:blur(10px);
+      animation:reflect 1.8s ease-in-out forwards 1.2s;
+      pointer-events:none;
+    }
+
+    .enter{
+      position:fixed; left:50%; top:50%; transform:translate(-50%,-50%);
+      opacity:0; transition:opacity .5s ease;
+      animation:showEnter .6s ease forwards 4.6s;
+    }
+    .enter a{
+      display:inline-block; text-decoration:none;
+      color:#fff; background:#000; border:1px solid #ffffff22;
+      font-weight:700; letter-spacing:.08em; text-transform:uppercase;
+      font-size:18px;
+      padding:18px 27px;
+      border-radius:999px;
+    }
+    .enter a:hover{border-color:#ffffff44}
+
+    @keyframes fadeIn { to { opacity:1 } }
+    @keyframes stretch{
+      0%   { width:72px; height:72px; border-radius:50% }
+      30%  { width:24vw; height:10px }
+      60%  { width:60vw; height:4px }
+      100% { width:100vw; height:2px; border-radius:1px }
+    }
+    @keyframes oscillate{
+      0%   { transform:translateY(0) }
+      20%  { transform:translateY(-30vh) }
+      40%  { transform:translateY( 30vh) }
+      60%  { transform:translateY(-30vh) }
+      80%  { transform:translateY( 30vh) }
+      100% { transform:translateY(0) }
+    }
+    @keyframes pulseGlow{
+      0%   { box-shadow:0 0 10px #fff3, 0 0 30px #fff2, 0 0 60px #fff1 }
+      100% { box-shadow:0 0 20px #fff4, 0 0 50px #fff3, 0 0 100px #fff2 }
+    }
+    @keyframes reflect{
+      0%   { opacity:0; transform:translateY(-50%) scaleX(0) }
+      50%  { opacity:.6; transform:translateY(-50%) scaleX(1) }
+      100% { opacity:0; transform:translateY(-50%) scaleX(1.2) }
+    }
+    @keyframes scratchFade{
+      0% { opacity:1 }
+      100% { opacity:0 }
+    }
+    @keyframes showEnter{
+      from { opacity:0 }
+      to   { opacity:1 }
+    }
+
+    @media (max-width:480px){
+      .enter a{font-size:16px; padding:16px 22px}
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .bar{
+        animation:none; opacity:1;
+        width:100vw; height:2px; border-radius:1px; transform:translateY(0);
+      }
+      .reflection,.scratch{animation:none; opacity:0}
+      .enter{opacity:1}
+    }
+  </style>
+</head>
+<body>
+  <div class="stage" aria-label="Intro animation">
+    <div class="bg-glow" aria-hidden="true"></div>
+    <div class="scratch" aria-hidden="true"></div>
+    <div class="reflection" aria-hidden="true"></div>
+    <div class="bar" role="img" aria-label="expanding horizontal line"></div>
+
+    <div class="enter">
+      <a id="csBtn" href="/" title="Coming Soon">Coming Soon</a>
+    </div>
+
+    <noscript>
+      <div style="position:fixed; inset:auto 0 24px 0; text-align:center; color:#ffffff88; font-size:12px">
+        JavaScript is off — <a href="/" style="color:#fff">home</a>
+      </div>
+    </noscript>
+  </div>
+
+  <script>
+    const HOME = "/";
+    const t = setTimeout(() => { window.location.href = HOME; }, 10000);
+    const btn = document.getElementById("csBtn");
+    if(btn){
+      btn.addEventListener("click", () => { clearTimeout(t); });
+    }
+  </script>
+</body>
+</html>
