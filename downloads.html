@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="EcoPlant - Σύντομα κοντά σας." />
-  <title>Σύντομα κοντά σας!</title>
+  <meta name="description" content="EcoPlant - Οδηγίες και υλικό εφαρμογής." />
+  <title>Οδηγίες</title>
 
   <style>
     :root{
@@ -30,11 +30,7 @@
         radial-gradient(900px 600px at 85% 25%, rgba(200,255,122,.12), transparent 60%),
         radial-gradient(900px 800px at 35% 110%, rgba(50,213,131,.10), transparent 60%),
         linear-gradient(180deg, var(--bg0), var(--bg1));
-      overflow:hidden;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:22px 18px;
+      overflow-x:hidden;
     }
 
     body::before{
@@ -49,8 +45,127 @@
       mix-blend-mode:soft-light;
     }
 
+    a{color:inherit}
+    .skip{
+      position:absolute; left:-999px; top:0;
+      background:#fff; color:#000;
+      padding:.6rem 1rem; border-radius:10px;
+      z-index:1000;
+    }
+    .skip:focus{left:12px; top:12px}
+
+    .wrap{max-width:1100px; margin:0 auto; padding:22px 18px 60px}
+
+    header{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, rgba(6,21,12,.75), rgba(6,21,12,.25));
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+
+    .topbar{
+      width:100%;
+      padding:14px 22px;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:16px;
+    }
+
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      text-decoration:none;
+      min-width: 220px;
+    }
+
+    .logo{
+      width:34px; height:34px;
+      border-radius:12px;
+      overflow:hidden;
+      display:grid;
+      place-items:center;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(200,255,122,.9), rgba(50,213,131,.9));
+      box-shadow:0 10px 25px rgba(0,0,0,.35);
+    }
+    .logo img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      padding:4px;
+      display:block;
+    }
+
+    .brand strong{letter-spacing:.2px}
+    .brand span{display:block; font-size:12px; color:var(--muted); margin-top:2px}
+
+    .mini-links{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
+      margin-left:auto;
+      justify-content:flex-end;
+    }
+
+    .mini-links a{
+      font-size:13px;
+      color:var(--muted);
+      text-decoration:none;
+      padding:8px 10px;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:999px;
+      transition:transform .15s ease, background .15s ease, border-color .15s ease;
+      letter-spacing:.2px;
+    }
+    .mini-links a:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.14);
+      color:var(--text);
+    }
+
+    .lang-pill{
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      padding:6px 8px;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:999px;
+      background: rgba(255,255,255,.03);
+    }
+
+    a.lang-btn{
+      appearance:none;
+      border:0;
+      background:transparent;
+      cursor:pointer;
+      padding:4px 6px;
+      border-radius:10px;
+      transition: transform .12s ease, background .12s ease;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:6px;
+      text-decoration:none;
+    }
+    a.lang-btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.06);
+    }
+
+    .flag{
+      width:18px;
+      height:12px;
+      border-radius:3px;
+      overflow:hidden;
+      display:block;
+      box-shadow: 0 6px 14px rgba(0,0,0,.25);
+      border: 1px solid rgba(255,255,255,.14);
+    }
+    .flag svg{width:100%; height:100%; display:block}
+
+    main{padding-top:22px}
+
     .panel{
-      width:min(760px, 100%);
       border:1px solid rgba(255,255,255,.10);
       border-radius: var(--radius);
       background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
@@ -65,7 +180,7 @@
       position:absolute;
       width:520px; height:520px;
       border-radius:50%;
-      opacity:.24;
+      opacity:.22;
       pointer-events:none;
     }
     .panel::before{
@@ -81,18 +196,9 @@
     @keyframes float1{ 0%,100%{transform: translate(0,0)} 50%{transform: translate(25px, 18px)}}
     @keyframes float2{ 0%,100%{transform: translate(0,0)} 50%{transform: translate(-18px, -22px)}}
 
-    .content{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:18px;
-      align-items:center;
-      position:relative;
-      z-index:2;
-    }
-
     .kicker{
       display:inline-flex;
-      align-items:center;
+      align-items:flex-start;
       gap:10px;
       padding:8px 12px;
       border-radius:999px;
@@ -103,19 +209,24 @@
       width:fit-content;
       line-height:1.25;
       white-space:normal;
+      position:relative;
+      z-index:2;
     }
     .dot{
       width:8px; height:8px; border-radius:50%;
       background: var(--green);
       box-shadow:0 0 0 6px rgba(50,213,131,.12);
       flex: 0 0 auto;
+      margin-top:4px;
     }
 
     h1{
       margin:14px 0 10px;
-      font-size: clamp(24px, 3.2vw, 38px);
+      font-size: clamp(26px, 3.2vw, 40px);
       line-height:1.1;
       letter-spacing:-.6px;
+      position:relative;
+      z-index:2;
     }
 
     .lead{
@@ -123,168 +234,478 @@
       color:var(--muted);
       font-size: 15px;
       line-height:1.6;
-      max-width: 62ch;
+      max-width: 78ch;
+      position:relative;
+      z-index:2;
     }
 
-    .count{
-      margin-top:14px;
-      width:fit-content;
-      padding:10px 14px;
-      border-radius: 16px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.16);
-      box-shadow: 0 14px 34px rgba(0,0,0,.26);
-      font-weight:800;
-      font-size: clamp(40px, 6vw, 64px);
-      letter-spacing: .5px;
-      line-height:1;
-      color: rgba(255,255,255,.92);
-      text-shadow: 0 10px 30px rgba(0,0,0,.35);
+    .grid{
+      margin-top:16px;
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap:14px;
+      position:relative;
+      z-index:2;
     }
 
-    .art{
+    .card{
+      border:1px solid rgba(255,255,255,.10);
+      border-radius: 18px;
+      background: rgba(255,255,255,.05);
+      padding:14px;
+      overflow:hidden;
+    }
+
+    .card h2{
+      margin:0 0 10px;
+      font-size:16px;
+      letter-spacing:.1px;
+    }
+
+    .tiny{
+      font-size:12px;
+      color: rgba(255,255,255,.62);
+      line-height:1.45;
+      margin: 6px 0 0;
+    }
+
+    .docs{
+      display:grid;
+      gap:12px;
+      margin-top:12px;
+    }
+
+    .doc{
+      border:1px solid rgba(255,255,255,.10);
+      border-radius: 18px;
+      background: rgba(255,255,255,.05);
+      padding:14px;
+      display:grid;
+      gap:12px;
+    }
+
+    .doc-top{
       display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .doc-title{
+      display:flex;
+      align-items:flex-start;
+      gap:10px;
+      min-width: 220px;
+    }
+
+    .badge{
+      width:38px; height:38px;
+      border-radius:14px;
+      display:grid; place-items:center;
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.10);
+      flex: 0 0 auto;
+      margin-top:2px;
+    }
+
+    .doc-title strong{
+      display:block;
+      font-size:15px;
+      letter-spacing:.1px;
+    }
+
+    .doc-title span{
+      display:block;
+      font-size:12px;
+      color:var(--muted);
+      margin-top:2px;
+      max-width: 72ch;
+    }
+
+    .meta{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      color: rgba(255,255,255,.70);
+      font-size:12px;
+      margin-top: 6px;
+    }
+    .chip{
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      max-width:100%;
+    }
+    .chip b{color: rgba(255,255,255,.88); font-weight:600}
+
+    .doc-actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:flex-start;
+    }
+
+    .btn{
+      appearance:none;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      color:var(--text);
+      border-radius: 14px;
+      padding:12px 14px;
+      cursor:pointer;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+      display:inline-flex;
       align-items:center;
       justify-content:center;
-      min-height: 260px;
+      gap:10px;
+      text-decoration:none;
+      font-size:14px;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.10);
+      border-color: rgba(255,255,255,.18);
+    }
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(50,213,131,.22), rgba(200,255,122,.16));
+      border-color: rgba(102,242,179,.26);
     }
 
-    .sprout{
-      width:min(340px, 100%);
-      height:auto;
-      filter: drop-shadow(0 14px 30px rgba(0,0,0,.35));
+    .update-box{
+      display:grid;
+      gap:10px;
+      border:1px solid rgba(255,255,255,.10);
+      border-radius: 18px;
+      background: rgba(0,0,0,.12);
+      padding:14px;
     }
 
-    .stem{
-      stroke: rgba(255,255,255,.55);
-      stroke-width: 4;
-      stroke-linecap: round;
-      fill: none;
-      stroke-dasharray: 240;
-      stroke-dashoffset: 240;
-      animation: draw 5s ease forwards;
+    .update-row{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      color: rgba(255,255,255,.86);
+      font-size:14px;
+      line-height:1.4;
     }
 
-    .leafFill{
-      fill: url(#leafGrad);
-      opacity: 0;
-      transform-origin: 50% 90%;
-      transform: scale(.6);
-      animation: leafIn 5s ease forwards;
+    .ico{
+      width:34px; height:34px;
+      border-radius:14px;
+      display:grid; place-items:center;
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.10);
+      flex: 0 0 auto;
+      margin-top:2px;
+    }
+    .ico svg{display:block}
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      padding:10px 12px;
+      border-radius: 14px;
+      text-decoration:none;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+      width:fit-content;
+      max-width:100%;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+    .pill:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.08);
+      border-color: rgba(255,255,255,.16);
     }
 
-    .glow{
-      opacity:.0;
-      animation: glow 5s ease forwards;
+    footer{
+      margin-top:22px;
+      padding:18px 4px 0;
+      color:rgba(255,255,255,.58);
+      font-size:13px;
+      display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;
     }
+    footer a{color:rgba(255,255,255,.70); text-decoration:none}
+    footer a:hover{text-decoration:underline}
 
-    @keyframes draw{
-      0%{stroke-dashoffset:240; opacity:0}
-      12%{opacity:1}
-      100%{stroke-dashoffset:0; opacity:1}
-    }
-
-    @keyframes leafIn{
-      0%{opacity:0; transform: translateY(10px) scale(.55)}
-      35%{opacity:0; transform: translateY(10px) scale(.55)}
-      70%{opacity:.95; transform: translateY(0) scale(1)}
-      100%{opacity:.95; transform: translateY(0) scale(1)}
-    }
-
-    @keyframes glow{
-      0%{opacity:0; transform: scale(.9)}
-      40%{opacity:0}
-      75%{opacity:.22; transform: scale(1)}
-      100%{opacity:.0; transform: scale(1.08)}
-    }
-
-    .reveal{
-      opacity:0;
-      transform: translateY(10px);
-      animation: reveal .7s ease forwards;
-    }
-    .reveal.d2{animation-delay:.12s}
-    .reveal.d3{animation-delay:.24s}
-    @keyframes reveal{
-      to{opacity:1; transform: translateY(0)}
-    }
+    .reveal{opacity:0; transform: translateY(10px); transition: opacity .55s ease, transform .55s ease}
+    .reveal.on{opacity:1; transform: translateY(0)}
 
     @media (max-width: 980px){
-      .content{grid-template-columns: 1fr; gap:12px}
-      .art{min-height: 200px}
+      .grid{grid-template-columns:1fr}
     }
 
     @media (max-width: 480px){
-      body{padding:16px 14px}
+      .wrap{padding:16px 14px 54px}
+      .topbar{padding:12px 14px; gap:10px}
+      main{padding-top:16px}
       .panel{padding:16px; border-radius:20px}
       h1{font-size:24px; margin:12px 0 10px; letter-spacing:-.4px; line-height:1.12}
-      .lead{font-size:14px}
-      .count{width:100%; text-align:center; padding:14px 14px}
-      .art{min-height: 180px}
-      .sprout{width:min(280px, 92%)}
+      .kicker{width:100%; font-size:12px; padding:8px 10px}
+      .btn{height:56px; font-size:18px; width:100%}
+      .doc-actions{width:100%}
+      .doc-actions .btn{width:100%}
+      .pill{width:100%; justify-content:center}
     }
 
     @media (prefers-reduced-motion: reduce){
-      *{animation:none !important; transition:none !important}
-      .stem{stroke-dashoffset:0; opacity:1}
-      .leafFill{opacity:.95; transform:none}
-      .glow{opacity:0}
-      body{overflow:auto}
+      *{animation:none !important; transition:none !important; scroll-behavior:auto !important}
+      .reveal{opacity:1; transform:none}
     }
   </style>
 </head>
 
 <body>
-  <main class="panel" aria-label="Σύντομα κοντά σας">
-    <div class="content">
-      <section>
-        <div class="kicker reveal">
-          <span class="dot" aria-hidden="true"></span>
-          ΣΥΝΤΟΜΑ ΚΟΝΤΑ ΣΑΣ
+  <a class="skip" href="#content">Μετάβαση στο περιεχόμενο</a>
+
+  <header>
+    <div class="topbar">
+      <a class="brand" href="index.html" aria-label="EcoPlant αρχική">
+        <div class="logo" aria-hidden="true">
+          <img id="brandLogo" src="assets/ecoplant-logo.svg" alt="EcoPlant logo" />
         </div>
-        <h1 class="reveal d2">Κάτι πράσινο έρχεται σύντομα!! 🌱</h1>
-        <p class="lead reveal d3">
-          Επιστροφή στις ρίζες μας σε λίγα δευτερόλεπτα!
+        <div>
+          <strong>EcoPlant</strong>
+          <span>• 100% Organic •</span>
+        </div>
+      </a>
+
+      <nav class="mini-links" aria-label="Γρήγορο μενού">
+        <span class="lang-pill" aria-label="Γλώσσα">
+          <a class="lang-btn" href="downloads.html" aria-label="Ελληνικά (τρέχουσα σελίδα)">
+            <span class="flag" aria-hidden="true">
+              <svg viewBox="0 0 18 12" xmlns="http://www.w3.org/2000/svg">
+                <rect width="18" height="12" fill="#0D5EAF"/>
+                <g fill="#ffffff">
+                  <rect y="1.333" width="18" height="1.333"/>
+                  <rect y="4" width="18" height="1.333"/>
+                  <rect y="6.667" width="18" height="1.333"/>
+                  <rect y="9.333" width="18" height="1.333"/>
+                  <rect x="0" y="0" width="6.666" height="6.666" fill="#0D5EAF"/>
+                  <rect x="2.666" y="0" width="1.333" height="6.666"/>
+                  <rect x="0" y="2.666" width="6.666" height="1.333"/>
+                </g>
+              </svg>
+            </span>
+          </a>
+
+          <a class="lang-btn" href="en/downloads.html" aria-label="English">
+            <span class="flag" aria-hidden="true">
+              <svg viewBox="0 0 18 12" xmlns="http://www.w3.org/2000/svg">
+                <rect width="18" height="12" fill="#012169"/>
+                <path d="M0 0 L7 0 L18 7 L18 12 L11 12 L0 5 Z" fill="#ffffff" opacity="0.95"/>
+                <path d="M18 0 L11 0 L0 7 L0 12 L7 12 L18 5 Z" fill="#ffffff" opacity="0.95"/>
+                <path d="M18 0 L18 2 L13 0 Z" fill="#C8102E"/>
+                <path d="M0 0 L5 0 L0 3 Z" fill="#C8102E"/>
+                <path d="M18 12 L13 12 L18 9 Z" fill="#C8102E"/>
+                <path d="M0 12 L0 10 L5 12 Z" fill="#C8102E"/>
+                <rect x="0" y="4.5" width="18" height="3" fill="#ffffff"/>
+                <rect x="7.5" y="0" width="3" height="12" fill="#ffffff"/>
+                <rect x="0" y="5.25" width="18" height="1.5" fill="#C8102E"/>
+                <rect x="8.25" y="0" width="1.5" height="12" fill="#C8102E"/>
+              </svg>
+            </span>
+          </a>
+        </span>
+
+        <a href="/">Αρχική</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <main id="content">
+      <section class="panel reveal">
+        <div class="kicker">
+          <span class="dot" aria-hidden="true"></span>
+          ΕΓΧΕΙΡΙΔΙΑ &amp; ΟΔΗΓΙΕΣ
+        </div>
+
+        <h1>Αρχεία λήψης:</h1>
+        <p class="lead">
+          Εδώ θα βρείτε διαθέσιμα τα έντυπα ενημέρωσης, οδηγίες και εγχειρίδια.
         </p>
-        <div class="count reveal d3" id="countdown" aria-live="polite">5</div>
+
+        <div class="grid">
+          <div class="card">
+            <h2>Αρχεία EcoPlant</h2>
+            <div class="tiny">Όλα τα αρχεία είναι σε μορφή <b>.pdf</b>.</div>
+
+            <div class="docs" id="docs"></div>
+
+            <div class="tiny" style="margin-top:12px">
+              Περισσότερα αρχεία θα προστεθούν σύντομα.
+            </div>
+          </div>
+
+          <div class="card">
+            <h2>Live updates:</h2>
+
+            <div class="update-box">
+              <div class="update-row">
+                <span class="ico" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 8v5l3 2" stroke="rgba(255,255,255,.85)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M21 12a9 9 0 1 1-3.1-6.8" stroke="rgba(255,255,255,.55)" stroke-width="1.8" stroke-linecap="round"/>
+                    <path d="M21 3v6h-6" stroke="rgba(255,255,255,.55)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                <div>
+                  <div><strong>Last update</strong></div>
+                  <div class="muted" id="lastUpdate">—</div>
+                </div>
+              </div>
+
+              <div class="update-row">
+                <span class="ico" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <path d="M7 3h10v4H7V3Z" stroke="rgba(255,255,255,.85)" stroke-width="1.8" stroke-linejoin="round"/>
+                    <path d="M5 7h14v14H5V7Z" stroke="rgba(255,255,255,.55)" stroke-width="1.8" stroke-linejoin="round"/>
+                    <path d="M8 11h8" stroke="rgba(255,255,255,.35)" stroke-width="1.8" stroke-linecap="round"/>
+                    <path d="M8 15h8" stroke="rgba(255,255,255,.35)" stroke-width="1.8" stroke-linecap="round"/>
+                  </svg>
+                </span>
+                <div>
+                  <div><strong>Total Files</strong></div>
+                  <div class="muted"><span id="fileCount">0</span> PDFs</div>
+                </div>
+              </div>
+
+              <div class="update-row">
+                <span class="ico" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 3v10" stroke="rgba(255,255,255,.85)" stroke-width="1.8" stroke-linecap="round"/>
+                    <path d="M8 10l4 4 4-4" stroke="rgba(255,255,255,.55)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 17v3h14v-3" stroke="rgba(255,255,255,.35)" stroke-width="1.8" stroke-linecap="round"/>
+                  </svg>
+                </span>
+                <div>
+                  <div><strong>Quick download</strong></div>
+                  <a class="pill" id="latestLink" href="#" target="_blank" rel="noopener">Open latest PDF</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="tiny" style="margin-top:12px">
+              Τα αρχεία ενημερώνονται όταν υπάρχουν νεότερες εκδόσεις.
+            </div>
+          </div>
+        </div>
       </section>
 
-      <div class="art" aria-hidden="true">
-        <svg class="sprout" viewBox="0 0 360 320" xmlns="http://www.w3.org/2000/svg" fill="none">
-          <defs>
-            <linearGradient id="leafGrad" x1="80" y1="120" x2="300" y2="260" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#66F2B3" stop-opacity="0.95"/>
-              <stop offset="1" stop-color="#C8FF7A" stop-opacity="0.70"/>
-            </linearGradient>
-          </defs>
-
-          <circle class="glow" cx="180" cy="190" r="120" fill="url(#leafGrad)" opacity="0.16"/>
-
-          <path class="stem" d="M180 270C180 232 180 214 180 186C180 160 175 140 160 122"/>
-
-          <path class="leafFill" d="M156 125C140 114 115 112 92 126C109 151 134 163 156 165C169 166 182 161 192 153C175 140 165 133 156 125Z"/>
-
-          <path class="leafFill" d="M190 168C218 170 246 150 268 122C239 108 212 111 196 126C187 134 176 146 168 160C174 165 182 168 190 168Z"/>
-        </svg>
-      </div>
-    </div>
-  </main>
+      <footer>
+        <div>© <span id="y"></span> EcoPlant.bio • Κυκλοφορεί σύμφωνα με την 217217, ΦΕΚ 35/2004.</div>
+        <div><a href="mailto:info@ecoplant.bio">info@ecoplant.bio</a></div>
+      </footer>
+    </main>
+  </div>
 
   <script>
+    const LAST_UPDATE_ISO = "2026-02-08";
+    const LATEST_FILE = "assets/arc/Manual.v1.pdf";
+
+    const img = document.getElementById("brandLogo");
+    if(img){ img.addEventListener("error", () => { img.style.display = "none"; }); }
+
     (function(){
-      const el = document.getElementById("countdown");
-      let n = 5;
-      const tick = () => {
-        n -= 1;
-        if(el) el.textContent = String(Math.max(n, 0));
-        if(n <= 0){
-          clearInterval(timer);
-          window.location.href = "index.html";
-        }
-      };
-      if(el) el.textContent = String(n);
-      const timer = setInterval(tick, 1000);
+      const startYear = 2024;
+      const currentYear = new Date().getFullYear();
+      const text = (currentYear > startYear) ? `${startYear}–${currentYear}` : `${startYear}`;
+      const y = document.getElementById("y");
+      if(y) y.textContent = text;
     })();
+
+    function formatDate(iso){
+      if(!iso) return "—";
+      const parts = iso.split("-");
+      if(parts.length !== 3) return iso;
+      const y = parseInt(parts[0], 10);
+      const m = parseInt(parts[1], 10);
+      const d = parseInt(parts[2], 10);
+      if(!y || !m || !d) return iso;
+      const dt = new Date(Date.UTC(y, m-1, d));
+      return dt.toLocaleDateString("el-GR", { day:"2-digit", month:"2-digit", year:"numeric" });
+    }
+
+    const docsData = [
+      { title:"Έντυπο Παρουσίασης (Adv)", subtitle:"Σύντομη παρουσίαση & βασικά οφέλη του EcoPlant.", file:"assets/arc/adv.v1.pdf", date:"2026-02-08", type:"PDF" },
+      { title:"Οδηγός / Εγχειρίδιο (Manual)", subtitle:"Οδηγίες χρήσης και πρακτική καθοδήγηση εφαρμογής.", file:"assets/arc/Manual.v1.pdf", date:"2026-02-08", type:"PDF" }
+    ];
+
+    function makeDocCard(d){
+      const el = document.createElement("div");
+      el.className = "doc";
+      el.innerHTML = `
+        <div class="doc-top">
+          <div class="doc-title">
+            <div class="badge" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M7 3h7l3 3v15H7V3Z" stroke="rgba(255,255,255,.85)" stroke-width="1.8" stroke-linejoin="round"/>
+                <path d="M14 3v4h4" stroke="rgba(255,255,255,.55)" stroke-width="1.8" stroke-linejoin="round"/>
+                <path d="M9 12h6" stroke="rgba(255,255,255,.35)" stroke-width="1.8" stroke-linecap="round"/>
+                <path d="M9 15h6" stroke="rgba(255,255,255,.35)" stroke-width="1.8" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div>
+              <strong>${d.title}</strong>
+              <span>${d.subtitle}</span>
+              <div class="meta">
+                <span class="chip"><b>Ημ/νία:</b> ${formatDate(d.date)}</span>
+                <span class="chip"><b>Τύπος:</b> ${d.type || "PDF"}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="doc-actions">
+          <a class="btn" href="${d.file}" target="_blank" rel="noopener">Προβολή</a>
+          <a class="btn primary" href="${d.file}" download>Λήψη</a>
+        </div>
+      `;
+      return el;
+    }
+
+    const docsWrap = document.getElementById("docs");
+    docsData.forEach(d => docsWrap.appendChild(makeDocCard(d)));
+
+    const fileCount = document.getElementById("fileCount");
+    if(fileCount) fileCount.textContent = String(docsData.length);
+
+    const lastUpdate = document.getElementById("lastUpdate");
+    if(lastUpdate) lastUpdate.textContent = formatDate(LAST_UPDATE_ISO);
+
+    const latestLink = document.getElementById("latestLink");
+    if(latestLink){
+      if(LATEST_FILE){
+        latestLink.href = LATEST_FILE;
+      }else{
+        latestLink.href = "#";
+        latestLink.style.pointerEvents = "none";
+        latestLink.style.opacity = "0.6";
+      }
+    }
+
+    const items = document.querySelectorAll(".reveal");
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if(e.isIntersecting){
+          e.target.classList.add("on");
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    items.forEach(el => io.observe(el));
   </script>
 </body>
 </html>
