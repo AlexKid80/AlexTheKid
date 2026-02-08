@@ -729,12 +729,17 @@ ${message}
         const url = `mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
         const thanksUrl = new URL("thanks.html", window.location.href).toString();
-        sessionStorage.setItem("ecoplant_last_form", JSON.stringify({
-          name, email, phone, rating, message, ts: Date.now()
-        }));
+        sessionStorage.setItem("ecoplant_last_form", JSON.stringify({ name, email, phone, rating, message, ts: Date.now() }));
 
-        window.location.assign(thanksUrl);
-        setTimeout(()=>{ window.location.href = url; }, 250);
+        const a = document.createElement("a");
+        a.href = url;
+        a.target = "_blank";
+        a.rel = "noopener";
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+
+        window.location.href = thanksUrl;
       });
     }
 
