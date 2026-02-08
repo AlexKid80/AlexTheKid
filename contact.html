@@ -551,7 +551,7 @@
 
         <h1>Μιλήστε μαζί μας</h1>
         <p class="lead">
-          Για πληροφορίες, ή συνεργασίες παρακαλώ συμπληρώστε τη φόρμα επικοινωνίας ή καλέστε μας στο +30 69xxxxxxxx. Παρακαλούμε όχι για παραγγελίες.
+          Για πληροφορίες, ή συνεργασίες παρακαλώ συμπληρώστε τη φόρμα επικοινωνίας ή καλέστε μας στο 2312319652. Παρακαλούμε όχι για παραγγελίες.
         </p>
 
         <div class="grid">
@@ -637,10 +637,7 @@
                 </div>
                 <div class="partner-card" data-pdf="assets/cards/vikas-card.pdf">
                   <a class="cardLink" href="assets/cards/vikas-card.pdf" target="_blank" rel="noopener">
-                    <picture>
-                      <source srcset="assets/cards/vikas-card.webp" type="image/webp">
-                      <img class="cardImg" src="assets/cards/vikas-card.jpg" alt="Ψηφιακή κάρτα Vikas" loading="lazy" decoding="async" />
-                    </picture>
+                    <img class="cardImg" src="assets/cards/vikas-card.jpg" alt="Ψηφιακή κάρτα Vikas" loading="lazy" decoding="async" />
                   </a>
                   <a class="fallbackLink pill" href="assets/cards/vikas-card.pdf" target="_blank" rel="noopener">Άνοιγμα κάρτας (PDF)</a>
                 </div>
@@ -656,10 +653,7 @@
                 </div>
                 <div class="partner-card" data-pdf="assets/cards/georgiadis-card.pdf">
                   <a class="cardLink" href="assets/cards/georgiadis-card.pdf" target="_blank" rel="noopener">
-                    <picture>
-                      <source srcset="assets/cards/georgiadis-card.webp" type="image/webp">
-                      <img class="cardImg" src="assets/cards/georgiadis-card.jpg" alt="Ψηφιακή κάρτα Georgiadis" loading="lazy" decoding="async" />
-                    </picture>
+                    <img class="cardImg" src="assets/cards/georgiadis-card.jpg" alt="Ψηφιακή κάρτα Georgiadis" loading="lazy" decoding="async" />
                   </a>
                   <a class="fallbackLink pill" href="assets/cards/georgiadis-card.pdf" target="_blank" rel="noopener">Άνοιγμα κάρτας (PDF)</a>
                 </div>
@@ -689,13 +683,12 @@
     })();
 
     document.querySelectorAll(".partner-card").forEach(card=>{
-      const pic = card.querySelector("picture");
       const imgEl = card.querySelector(".cardImg");
       const fallback = card.querySelector(".fallbackLink");
       if(fallback) fallback.style.display = "none";
       if(imgEl){
         imgEl.addEventListener("error", ()=>{
-          if(pic) pic.style.display = "none";
+          imgEl.style.display = "none";
           if(fallback) fallback.style.display = "inline-flex";
         });
       }
