@@ -540,7 +540,7 @@
         <div class="grid">
           <div class="card">
             <h2>Αρχεία EcoPlant</h2>
-            <div class="tiny">Όλα τα αρχεία είναι σε μορφή <b>.pdf</b>.</div>
+            <div class="tiny">Όλα τα αρχεία είναι διαθέσιμα και για <b>κατέβασμα</b>.</div>
 
             <div class="docs" id="docs"></div>
 
@@ -578,7 +578,7 @@
                 </span>
                 <div>
                   <div><strong>Total Files</strong></div>
-                  <div class="muted"><span id="fileCount">0</span> PDFs</div>
+                  <div class="muted"><span id="fileCount">0</span> Files</div>
                 </div>
               </div>
 
@@ -612,8 +612,8 @@
   </div>
 
   <script>
-    const LAST_UPDATE_ISO = "2026-02-08";
-    const LATEST_FILE = "assets/arc/Manual.v1.pdf";
+    const LAST_UPDATE_ISO = "2026-02-09";
+    const LATEST_FILE = "assets/arc/EcoInfo1.jpg";
 
     const img = document.getElementById("brandLogo");
     if(img){ img.addEventListener("error", () => { img.style.display = "none"; }); }
@@ -639,6 +639,7 @@
     }
 
     const docsData = [
+      { title:"Οδηγος για οικιακή χρήση", subtitle:"Ενημερωτικό υλικό για λουλούδια κήπου.", file:"assets/arc/EcoInfo1.jpg", date:"2026-02-09", type:"JPG" },
       { title:"Έντυπο Παρουσίασης (Adv)", subtitle:"Σύντομη παρουσίαση & βασικά οφέλη του EcoPlant.", file:"assets/arc/adv.v1.pdf", date:"2026-02-08", type:"PDF" },
       { title:"Οδηγός / Εγχειρίδιο (Manual)", subtitle:"Οδηγίες χρήσης και πρακτική καθοδήγηση εφαρμογής.", file:"assets/arc/Manual.v1.pdf", date:"2026-02-08", type:"PDF" }
     ];
