@@ -201,20 +201,24 @@
   <main class="card" aria-live="polite">
     <div class="kicker">
       <span class="dot" aria-hidden="true"></span>
-      ΕΥΧΑΡΙΣΤΟΥΜΕ!
+      ΤΟ ΑΙΤΗΜΑ ΠΡΟΩΘΕΙΤΑΙ...!
     </div>
 
-    <h1>Καταχωρήθηκε, το αίτημά σας προωθείται. ✅</h1>
-    <p>Θα επικοινωνήσουμε μαζί σας το συντομότερο δυνατό.</p>
+    <h1>Για την ολοκλήρωση της παραγγελίας σας, παρακαλώ προχωρήστε στην αποστολή του email που θα εμφανιστεί σε λίγα δευτερόλεπτα. ✅</h1>
+    <p>Θα επικοινωνήσουμε μαζί σας το συντομότερο δυνατό για την επιβεβαίωση της παραγγελίας σας.</p>
 
-    <div class="count" id="count">8</div>
+    <div class="count" id="count">15</div>
 
     <a class="btn" href="/" aria-label="Επιστροφή στην αρχική">Επιστροφή στην αρχική</a>
   </main>
 
   <script>
-    let n = 8;
+    const COUNTDOWN_SECONDS = 15;
+
+    let n = COUNTDOWN_SECONDS;
     const el = document.getElementById("count");
+    if(el) el.textContent = String(n);
+
     const tick = () => {
       n -= 1;
       if(el) el.textContent = String(Math.max(0, n));
@@ -222,6 +226,7 @@
         window.location.href = "/";
       }
     };
+
     const i = setInterval(() => {
       tick();
       if(n <= 0) clearInterval(i);

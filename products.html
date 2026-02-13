@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="EcoPlant - Σύντομα κοντά σας." />
-  <title>Σύντομα κοντά σας!</title>
+  <meta name="description" content="EcoPlant - Προϊόντα και παραγγελίες." />
+  <title>Προϊόντα</title>
 
   <style>
     :root{
@@ -30,11 +30,7 @@
         radial-gradient(900px 600px at 85% 25%, rgba(200,255,122,.12), transparent 60%),
         radial-gradient(900px 800px at 35% 110%, rgba(50,213,131,.10), transparent 60%),
         linear-gradient(180deg, var(--bg0), var(--bg1));
-      overflow:hidden;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:22px 18px;
+      overflow-x:hidden;
     }
 
     body::before{
@@ -49,8 +45,127 @@
       mix-blend-mode:soft-light;
     }
 
+    a{color:inherit}
+    .skip{
+      position:absolute; left:-999px; top:0;
+      background:#fff; color:#000;
+      padding:.6rem 1rem; border-radius:10px;
+      z-index:1000;
+    }
+    .skip:focus{left:12px; top:12px}
+
+    .wrap{max-width:1100px; margin:0 auto; padding:22px 18px 60px}
+
+    header{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, rgba(6,21,12,.75), rgba(6,21,12,.25));
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+
+    .topbar{
+      width:100%;
+      padding:14px 22px;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:16px;
+    }
+
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      text-decoration:none;
+      min-width: 220px;
+    }
+
+    .logo{
+      width:34px; height:34px;
+      border-radius:12px;
+      overflow:hidden;
+      display:grid;
+      place-items:center;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(200,255,122,.9), rgba(50,213,131,.9));
+      box-shadow:0 10px 25px rgba(0,0,0,.35);
+    }
+    .logo img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      padding:4px;
+      display:block;
+    }
+
+    .brand strong{letter-spacing:.2px}
+    .brand span{display:block; font-size:12px; color:var(--muted); margin-top:2px}
+
+    .mini-links{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
+      margin-left:auto;
+      justify-content:flex-end;
+    }
+
+    .mini-links a{
+      font-size:13px;
+      color:var(--muted);
+      text-decoration:none;
+      padding:8px 10px;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:999px;
+      transition:transform .15s ease, background .15s ease, border-color .15s ease;
+      letter-spacing:.2px;
+    }
+    .mini-links a:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.14);
+      color:var(--text);
+    }
+
+    .lang-pill{
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      padding:6px 8px;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:999px;
+      background: rgba(255,255,255,.03);
+    }
+
+    a.lang-btn{
+      appearance:none;
+      border:0;
+      background:transparent;
+      cursor:pointer;
+      padding:4px 6px;
+      border-radius:10px;
+      transition: transform .12s ease, background .12s ease;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:6px;
+      text-decoration:none;
+    }
+    a.lang-btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.06);
+    }
+
+    .flag{
+      width:18px;
+      height:12px;
+      border-radius:3px;
+      overflow:hidden;
+      display:block;
+      box-shadow: 0 6px 14px rgba(0,0,0,.25);
+      border: 1px solid rgba(255,255,255,.14);
+    }
+    .flag svg{width:100%; height:100%; display:block}
+
+    main{padding-top:22px}
+
     .panel{
-      width:min(760px, 100%);
       border:1px solid rgba(255,255,255,.10);
       border-radius: var(--radius);
       background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
@@ -65,7 +180,7 @@
       position:absolute;
       width:520px; height:520px;
       border-radius:50%;
-      opacity:.24;
+      opacity:.22;
       pointer-events:none;
     }
     .panel::before{
@@ -81,18 +196,9 @@
     @keyframes float1{ 0%,100%{transform: translate(0,0)} 50%{transform: translate(25px, 18px)}}
     @keyframes float2{ 0%,100%{transform: translate(0,0)} 50%{transform: translate(-18px, -22px)}}
 
-    .content{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:18px;
-      align-items:center;
-      position:relative;
-      z-index:2;
-    }
-
     .kicker{
       display:inline-flex;
-      align-items:center;
+      align-items:flex-start;
       gap:10px;
       padding:8px 12px;
       border-radius:999px;
@@ -103,19 +209,24 @@
       width:fit-content;
       line-height:1.25;
       white-space:normal;
+      position:relative;
+      z-index:2;
     }
     .dot{
       width:8px; height:8px; border-radius:50%;
       background: var(--green);
       box-shadow:0 0 0 6px rgba(50,213,131,.12);
       flex: 0 0 auto;
+      margin-top:4px;
     }
 
     h1{
       margin:14px 0 10px;
-      font-size: clamp(24px, 3.2vw, 38px);
+      font-size: clamp(26px, 3.2vw, 40px);
       line-height:1.1;
       letter-spacing:-.6px;
+      position:relative;
+      z-index:2;
     }
 
     .lead{
@@ -123,168 +234,1266 @@
       color:var(--muted);
       font-size: 15px;
       line-height:1.6;
-      max-width: 62ch;
+      max-width: 78ch;
+      position:relative;
+      z-index:2;
     }
 
-    .count{
+    .notice{
       margin-top:14px;
-      width:fit-content;
-      padding:10px 14px;
-      border-radius: 16px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.16);
-      box-shadow: 0 14px 34px rgba(0,0,0,.26);
-      font-weight:800;
-      font-size: clamp(40px, 6vw, 64px);
-      letter-spacing: .5px;
-      line-height:1;
-      color: rgba(255,255,255,.92);
-      text-shadow: 0 10px 30px rgba(0,0,0,.35);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:18px;
+      background: linear-gradient(135deg, rgba(50,213,131,.14), rgba(200,255,122,.08));
+      padding:12px 12px;
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      position:relative;
+      z-index:2;
+    }
+    .notice .nicon{
+      width:36px; height:36px;
+      border-radius:14px;
+      display:grid; place-items:center;
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.10);
+      flex: 0 0 auto;
+      margin-top:1px;
+    }
+    .notice strong{display:block; font-size:14px}
+    .notice p{margin:2px 0 0; color:rgba(255,255,255,.78); font-size:13px; line-height:1.45}
+    .notice a{color:rgba(255,255,255,.90); text-decoration:none; border-bottom:1px dotted rgba(255,255,255,.25)}
+    .notice a:hover{border-bottom-color: rgba(255,255,255,.45)}
+
+    .grid{
+      margin-top:16px;
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap:14px;
+      position:relative;
+      z-index:2;
     }
 
-    .art{
+    .card{
+      border:1px solid rgba(255,255,255,.10);
+      border-radius: 18px;
+      background: rgba(255,255,255,.05);
+      padding:14px;
+      overflow:hidden;
+    }
+
+    .card h2{
+      margin:0 0 10px;
+      font-size:16px;
+      letter-spacing:.1px;
+    }
+
+    .tiny{
+      font-size:12px;
+      color: rgba(255,255,255,.62);
+      line-height:1.45;
+      margin: 6px 0 0;
+    }
+
+    .packs{
+      margin-top:10px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+
+    .pack{
+      border:1px solid rgba(255,255,255,.10);
+      border-radius: 18px;
+      background: rgba(255,255,255,.05);
+      padding:12px;
+      display:grid;
+      gap:10px;
+    }
+
+    .pack-top{
       display:flex;
+      gap:10px;
+      align-items:flex-start;
+      justify-content:space-between;
+    }
+
+    .pack-title strong{
+      display:block;
+      font-size:14px;
+      letter-spacing:.1px;
+    }
+    .pack-title span{
+      display:block;
+      font-size:12px;
+      color:var(--muted);
+      margin-top:2px;
+    }
+
+    .pillcol{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      align-items:flex-end;
+      flex: 0 0 auto;
+    }
+
+    .minpill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      padding:8px 10px;
+      border-radius:999px;
+      font-size:12px;
+      color: rgba(255,255,255,.78);
+      white-space:nowrap;
+    }
+    .minpill b{color: rgba(255,255,255,.90); font-weight:700}
+
+    .pricepill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.10);
+      padding:8px 10px;
+      border-radius:999px;
+      font-size:12px;
+      color: rgba(255,255,255,.80);
+      white-space:nowrap;
+    }
+    .pricepill b{color: rgba(255,255,255,.92); font-weight:800}
+    .pricepill svg{display:block}
+
+    .pimg{
+      width:100%;
+      aspect-ratio: 4 / 3;
+      border-radius: 16px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      display:grid;
+      place-items:center;
+    }
+    .pimg img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+    .pholder{
+      color: rgba(255,255,255,.55);
+      font-size:12px;
+      padding:10px;
+      text-align:center;
+    }
+
+    .pack-actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+
+    .qty{
+      width:120px;
+      max-width: 46vw;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.14);
+      color: var(--text);
+      padding:12px 12px;
+      outline:none;
+      font-size:14px;
+    }
+    .qty:focus{border-color: rgba(102,242,179,.35)}
+
+    .btn{
+      appearance:none;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      color:var(--text);
+      border-radius: 14px;
+      padding:12px 14px;
+      cursor:pointer;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+      display:inline-flex;
       align-items:center;
       justify-content:center;
-      min-height: 260px;
+      gap:10px;
+      text-decoration:none;
+      font-size:14px;
+      white-space:nowrap;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.10);
+      border-color: rgba(255,255,255,.18);
+    }
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(50,213,131,.22), rgba(200,255,122,.16));
+      border-color: rgba(102,242,179,.26);
+    }
+    .btn.danger{
+      background: rgba(255,255,255,.05);
+    }
+    .btn:disabled{
+      opacity:.55;
+      cursor:not-allowed;
+      transform:none;
     }
 
-    .sprout{
-      width:min(340px, 100%);
-      height:auto;
-      filter: drop-shadow(0 14px 30px rgba(0,0,0,.35));
+    .subhead{
+      margin-top:14px;
+      padding-top:14px;
+      border-top:1px solid rgba(255,255,255,.08);
     }
 
-    .stem{
-      stroke: rgba(255,255,255,.55);
-      stroke-width: 4;
-      stroke-linecap: round;
-      fill: none;
-      stroke-dasharray: 240;
-      stroke-dashoffset: 240;
-      animation: draw 5s ease forwards;
+    .statusdot{
+      width:12px;
+      height:12px;
+      border-radius:50%;
+      flex: 0 0 auto;
+      border: 1px solid rgba(255,255,255,.18);
+      box-shadow: 0 0 0 6px rgba(0,0,0,.08);
+      background: rgba(120,120,120,.55);
+      margin-left: auto;
+      align-self: center;
+    }
+    .statusdot.on{
+      background: rgba(50,213,131,.95);
+      box-shadow: 0 0 0 6px rgba(50,213,131,.12);
+    }
+    .statusdot.off{
+      background: rgba(255,90,90,.95);
+      box-shadow: 0 0 0 6px rgba(255,90,90,.10);
     }
 
-    .leafFill{
-      fill: url(#leafGrad);
-      opacity: 0;
-      transform-origin: 50% 90%;
-      transform: scale(.6);
-      animation: leafIn 5s ease forwards;
+    .cart{
+      margin-top:10px;
+      display:grid;
+      gap:10px;
     }
 
-    .glow{
-      opacity:.0;
-      animation: glow 5s ease forwards;
+    .formgrid{
+      border:1px solid rgba(255,255,255,.10);
+      border-radius: 18px;
+      background: rgba(0,0,0,.12);
+      padding:12px;
+      display:grid;
+      gap:10px;
     }
 
-    @keyframes draw{
-      0%{stroke-dashoffset:240; opacity:0}
-      12%{opacity:1}
-      100%{stroke-dashoffset:0; opacity:1}
+    .fg-row{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
     }
 
-    @keyframes leafIn{
-      0%{opacity:0; transform: translateY(10px) scale(.55)}
-      35%{opacity:0; transform: translateY(10px) scale(.55)}
-      70%{opacity:.95; transform: translateY(0) scale(1)}
-      100%{opacity:.95; transform: translateY(0) scale(1)}
+    .field{
+      display:grid;
+      gap:6px;
     }
 
-    @keyframes glow{
-      0%{opacity:0; transform: scale(.9)}
-      40%{opacity:0}
-      75%{opacity:.22; transform: scale(1)}
-      100%{opacity:.0; transform: scale(1.08)}
+    .field label{
+      font-size:12px;
+      color: rgba(255,255,255,.72);
+      letter-spacing:.2px;
     }
 
-    .reveal{
-      opacity:0;
-      transform: translateY(10px);
-      animation: reveal .7s ease forwards;
+    .in{
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.14);
+      color: var(--text);
+      padding:12px 12px;
+      outline:none;
+      font-size:14px;
+      width:100%;
     }
-    .reveal.d2{animation-delay:.12s}
-    .reveal.d3{animation-delay:.24s}
-    @keyframes reveal{
-      to{opacity:1; transform: translateY(0)}
+    .in:focus{border-color: rgba(102,242,179,.35)}
+
+    .reqline{
+      font-size:12px;
+      color: rgba(255,255,255,.65);
+      line-height:1.4;
     }
+
+    .cartbox{
+      border:1px solid rgba(255,255,255,.10);
+      border-radius: 18px;
+      background: rgba(0,0,0,.12);
+      padding:12px;
+      display:grid;
+      gap:10px;
+      min-height: 170px;
+    }
+
+    .empty{
+      color: rgba(255,255,255,.62);
+      font-size:13px;
+      line-height:1.5;
+      padding:10px 6px;
+    }
+
+    .line{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      justify-content:space-between;
+      padding:10px 10px;
+      border:1px solid rgba(255,255,255,.10);
+      border-radius: 16px;
+      background: rgba(255,255,255,.04);
+    }
+
+    .line strong{display:block; font-size:13px}
+    .line span{display:block; font-size:12px; color: rgba(255,255,255,.65); margin-top:2px}
+
+    .rightcol{
+      display:flex;
+      flex-direction:column;
+      align-items:flex-end;
+      gap:8px;
+    }
+
+    .qbadge{
+      min-width: 46px;
+      height:36px;
+      border-radius: 14px;
+      display:grid; place-items:center;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.05);
+      color: rgba(255,255,255,.90);
+      font-weight:700;
+      letter-spacing:.2px;
+      padding:0 10px;
+    }
+
+    .money{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 10px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      color: rgba(255,255,255,.90);
+      font-weight:800;
+      font-size:12px;
+      white-space:nowrap;
+    }
+    .money svg{display:block}
+
+    .totalbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      padding:12px 12px;
+      border-radius: 16px;
+      border:1px solid rgba(102,242,179,.22);
+      background: linear-gradient(135deg, rgba(50,213,131,.16), rgba(200,255,122,.10));
+    }
+    .totalbar strong{font-size:13px; letter-spacing:.1px}
+    .totalbar b{font-size:15px}
+
+    .cart-actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:flex-start;
+      margin-top:10px;
+    }
+
+    .hint{
+      margin-top:10px;
+      color: rgba(255,255,255,.62);
+      font-size:12px;
+      line-height:1.45;
+    }
+
+    .eshop-wrap{
+      margin-top:14px;
+      position:relative;
+      z-index:2;
+    }
+    .eshop-btn{
+      width:100%;
+      justify-content:center;
+      font-size:21px;
+      padding:16px 18px;
+      letter-spacing:.02em;
+    }
+
+    footer{
+      margin-top:22px;
+      padding:18px 4px 0;
+      color:rgba(255,255,255,.58);
+      font-size:13px;
+      display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;
+    }
+    footer a{color:rgba(255,255,255,.70); text-decoration:none}
+    footer a:hover{text-decoration:underline}
+
+    .reveal{opacity:0; transform: translateY(10px); transition: opacity .55s ease, transform .55s ease}
+    .reveal.on{opacity:1; transform: translateY(0)}
 
     @media (max-width: 980px){
-      .content{grid-template-columns: 1fr; gap:12px}
-      .art{min-height: 200px}
+      .grid{grid-template-columns:1fr}
+    }
+
+    @media (max-width: 680px){
+      .packs{grid-template-columns: 1fr}
+      .fg-row{grid-template-columns: 1fr}
     }
 
     @media (max-width: 480px){
-      body{padding:16px 14px}
+      .wrap{padding:16px 14px 54px}
+      .topbar{padding:12px 14px; gap:10px}
+      .brand{min-width:auto; gap:8px}
+      .logo{width:32px; height:32px; border-radius:12px}
+      .brand span{font-size:11px}
+      main{padding-top:16px}
       .panel{padding:16px; border-radius:20px}
       h1{font-size:24px; margin:12px 0 10px; letter-spacing:-.4px; line-height:1.12}
-      .lead{font-size:14px}
-      .count{width:100%; text-align:center; padding:14px 14px}
-      .art{min-height: 180px}
-      .sprout{width:min(280px, 92%)}
+      .kicker{width:100%; font-size:12px; padding:8px 10px}
+      .notice{padding:12px}
+      .qty{width:100%; max-width:100%}
+      .btn{height:56px; font-size:18px; width:100%; justify-content:center}
+      .pack-actions{width:100%}
+      .pack-actions .btn{width:100%}
+      .eshop-btn{width:100%; font-size:22px}
+      .rightcol{align-items:stretch; width:100%}
+      .money{justify-content:center}
     }
 
     @media (prefers-reduced-motion: reduce){
-      *{animation:none !important; transition:none !important}
-      .stem{stroke-dashoffset:0; opacity:1}
-      .leafFill{opacity:.95; transform:none}
-      .glow{opacity:0}
-      body{overflow:auto}
+      *{animation:none !important; transition:none !important; scroll-behavior:auto !important}
+      .reveal{opacity:1; transform:none}
     }
   </style>
 </head>
 
 <body>
-  <main class="panel" aria-label="Σύντομα κοντά σας">
-    <div class="content">
-      <section>
-        <div class="kicker reveal">
-          <span class="dot" aria-hidden="true"></span>
-          ΣΥΝΤΟΜΑ ΚΟΝΤΑ ΣΑΣ
+  <a class="skip" href="#content">Μετάβαση στο περιεχόμενο</a>
+
+  <header>
+    <div class="topbar">
+      <a class="brand" href="index.html" aria-label="EcoPlant αρχική">
+        <div class="logo" aria-hidden="true">
+          <img id="brandLogo" src="assets/ecoplant-logo.svg" alt="EcoPlant logo" />
         </div>
-        <h1 class="reveal d2">Κάτι πράσινο έρχεται σύντομα!! 🌱</h1>
-        <p class="lead reveal d3">
-          Επιστροφή στις ρίζες μας σε λίγα δευτερόλεπτα!
+        <div>
+          <strong>EcoPlant</strong>
+          <span>• 100% Organic •</span>
+        </div>
+      </a>
+
+      <nav class="mini-links" aria-label="Γρήγορο μενού">
+        <span class="lang-pill" aria-label="Γλώσσα">
+          <a class="lang-btn" href="products.html" aria-label="Ελληνικά (τρέχουσα σελίδα)">
+            <span class="flag" aria-hidden="true">
+              <svg viewBox="0 0 18 12" xmlns="http://www.w3.org/2000/svg">
+                <rect width="18" height="12" fill="#0D5EAF"/>
+                <g fill="#ffffff">
+                  <rect y="1.333" width="18" height="1.333"/>
+                  <rect y="4" width="18" height="1.333"/>
+                  <rect y="6.667" width="18" height="1.333"/>
+                  <rect y="9.333" width="18" height="1.333"/>
+                  <rect x="0" y="0" width="6.666" height="6.666" fill="#0D5EAF"/>
+                  <rect x="2.666" y="0" width="1.333" height="6.666"/>
+                  <rect x="0" y="2.666" width="6.666" height="1.333"/>
+                </g>
+              </svg>
+            </span>
+          </a>
+
+          <a class="lang-btn" href="en/products.html" aria-label="English">
+            <span class="flag" aria-hidden="true">
+              <svg viewBox="0 0 18 12" xmlns="http://www.w3.org/2000/svg">
+                <rect width="18" height="12" fill="#012169"/>
+                <path d="M0 0 L7 0 L18 7 L18 12 L11 12 L0 5 Z" fill="#ffffff" opacity="0.95"/>
+                <path d="M18 0 L11 0 L0 7 L0 12 L7 12 L18 5 Z" fill="#ffffff" opacity="0.95"/>
+                <path d="M18 0 L18 2 L13 0 Z" fill="#C8102E"/>
+                <path d="M0 0 L5 0 L0 3 Z" fill="#C8102E"/>
+                <path d="M18 12 L13 12 L18 9 Z" fill="#C8102E"/>
+                <path d="M0 12 L0 10 L5 12 Z" fill="#C8102E"/>
+                <rect x="0" y="4.5" width="18" height="3" fill="#ffffff"/>
+                <rect x="7.5" y="0" width="3" height="12" fill="#ffffff"/>
+                <rect x="0" y="5.25" width="18" height="1.5" fill="#C8102E"/>
+                <rect x="8.25" y="0" width="1.5" height="12" fill="#C8102E"/>
+              </svg>
+            </span>
+          </a>
+        </span>
+
+        <a href="tel:2312319652">231 231 9652</a>
+        <a href="/">Αρχική</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <main id="content">
+      <section class="panel reveal">
+        <div class="kicker">
+          <span class="dot" aria-hidden="true"></span>
+          ΠΡΟΪΟΝΤΑ & ΠΑΡΑΓΓΕΛΙΕΣ
+        </div>
+
+        <h1>Παραγγελίες EcoPlant!</h1>
+        <p class="lead">
+          Στη λίστα θα εμφανίζονται τα προϊόντα στη συσκευασία και ποσότητα  που επιλέχθηκαν.
         </p>
-        <div class="count reveal d3" id="countdown" aria-live="polite">5</div>
+
+        <div class="notice" role="note" aria-label="Σημαντική ενημέρωση">
+          <div class="nicon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M12 9v4" stroke="rgba(255,255,255,.85)" stroke-width="2" stroke-linecap="round"/>
+              <path d="M12 17h.01" stroke="rgba(255,255,255,.85)" stroke-width="3" stroke-linecap="round"/>
+              <path d="M10.3 4.6l-7.5 13A2 2 0 0 0 4.5 21h15a2 2 0 0 0 1.7-3.4l-7.5-13a2 2 0 0 0-3.4 0Z" stroke="rgba(255,255,255,.55)" stroke-width="1.8" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div>
+            <strong>Προσοχή !!!</strong>
+            <p>
+              Προς το παρών, παραγγελίες γίνονται δέκτες μόνο μέσο μέσω email στο <a href="mailto:sales@ecoplant.bio">sales@ecoplant.bio</a> ή τηλεφωνικά στο <a href="tel:2312319652">2312319652</a>.
+              Το e-shop θα ενεργοποιηθεί σύντομα.
+            </p>
+          </div>
+        </div>
+
+        <div class="grid">
+          <div class="card">
+            <h2>EcoPlant Σε υγρή μορφή.</h2>
+            <div class="tiny">Για <b>γενική χρήση!!</b> Ερασιτεχνικά ή επαγγελματικά για οικιακή χρήση ή και καλλιέργειες διαφόρων φυτών και δένδρων. Το <b>μόνο πιστοποιημένο εδαφοβελτιωτικό</b> στην Ελλάδα!</div>
+
+            <div class="packs" aria-label="Συσκευασίες EcoPlant Liquid">
+              <div class="pack" data-pack="60ml" data-min="10">
+                <div class="pack-top">
+                  <div class="pack-title">
+                    <strong>Συσκευασία 60ml</strong>
+                    <span>Μικρή συσκευασία / Οικιακή χρήση.</span>
+                  </div>
+                  <div class="pillcol">
+                    <div class="minpill">Min: <b>10</b></div>
+                    <div class="pricepill" aria-label="Κόστος">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M14 4h-4a4 4 0 0 0 0 8h4a4 4 0 0 1 0 8h-4" stroke="rgba(255,255,255,.85)" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M12 2v20" stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-linecap="round"/>
+                      </svg>
+                      €: <b class="packPrice">—</b>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="pimg">
+                  <img src="assets/arc/60ml.jpg" alt="EcoPlant Liquid 60ml" loading="lazy" />
+                </div>
+
+                <div class="pack-actions">
+                  <input class="qty" type="number" inputmode="numeric" min="10" step="1" value="10" aria-label="Ποσότητα 60ml (ελάχιστο 10)" />
+                  <button class="btn primary addPack" type="button">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path d="M12 5v14" stroke="rgba(255,255,255,.85)" stroke-width="2" stroke-linecap="round"/>
+                      <path d="M5 12h14" stroke="rgba(255,255,255,.85)" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    Προσθήκη
+                  </button>
+                </div>
+              </div>
+
+              <div class="pack" data-pack="1L" data-min="1">
+                <div class="pack-top">
+                  <div class="pack-title">
+                    <strong>Συσκευασία 1L</strong>
+                    <span>Οικιακή / Ερασιτεχνική χρήση.</span>
+                  </div>
+                  <div class="pillcol">
+                    <div class="minpill">Min: <b>1</b></div>
+                    <div class="pricepill" aria-label="Κόστος">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M14 4h-4a4 4 0 0 0 0 8h4a4 4 0 0 1 0 8h-4" stroke="rgba(255,255,255,.85)" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M12 2v20" stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-linecap="round"/>
+                      </svg>
+                      €: <b class="packPrice">—</b>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="pimg">
+                  <img src="assets/arc/1l.jpg" alt="EcoPlant Liquid 1L" loading="lazy" />
+                </div>
+
+                <div class="pack-actions">
+                  <input class="qty" type="number" inputmode="numeric" min="1" step="1" value="1" aria-label="Ποσότητα 1L (ελάχιστο 1)" />
+                  <button class="btn primary addPack" type="button">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path d="M12 5v14" stroke="rgba(255,255,255,.85)" stroke-width="2" stroke-linecap="round"/>
+                      <path d="M5 12h14" stroke="rgba(255,255,255,.85)" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    Προσθήκη
+                  </button>
+                </div>
+              </div>
+
+              <div class="pack" data-pack="5L" data-min="1">
+                <div class="pack-top">
+                  <div class="pack-title">
+                    <strong>Συσκευασία 5L</strong>
+                    <span>Ερασιτεχνική / Επαγγελματική χρήση.</span>
+                  </div>
+                  <div class="pillcol">
+                    <div class="minpill">Min: <b>1</b></div>
+                    <div class="pricepill" aria-label="Κόστος">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M14 4h-4a4 4 0 0 0 0 8h4a4 4 0 0 1 0 8h-4" stroke="rgba(255,255,255,.85)" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M12 2v20" stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-linecap="round"/>
+                      </svg>
+                      €: <b class="packPrice">—</b>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="pimg">
+                  <img src="assets/arc/5l.jpg" alt="EcoPlant Liquid 5L" loading="lazy" />
+                </div>
+
+                <div class="pack-actions">
+                  <input class="qty" type="number" inputmode="numeric" min="1" step="1" value="1" aria-label="Ποσότητα 5L (ελάχιστο 1)" />
+                  <button class="btn primary addPack" type="button">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path d="M12 5v14" stroke="rgba(255,255,255,.85)" stroke-width="2" stroke-linecap="round"/>
+                      <path d="M5 12h14" stroke="rgba(255,255,255,.85)" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    Προσθήκη
+                  </button>
+                </div>
+              </div>
+
+              <div class="pack" data-pack="20L" data-min="1">
+                <div class="pack-top">
+                  <div class="pack-title">
+                    <strong>Συσκευασία 20L</strong>
+                    <span>Μεγάλη συσκευασία / Επαγγελματική χρήση.</span>
+                  </div>
+                  <div class="pillcol">
+                    <div class="minpill">Min: <b>1</b></div>
+                    <div class="pricepill" aria-label="Κόστος">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M14 4h-4a4 4 0 0 0 0 8h4a4 4 0 0 1 0 8h-4" stroke="rgba(255,255,255,.85)" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M12 2v20" stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-linecap="round"/>
+                      </svg>
+                      €: <b class="packPrice">—</b>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="pimg">
+                  <img src="assets/arc/20l.jpg" alt="EcoPlant Liquid 20L" loading="lazy" />
+                </div>
+
+                <div class="pack-actions">
+                  <input class="qty" type="number" inputmode="numeric" min="1" step="1" value="1" aria-label="Ποσότητα 20L (ελάχιστο 1)" />
+                  <button class="btn primary addPack" type="button">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path d="M12 5v14" stroke="rgba(255,255,255,.85)" stroke-width="2" stroke-linecap="round"/>
+                      <path d="M5 12h14" stroke="rgba(255,255,255,.85)" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    Προσθήκη
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="subhead">
+              <h2>Προσφορές:</h2>
+              <div class="tiny">Οι προσφορές θα ανανεώνονται <b>συνέχεια</b>, μπορούν να αλλάξουν ή και να σταματήσουν εντελώς <b>χωρίς προειδοποίηση</b>. Οι <b>           ενεργές </b> προσφορές αυτή τη στιγμή είναι με <b>πράσινο</b>.</div>
+
+              <div class="packs" aria-label="Προσφορές EcoPlant">
+                <div class="pack" data-pack="OFF1" data-min="1" data-enabled="1">
+                  <div class="pack-top">
+                    <div class="pack-title">
+                      <strong>1L + 2×60ml</strong>
+                      <span>Η <b>καλύτερη</b> προσφορά για τα λουλούδια σας!</span>
+                    </div>
+                    <div class="pillcol">
+                      <div class="minpill">Min: <b>1</b></div>
+                      <div class="pricepill" aria-label="Κόστος">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                          <path d="M14 4h-4a4 4 0 0 0 0 8h4a4 4 0 0 1 0 8h-4" stroke="rgba(255,255,255,.85)" stroke-width="2" stroke-linecap="round"/>
+                          <path d="M12 2v20" stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        €: <b class="packPrice">—</b>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="pimg">
+                    <img src="assets/arc/12.jpg" alt="Προσφορά 1L + 2×60ml" loading="lazy" />
+                  </div>
+
+                  <div class="pack-actions">
+                    <input class="qty" type="number" inputmode="numeric" min="1" step="1" value="1" aria-label="Ποσότητα προσφοράς 1 (ελάχιστο 1)" />
+                    <button class="btn primary addPack" type="button">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M12 5v14" stroke="rgba(255,255,255,.85)" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M5 12h14" stroke="rgba(255,255,255,.85)" stroke-width="2" stroke-linecap="round"/>
+                      </svg>
+                      Προσθήκη
+                    </button>
+                    <span class="statusdot" title="Διαθεσιμότητα προσφοράς" aria-label="Διαθεσιμότητα προσφοράς"></span>
+                  </div>
+                </div>
+
+                <div class="pack" data-pack="OFF2" data-min="1" data-enabled="0">
+                  <div class="pack-top">
+                    <div class="pack-title">
+                      <strong>5L + 6×60ml</strong>
+                      <span>Ότι χρειάζεστε για <b>μικρούς κήπους</b> και λουλούδια στα <b>μπαλκόνια.</b></span>
+                    </div>
+                    <div class="pillcol">
+                      <div class="minpill">Min: <b>1</b></div>
+                      <div class="pricepill" aria-label="Κόστος">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                          <path d="M14 4h-4a4 4 0 0 0 0 8h4a4 4 0 0 1 0 8h-4" stroke="rgba(255,255,255,.85)" stroke-width="2" stroke-linecap="round"/>
+                          <path d="M12 2v20" stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        €: <b class="packPrice">—</b>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="pimg">
+                    <img src="assets/arc/54.jpg" alt="Προσφορά 5L + 4×60ml" loading="lazy" />
+                  </div>
+
+                  <div class="pack-actions">
+                    <input class="qty" type="number" inputmode="numeric" min="1" step="1" value="1" aria-label="Ποσότητα προσφοράς 2 (ελάχιστο 1)" />
+                    <button class="btn primary addPack" type="button">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M12 5v14" stroke="rgba(255,255,255,.85)" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M5 12h14" stroke="rgba(255,255,255,.85)" stroke-width="2" stroke-linecap="round"/>
+                      </svg>
+                      Προσθήκη
+                    </button>
+                    <span class="statusdot" title="Διαθεσιμότητα προσφοράς" aria-label="Διαθεσιμότητα προσφοράς"></span>
+                  </div>
+                </div>
+
+                <div class="pack" data-pack="OFF3" data-min="1" data-enabled="0">
+                  <div class="pack-top">
+                    <div class="pack-title">
+                      <strong>20L + 1L</strong>
+                      <span>Για να υπάρχει ή και για επαγγελματική χρήση.</span>
+                    </div>
+                    <div class="pillcol">
+                      <div class="minpill">Min: <b>1</b></div>
+                      <div class="pricepill" aria-label="Κόστος">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                          <path d="M14 4h-4a4 4 0 0 0 0 8h4a4 4 0 0 1 0 8h-4" stroke="rgba(255,255,255,.85)" stroke-width="2" stroke-linecap="round"/>
+                          <path d="M12 2v20" stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        €: <b class="packPrice">—</b>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="pimg">
+                    <img src="assets/arc/201.jpg" alt="Προσφορά 20L + 1L" loading="lazy" />
+                  </div>
+
+                  <div class="pack-actions">
+                    <input class="qty" type="number" inputmode="numeric" min="1" step="1" value="1" aria-label="Ποσότητα προσφοράς 3 (ελάχιστο 1)" />
+                    <button class="btn primary addPack" type="button">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M12 5v14" stroke="rgba(255,255,255,.85)" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M5 12h14" stroke="rgba(255,255,255,.85)" stroke-width="2" stroke-linecap="round"/>
+                      </svg>
+                      Προσθήκη
+                    </button>
+                    <span class="statusdot" title="Διαθεσιμότητα προσφοράς" aria-label="Διαθεσιμότητα προσφοράς"></span>
+                  </div>
+                </div>
+
+                <div class="pack" data-pack="OFF4" data-min="1" data-enabled="1">
+                  <div class="pack-top">
+                    <div class="pack-title">
+                      <strong>15×60ml</strong>
+                      <span>Ιδανικό πακέτο για συχνή χρήση και αποθήκευση.</span>
+                    </div>
+                    <div class="pillcol">
+                      <div class="minpill">Min: <b>1</b></div>
+                      <div class="pricepill" aria-label="Κόστος">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                          <path d="M14 4h-4a4 4 0 0 0 0 8h4a4 4 0 0 1 0 8h-4" stroke="rgba(255,255,255,.85)" stroke-width="2" stroke-linecap="round"/>
+                          <path d="M12 2v20" stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        €: <b class="packPrice">—</b>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="pimg">
+                    <img src="assets/arc/156.jpg" alt="Προσφορά 15×60ml" loading="lazy" />
+                  </div>
+
+                  <div class="pack-actions">
+                    <input class="qty" type="number" inputmode="numeric" min="1" step="1" value="1" aria-label="Ποσότητα προσφοράς 4 (ελάχιστο 1)" />
+                    <button class="btn primary addPack" type="button">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M12 5v14" stroke="rgba(255,255,255,.85)" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M5 12h14" stroke="rgba(255,255,255,.85)" stroke-width="2" stroke-linecap="round"/>
+                      </svg>
+                      Προσθήκη
+                    </button>
+                    <span class="statusdot" title="Διαθεσιμότητα προσφοράς" aria-label="Διαθεσιμότητα προσφοράς"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="hint">Προσθέστε όσα τεμάχια θέλετε σε κάθε συσκευασία. Παρακαλώ προχωρήστε στην ολοκλήρωση της παραγγελίας με την <b>αποστολή του email.</b> Σε λίγα 24ωρα θα επικοινωνήσουμε μαζί σας για την επιβεβαίωση της παραγγελίας σας. Για περισσότερες πληροφορίες σχετικά με <b>οτιδήποτε</b>, παρακαλώ καλέστε μας στο <b>231 231 9652</b>. Ευχαριστούμε που μας επιλέξατε.</div>
+          </div>
+
+          <div class="card">
+            <h2>Η επιλογές σας:</h2>
+            <div class="tiny">Συμπληρώστε <b>Ονοματεπώνυμο</b> και <b>Τηλέφωνο</b> για να προχωρήσετε.</div>
+
+            <div class="cart">
+              <div class="formgrid" aria-label="Στοιχεία επικοινωνίας">
+                <div class="fg-row">
+                  <div class="field">
+                    <label for="custName">Ονοματεπώνυμο</label>
+                    <input id="custName" class="in" type="text" autocomplete="name" placeholder="π.χ. Δημήτρης Παπαδόπουλος" />
+                  </div>
+                  <div class="field">
+                    <label for="custPhone">Τηλέφωνο</label>
+                    <input id="custPhone" class="in" type="tel" inputmode="tel" autocomplete="tel" placeholder="π.χ. 69xxxxxxxx" />
+                  </div>
+                </div>
+                <div class="reqline" id="reqLine">Υποχρεωτικά πεδία για επιβεβαίωση παραγγελίας.</div>
+              </div>
+
+              <div id="cartBox" class="cartbox" aria-live="polite">
+                <div id="emptyState" class="empty">Δεν έχετε προσθέσει προϊόντα ακόμα.</div>
+              </div>
+
+              <div class="cart-actions">
+                <button id="orderBtn" class="btn primary" type="button" disabled>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M4 7h16v10H7l-3 3V7Z" stroke="rgba(255,255,255,.85)" stroke-width="1.8" stroke-linejoin="round"/>
+                    <path d="M7 11h10" stroke="rgba(255,255,255,.55)" stroke-width="1.8" stroke-linecap="round"/>
+                    <path d="M7 14h7" stroke="rgba(255,255,255,.35)" stroke-width="1.8" stroke-linecap="round"/>
+                  </svg>
+                  Παραγγελία
+                </button>
+
+                <button id="clearBtn" class="btn danger" type="button" disabled>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M6 7h12" stroke="rgba(255,255,255,.85)" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M9 7V5h6v2" stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M8 7l1 14h6l1-14" stroke="rgba(255,255,255,.35)" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                  Καθαρισμός
+                </button>
+              </div>
+
+              <div class="tiny">
+                Για την <b>ολοκλήρωση</b> της παραγγελίας σας, παρακαλώ προχωρήστε στην <b>αποστολή του email</b> που θα εμφανιστεί σε λίγα δευτερόλεπτα. Σε λίγα 24ωρα από τη αποστολή του email θα επικοινωνήσουμε μαζί σας για την <b>επιβεβαίωση</b> της παραγγελίας σας. Αν προτιμάτε, καλέστε μας στο <b>231 231 9652</b>.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="eshop-wrap">
+          <a class="btn eshop-btn" href="eshop.html" aria-label="Μετάβαση στο e-shop (προσωρινό)">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M6 8h15l-1.2 11H7.2L6 8Z" stroke="rgba(255,255,255,.85)" stroke-width="1.8" stroke-linejoin="round"/>
+              <path d="M9 8a3 3 0 0 1 6 0" stroke="rgba(255,255,255,.55)" stroke-width="1.8" stroke-linecap="round"/>
+              <path d="M4 8h2" stroke="rgba(255,255,255,.35)" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+            E-Shop (σύντομα)
+          </a>
+        </div>
       </section>
 
-      <div class="art" aria-hidden="true">
-        <svg class="sprout" viewBox="0 0 360 320" xmlns="http://www.w3.org/2000/svg" fill="none">
-          <defs>
-            <linearGradient id="leafGrad" x1="80" y1="120" x2="300" y2="260" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#66F2B3" stop-opacity="0.95"/>
-              <stop offset="1" stop-color="#C8FF7A" stop-opacity="0.70"/>
-            </linearGradient>
-          </defs>
-
-          <circle class="glow" cx="180" cy="190" r="120" fill="url(#leafGrad)" opacity="0.16"/>
-
-          <path class="stem" d="M180 270C180 232 180 214 180 186C180 160 175 140 160 122"/>
-
-          <path class="leafFill" d="M156 125C140 114 115 112 92 126C109 151 134 163 156 165C169 166 182 161 192 153C175 140 165 133 156 125Z"/>
-
-          <path class="leafFill" d="M190 168C218 170 246 150 268 122C239 108 212 111 196 126C187 134 176 146 168 160C174 165 182 168 190 168Z"/>
-        </svg>
-      </div>
-    </div>
-  </main>
+      <footer>
+        <div>© <span id="y"></span> EcoPlant.bio • Κυκλοφορεί σύμφωνα με την 217217, ΦΕΚ 35/2004.</div>
+        <div><a href="mailto:info@ecoplant.bio">info@ecoplant.bio</a></div>
+      </footer>
+    </main>
+  </div>
 
   <script>
+    const SALES_EMAIL = "sales@ecoplant.bio";
+    const ORDER_SUBJECT = "NEW ORDER";
+    const AFTER_ORDER_REDIRECT = "order.html";
+
+    const PRICES = {
+      "60ml": 2,
+      "1L": 25,
+      "5L": 100,
+      "20L": 300,
+      "OFF1": 25,
+      "OFF2": 100,
+      "OFF3": 300,
+      "OFF4": 25
+    };
+
+    const LABELS = {
+      "60ml": "EcoPlant Liquid - 60ml",
+      "1L": "EcoPlant Liquid - 1L",
+      "5L": "EcoPlant Liquid - 5L",
+      "20L": "EcoPlant Liquid - 20L",
+      "OFF1": "Προσφορά: 1L + 2×60ml",
+      "OFF2": "Προσφορά: 5L + 4×60ml",
+      "OFF3": "Προσφορά: 20L + 1L",
+      "OFF4": "Προσφορά: 15×60ml"
+    };
+
+    const UNIT = {
+      "60ml": "τεμ.",
+      "1L": "τεμ.",
+      "5L": "τεμ.",
+      "20L": "τεμ.",
+      "OFF1": "προσφορά",
+      "OFF2": "προσφορά",
+      "OFF3": "προσφορά",
+      "OFF4": "προσφορά"
+    };
+
+    const SORT_ORDER = ["OFF3","OFF2","OFF1","OFF4","20L","5L","1L","60ml"];
+
+    const img = document.getElementById("brandLogo");
+    if(img){ img.addEventListener("error", () => { img.style.display = "none"; }); }
+
     (function(){
-      const el = document.getElementById("countdown");
-      let n = 5;
-      const tick = () => {
-        n -= 1;
-        if(el) el.textContent = String(Math.max(n, 0));
-        if(n <= 0){
-          clearInterval(timer);
-          window.location.href = "index.html";
-        }
-      };
-      if(el) el.textContent = String(n);
-      const timer = setInterval(tick, 1000);
+      const startYear = 2024;
+      const currentYear = new Date().getFullYear();
+      const text = (currentYear > startYear) ? `${startYear}–${currentYear}` : `${startYear}`;
+      const y = document.getElementById("y");
+      if(y) y.textContent = text;
     })();
+
+    const packs = Array.from(document.querySelectorAll(".pack"));
+    const cartBox = document.getElementById("cartBox");
+    const emptyState = document.getElementById("emptyState");
+    const orderBtn = document.getElementById("orderBtn");
+    const clearBtn = document.getElementById("clearBtn");
+
+    const custName = document.getElementById("custName");
+    const custPhone = document.getElementById("custPhone");
+
+    const cart = new Map();
+
+    function clampInt(v, fallback){
+      const n = parseInt((v ?? "").toString(), 10);
+      return Number.isFinite(n) ? n : fallback;
+    }
+
+    function sanitizePhone(v){
+      return (v || "").toString().trim().replace(/\s+/g, " ");
+    }
+
+    function validCustomer(){
+      const n = (custName.value || "").toString().trim();
+      const p = sanitizePhone(custPhone.value);
+      return n.length >= 2 && p.length >= 6;
+    }
+
+    function canOrder(){
+      return cart.size > 0 && validCustomer();
+    }
+
+    function refreshButtons(){
+      const hasItems = cart.size > 0;
+      clearBtn.disabled = !hasItems;
+      orderBtn.disabled = !canOrder();
+    }
+
+    function euro(n){
+      const x = Math.max(0, Math.round(Number(n) || 0));
+      return x.toLocaleString("el-GR");
+    }
+
+    function lineTotal(key, qty){
+      const price = PRICES[key] || 0;
+      return price * (qty || 0);
+    }
+
+    function cartTotal(){
+      let sum = 0;
+      cart.forEach((qty, key) => { sum += lineTotal(key, qty); });
+      return sum;
+    }
+
+    function renderCart(){
+      cartBox.querySelectorAll(".line, .totalbar").forEach(n => n.remove());
+
+      const entries = Array.from(cart.entries());
+      if(entries.length === 0){
+        emptyState.style.display = "block";
+        refreshButtons();
+        return;
+      }
+
+      emptyState.style.display = "none";
+
+      entries.sort((a,b) => {
+        const ia = SORT_ORDER.indexOf(a[0]);
+        const ib = SORT_ORDER.indexOf(b[0]);
+        return (ia === -1 ? 999 : ia) - (ib === -1 ? 999 : ib);
+      });
+
+      entries.forEach(([key, qty]) => {
+        const unitPrice = PRICES[key] || 0;
+        const u = UNIT[key] || "τεμ.";
+        const total = lineTotal(key, qty);
+
+        const el = document.createElement("div");
+        el.className = "line";
+        el.innerHTML = `
+          <div>
+            <strong>${LABELS[key] || key}</strong>
+            <span>Ποσότητα: ${qty} ${u} • Τιμή: ${euro(unitPrice)}€ / ${u} • Σύνολο: ${euro(total)}€</span>
+          </div>
+          <div class="rightcol">
+            <div class="qbadge" aria-label="Ποσότητα">${qty}</div>
+            <div class="money" aria-label="Σύνολο γραμμής">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M14 4h-4a4 4 0 0 0 0 8h4a4 4 0 0 1 0 8h-4" stroke="rgba(255,255,255,.85)" stroke-width="2" stroke-linecap="round"/>
+                <path d="M12 2v20" stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              ${euro(total)}€
+            </div>
+          </div>
+        `;
+        cartBox.appendChild(el);
+      });
+
+      const totalEl = document.createElement("div");
+      totalEl.className = "totalbar";
+      totalEl.innerHTML = `
+        <strong>Σύνολο (€)</strong>
+        <b id="grandTotal">${euro(cartTotal())}€</b>
+      `;
+      cartBox.appendChild(totalEl);
+
+      refreshButtons();
+    }
+
+    function addToCart(key, qty, minQ){
+      const q = clampInt(qty, 0);
+      if(!q || q < minQ) return false;
+
+      const prev = cart.get(key) || 0;
+      cart.set(key, prev + q);
+      renderCart();
+      return true;
+    }
+
+    function markQtyInvalid(input, on){
+      if(!input) return;
+      input.style.borderColor = on ? "rgba(255,120,120,.55)" : "rgba(255,255,255,.12)";
+    }
+
+    function isOfferKey(key){
+      return /^OFF\d+$/i.test(String(key || ""));
+    }
+
+    function isEnabled(pack){
+      const v = (pack.getAttribute("data-enabled") || "").toString().trim();
+      if(v === "") return true;
+      return v !== "0";
+    }
+
+    function applyOfferState(pack){
+      const key = pack.getAttribute("data-pack");
+      if(!isOfferKey(key)) return;
+
+      const on = isEnabled(pack);
+      const dot = pack.querySelector(".statusdot");
+      const btn = pack.querySelector(".addPack");
+      const qtyInput = pack.querySelector(".qty");
+
+      if(dot){
+        dot.classList.remove("on","off");
+        dot.classList.add(on ? "on" : "off");
+        dot.title = on ? "Προσφορά διαθέσιμη" : "Προσφορά μη διαθέσιμη";
+        dot.setAttribute("aria-label", on ? "Προσφορά διαθέσιμη" : "Προσφορά μη διαθέσιμη");
+      }
+
+      if(btn) btn.disabled = !on;
+      if(qtyInput) qtyInput.disabled = !on;
+
+      if(!on){
+        if(qtyInput) qtyInput.value = String(Math.max(1, clampInt(pack.getAttribute("data-min"), 1)));
+        markQtyInvalid(qtyInput, false);
+      }
+    }
+
+    function updatePackPrice(pack){
+      const key = pack.getAttribute("data-pack");
+      const minQ = clampInt(pack.getAttribute("data-min"), 1);
+      const qtyInput = pack.querySelector(".qty");
+      const out = pack.querySelector(".packPrice");
+
+      const unitPrice = PRICES[key] || 0;
+      const qRaw = qtyInput ? clampInt(qtyInput.value, minQ) : minQ;
+      const qShow = Math.max(qRaw, minQ);
+      const total = unitPrice * qShow;
+
+      if(out) out.textContent = euro(total);
+
+      if(qtyInput){
+        const qNow = clampInt(qtyInput.value, minQ);
+        const invalid = !!qNow && qNow < minQ;
+        markQtyInvalid(qtyInput, invalid);
+      }
+    }
+
+    packs.forEach(pack => {
+      const key = pack.getAttribute("data-pack");
+      const minQ = clampInt(pack.getAttribute("data-min"), 1);
+      const qtyInput = pack.querySelector(".qty");
+      const btn = pack.querySelector(".addPack");
+
+      const imgEl = pack.querySelector("img");
+      if(imgEl){
+        imgEl.addEventListener("error", () => {
+          const holder = document.createElement("div");
+          holder.className = "pholder";
+          holder.textContent = "Φωτογραφία σύντομα";
+          const wrap = imgEl.closest(".pimg");
+          if(wrap){
+            imgEl.remove();
+            wrap.appendChild(holder);
+          }
+        });
+      }
+
+      if(qtyInput){
+        qtyInput.min = String(minQ);
+        if(clampInt(qtyInput.value, minQ) < minQ) qtyInput.value = String(minQ);
+
+        qtyInput.addEventListener("input", () => {
+          updatePackPrice(pack);
+        });
+      }
+
+      if(btn){
+        btn.addEventListener("click", () => {
+          applyOfferState(pack);
+          if(isOfferKey(key) && !isEnabled(pack)) return;
+
+          const q = qtyInput ? qtyInput.value : minQ;
+          const ok = addToCart(key, q, minQ);
+          if(!ok && qtyInput){
+            markQtyInvalid(qtyInput, true);
+            qtyInput.focus();
+          }
+        });
+      }
+
+      updatePackPrice(pack);
+      applyOfferState(pack);
+    });
+
+    clearBtn.addEventListener("click", () => {
+      cart.clear();
+      renderCart();
+    });
+
+    function buildEmailBody(){
+      const name = (custName.value || "").toString().trim();
+      const phone = sanitizePhone(custPhone.value);
+
+      const items = Array.from(cart.entries());
+      items.sort((a,b) => {
+        const ia = SORT_ORDER.indexOf(a[0]);
+        const ib = SORT_ORDER.indexOf(b[0]);
+        return (ia === -1 ? 999 : ia) - (ib === -1 ? 999 : ib);
+      });
+
+      const lines = items.map(([key, qty]) => {
+        const unitPrice = PRICES[key] || 0;
+        const u = UNIT[key] || "τεμ.";
+        const total = lineTotal(key, qty);
+        return `- ${LABELS[key] || key}: ${qty} ${u} | ${euro(unitPrice)}€/${u} | ${euro(total)}€`;
+      }).join("\n");
+
+      const grand = cartTotal();
+
+      return [
+        "ΝΕΑ ΠΑΡΑΓΓΕΛΙΑ (προσωρινά μέσω email)",
+        "",
+        "Στοιχεία πελάτη:",
+        `Ονοματεπώνυμο: ${name || "-"}`,
+        `Τηλέφωνο: ${phone || "-"}`,
+        "",
+        "Είδη:",
+        lines || "-",
+        "",
+        `ΣΥΝΟΛΟ (€): ${euro(grand)}€`,
+        "",
+        "Σχόλια:",
+        "",
+        "Επικοινωνία EcoPlant: 2312319652"
+      ].join("\n");
+    }
+
+    function openMailtoAndRedirect(){
+      if(!canOrder()) return;
+
+      const subject = encodeURIComponent(ORDER_SUBJECT);
+      const body = encodeURIComponent(buildEmailBody());
+      const href = `mailto:${encodeURIComponent(SALES_EMAIL)}?subject=${subject}&body=${body}`;
+
+      const a = document.createElement("a");
+      a.href = href;
+      a.target = "_blank";
+      a.rel = "noopener";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+
+      setTimeout(() => { window.location.href = AFTER_ORDER_REDIRECT; }, 300);
+    }
+
+    orderBtn.addEventListener("click", openMailtoAndRedirect);
+
+    function markRequired(){
+      const n = (custName.value || "").toString().trim();
+      const p = sanitizePhone(custPhone.value);
+
+      custName.style.borderColor = (n.length === 0) ? "rgba(255,255,255,.12)" : (n.length >= 2 ? "rgba(102,242,179,.28)" : "rgba(255,120,120,.55)");
+      custPhone.style.borderColor = (p.length === 0) ? "rgba(255,255,255,.12)" : (p.length >= 6 ? "rgba(102,242,179,.28)" : "rgba(255,120,120,.55)");
+
+      orderBtn.disabled = !canOrder();
+      return validCustomer();
+    }
+
+    custName.addEventListener("input", () => { markRequired(); });
+    custPhone.addEventListener("input", () => { markRequired(); });
+
+    const revealItems = document.querySelectorAll(".reveal");
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if(e.isIntersecting){
+          e.target.classList.add("on");
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    revealItems.forEach(el => io.observe(el));
+
+    renderCart();
+    markRequired();
   </script>
 </body>
 </html>
