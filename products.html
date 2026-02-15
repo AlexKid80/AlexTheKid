@@ -639,8 +639,9 @@
     footer a{color:rgba(255,255,255,.70); text-decoration:none}
     footer a:hover{text-decoration:underline}
 
-    .reveal{opacity:0; transform: translateY(10px); transition: opacity .55s ease, transform .55s ease}
-    .reveal.on{opacity:1; transform: translateY(0)}
+    .reveal{opacity:1; transform:none}
+    html.js .reveal{opacity:0; transform: translateY(10px); transition: opacity .55s ease, transform .55s ease}
+    html.js .reveal.on{opacity:1; transform: translateY(0)}
 
     @media (max-width: 980px){
       .grid{grid-template-columns:1fr}
@@ -676,6 +677,8 @@
       .reveal{opacity:1; transform:none}
     }
   </style>
+
+  <script>document.documentElement.classList.add("js");</script>
 </head>
 
 <body>
@@ -1482,15 +1485,19 @@
     custPhone.addEventListener("input", () => { markRequired(); });
 
     const revealItems = document.querySelectorAll(".reveal");
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if(e.isIntersecting){
-          e.target.classList.add("on");
-          io.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.15 });
-    revealItems.forEach(el => io.observe(el));
+    if("IntersectionObserver" in window){
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if(e.isIntersecting){
+            e.target.classList.add("on");
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.15 });
+      revealItems.forEach(el => io.observe(el));
+    } else {
+      revealItems.forEach(el => el.classList.add("on"));
+    }
 
     renderCart();
     markRequired();
