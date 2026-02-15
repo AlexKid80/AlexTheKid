@@ -4,7 +4,6 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="EcoPlant - Προϊόντα και παραγγελίες." />
-  <meta name="theme-color" content="#06150c" />
   <title>Προϊόντα</title>
 
   <style>
@@ -22,10 +21,8 @@
 
     *{box-sizing:border-box}
     html,body{height:100%}
-
     body{
       margin:0;
-      position:relative;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
       color:var(--text);
       background:
@@ -36,7 +33,6 @@
       overflow-x:hidden;
     }
 
-    /* IMPORTANT: keep the overlay BEHIND everything */
     body::before{
       content:"";
       position:fixed;
@@ -47,12 +43,6 @@
         radial-gradient(circle at 70% 30%, rgba(255,255,255,.035) 0 1px, transparent 2px) 0 0/40px 40px;
       opacity:.55;
       mix-blend-mode:soft-light;
-      z-index:0;
-    }
-
-    header, .wrap{
-      position:relative;
-      z-index:1;
     }
 
     a{color:inherit}
@@ -68,16 +58,9 @@
 
     header{
       position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(10px);
       background: linear-gradient(180deg, rgba(6,21,12,.75), rgba(6,21,12,.25));
       border-bottom:1px solid rgba(255,255,255,.06);
-    }
-
-    /* apply blur only if supported (avoid buggy WebViews) */
-    @supports ((-webkit-backdrop-filter: blur(10px)) or (backdrop-filter: blur(10px))){
-      header{
-        -webkit-backdrop-filter: blur(10px);
-        backdrop-filter: blur(10px);
-      }
     }
 
     .topbar{
@@ -656,12 +639,7 @@
     footer a{color:rgba(255,255,255,.70); text-decoration:none}
     footer a:hover{text-decoration:underline}
 
-    /* IMPORTANT: don't hide by default (some browsers won't fire IntersectionObserver reliably) */
     .reveal{opacity:1; transform:none}
-    @media (prefers-reduced-motion: no-preference){
-      .reveal{opacity:0; transform: translateY(10px); transition: opacity .55s ease, transform .55s ease}
-      .reveal.on{opacity:1; transform: translateY(0)}
-    }
 
     @media (max-width: 980px){
       .grid{grid-template-columns:1fr}
@@ -696,51 +674,7 @@
       *{animation:none !important; transition:none !important; scroll-behavior:auto !important}
       .reveal{opacity:1; transform:none}
     }
-
-    /* -------- LITE MODE (auto on weak phones OR ?lite=1) -------- */
-    html.lite body{
-      background: linear-gradient(180deg, var(--bg0), var(--bg1));
-    }
-    html.lite body::before{ display:none !important; }
-    html.lite header{
-      -webkit-backdrop-filter:none !important;
-      backdrop-filter:none !important;
-      background: rgba(6,21,12,.92) !important;
-    }
-    html.lite .panel::before,
-    html.lite .panel::after{ display:none !important; }
-    html.lite .panel{ box-shadow: 0 12px 34px rgba(0,0,0,.40); }
   </style>
-
-  <script>
-    // Early, safe "lite mode" switch (helps prevent blank screens on weak devices)
-    (function(){
-      function hasParam(name){
-        try{
-          var qs = (location.search || "").replace(/^\?/, "");
-          if(!qs) return false;
-          var parts = qs.split("&");
-          for(var i=0;i<parts.length;i++){
-            var kv = parts[i].split("=");
-            if(decodeURIComponent(kv[0] || "") === name) return true;
-          }
-          return false;
-        }catch(e){ return false; }
-      }
-
-      var forceLite = hasParam("lite");
-      var lowMem = false;
-      try{
-        var dm = navigator.deviceMemory;
-        var hc = navigator.hardwareConcurrency;
-        lowMem = (dm && dm <= 2) || (hc && hc <= 4);
-      }catch(e){}
-
-      if(forceLite || lowMem){
-        document.documentElement.classList.add("lite");
-      }
-    })();
-  </script>
 </head>
 
 <body>
@@ -807,7 +741,7 @@
       <section class="panel reveal">
         <div class="kicker">
           <span class="dot" aria-hidden="true"></span>
-          ΠΡΟΪΟΝΤΑ &amp; ΠΑΡΑΓΓΕΛΙΕΣ
+          ΠΡΟΪΟΝΤΑ & ΠΑΡΑΓΓΕΛΙΕΣ
         </div>
 
         <h1>Παραγγελίες EcoPlant!</h1>
@@ -857,7 +791,7 @@
                 </div>
 
                 <div class="pimg">
-                  <img src="assets/arc/60ml.jpg" alt="EcoPlant Liquid 60ml" loading="lazy" decoding="async" width="800" height="600" />
+                  <img src="assets/arc/60ml.jpg" alt="EcoPlant Liquid 60ml" loading="lazy" decoding="async" />
                 </div>
 
                 <div class="pack-actions">
@@ -891,7 +825,7 @@
                 </div>
 
                 <div class="pimg">
-                  <img src="assets/arc/1l.jpg" alt="EcoPlant Liquid 1L" loading="lazy" decoding="async" width="800" height="600" />
+                  <img src="assets/arc/1l.jpg" alt="EcoPlant Liquid 1L" loading="lazy" decoding="async" />
                 </div>
 
                 <div class="pack-actions">
@@ -925,7 +859,7 @@
                 </div>
 
                 <div class="pimg">
-                  <img src="assets/arc/5l.jpg" alt="EcoPlant Liquid 5L" loading="lazy" decoding="async" width="800" height="600" />
+                  <img src="assets/arc/5l.jpg" alt="EcoPlant Liquid 5L" loading="lazy" decoding="async" />
                 </div>
 
                 <div class="pack-actions">
@@ -959,7 +893,7 @@
                 </div>
 
                 <div class="pimg">
-                  <img src="assets/arc/20l.jpg" alt="EcoPlant Liquid 20L" loading="lazy" decoding="async" width="800" height="600" />
+                  <img src="assets/arc/20l.jpg" alt="EcoPlant Liquid 20L" loading="lazy" decoding="async" />
                 </div>
 
                 <div class="pack-actions">
@@ -977,7 +911,7 @@
 
             <div class="subhead">
               <h2>Προσφορές:</h2>
-              <div class="tiny">Οι προσφορές θα ανανεώνονται <b>συνέχεια</b>, μπορούν να αλλάξουν ή και να σταματήσουν εντελώς <b>χωρίς προειδοποίηση</b>. Οι <b> ενεργές </b> προσφορές αυτή τη στιγμή είναι με <b>πράσινο</b>.</div>
+              <div class="tiny">Οι προσφορές θα ανανεώνονται <b>συνέχεια</b>, μπορούν να αλλάξουν ή και να σταματήσουν εντελώς <b>χωρίς προειδοποίηση</b>. Οι <b>ενεργές</b> προσφορές αυτή τη στιγμή είναι με <b>πράσινο</b>.</div>
 
               <div class="packs" aria-label="Προσφορές EcoPlant">
                 <div class="pack" data-pack="OFF1" data-min="1" data-enabled="1">
@@ -999,7 +933,7 @@
                   </div>
 
                   <div class="pimg">
-                    <img src="assets/arc/12.jpg" alt="Προσφορά 1L + 2×60ml" loading="lazy" decoding="async" width="800" height="600" />
+                    <img src="assets/arc/12.jpg" alt="Προσφορά 1L + 2×60ml" loading="lazy" decoding="async" />
                   </div>
 
                   <div class="pack-actions">
@@ -1034,7 +968,7 @@
                   </div>
 
                   <div class="pimg">
-                    <img src="assets/arc/56.jpg" alt="Προσφορά 5L + 4×60ml" loading="lazy" decoding="async" width="800" height="600" />
+                    <img src="assets/arc/56.jpg" alt="Προσφορά 5L + 6×60ml" loading="lazy" decoding="async" />
                   </div>
 
                   <div class="pack-actions">
@@ -1069,7 +1003,7 @@
                   </div>
 
                   <div class="pimg">
-                    <img src="assets/arc/201.jpg" alt="Προσφορά 20L + 1L" loading="lazy" decoding="async" width="800" height="600" />
+                    <img src="assets/arc/201.jpg" alt="Προσφορά 20L + 1L" loading="lazy" decoding="async" />
                   </div>
 
                   <div class="pack-actions">
@@ -1104,7 +1038,7 @@
                   </div>
 
                   <div class="pimg">
-                    <img src="assets/arc/156.jpg" alt="Προσφορά 15×60ml" loading="lazy" decoding="async" width="800" height="600" />
+                    <img src="assets/arc/156.jpg" alt="Προσφορά 15×60ml" loading="lazy" decoding="async" />
                   </div>
 
                   <div class="pack-actions">
@@ -1195,373 +1129,442 @@
   </div>
 
   <script>
-    const SALES_EMAIL = "sales@ecoplant.bio";
-    const ORDER_SUBJECT = "NEW ORDER";
-    const AFTER_ORDER_REDIRECT = "order.html";
-
-    const PRICES = {
-      "60ml": 2,
-      "1L": 25,
-      "5L": 100,
-      "20L": 300,
-      "OFF1": 25,
-      "OFF2": 100,
-      "OFF3": 300,
-      "OFF4": 25
-    };
-
-    const LABELS = {
-      "60ml": "EcoPlant Liquid - 60ml",
-      "1L": "EcoPlant Liquid - 1L",
-      "5L": "EcoPlant Liquid - 5L",
-      "20L": "EcoPlant Liquid - 20L",
-      "OFF1": "Προσφορά: 1L + 2×60ml",
-      "OFF2": "Προσφορά: 5L + 4×60ml",
-      "OFF3": "Προσφορά: 20L + 1L",
-      "OFF4": "Προσφορά: 15×60ml"
-    };
-
-    const UNIT = {
-      "60ml": "τεμ.",
-      "1L": "τεμ.",
-      "5L": "τεμ.",
-      "20L": "τεμ.",
-      "OFF1": "προσφορά",
-      "OFF2": "προσφορά",
-      "OFF3": "προσφορά",
-      "OFF4": "προσφορά"
-    };
-
-    const SORT_ORDER = ["OFF3","OFF2","OFF1","OFF4","20L","5L","1L","60ml"];
-
-    const img = document.getElementById("brandLogo");
-    if(img){ img.addEventListener("error", () => { img.style.display = "none"; }); }
-
     (function(){
-      const startYear = 2024;
-      const currentYear = new Date().getFullYear();
-      const text = (currentYear > startYear) ? `${startYear}–${currentYear}` : `${startYear}`;
-      const y = document.getElementById("y");
-      if(y) y.textContent = text;
-    })();
+      var SALES_EMAIL = "sales@ecoplant.bio";
+      var ORDER_SUBJECT = "NEW ORDER";
+      var AFTER_ORDER_REDIRECT = "order.html";
 
-    const packs = Array.from(document.querySelectorAll(".pack"));
-    const cartBox = document.getElementById("cartBox");
-    const emptyState = document.getElementById("emptyState");
-    const orderBtn = document.getElementById("orderBtn");
-    const clearBtn = document.getElementById("clearBtn");
+      var PRICES = {
+        "60ml": 2,
+        "1L": 25,
+        "5L": 100,
+        "20L": 300,
+        "OFF1": 25,
+        "OFF2": 100,
+        "OFF3": 300,
+        "OFF4": 25
+      };
 
-    const custName = document.getElementById("custName");
-    const custPhone = document.getElementById("custPhone");
+      var LABELS = {
+        "60ml": "EcoPlant Liquid - 60ml",
+        "1L": "EcoPlant Liquid - 1L",
+        "5L": "EcoPlant Liquid - 5L",
+        "20L": "EcoPlant Liquid - 20L",
+        "OFF1": "Προσφορά: 1L + 2×60ml",
+        "OFF2": "Προσφορά: 5L + 6×60ml",
+        "OFF3": "Προσφορά: 20L + 1L",
+        "OFF4": "Προσφορά: 15×60ml"
+      };
 
-    const cart = new Map();
+      var UNIT = {
+        "60ml": "τεμ.",
+        "1L": "τεμ.",
+        "5L": "τεμ.",
+        "20L": "τεμ.",
+        "OFF1": "προσφορά",
+        "OFF2": "προσφορά",
+        "OFF3": "προσφορά",
+        "OFF4": "προσφορά"
+      };
 
-    function clampInt(v, fallback){
-      const n = parseInt((v ?? "").toString(), 10);
-      return Number.isFinite(n) ? n : fallback;
-    }
+      var SORT_ORDER = ["OFF3","OFF2","OFF1","OFF4","20L","5L","1L","60ml"];
 
-    function sanitizePhone(v){
-      return (v || "").toString().trim().replace(/\s+/g, " ");
-    }
+      var img = document.getElementById("brandLogo");
+      if(img){
+        img.addEventListener("error", function(){
+          img.style.display = "none";
+        });
+      }
 
-    function validCustomer(){
-      const n = (custName.value || "").toString().trim();
-      const p = sanitizePhone(custPhone.value);
-      return n.length >= 2 && p.length >= 6;
-    }
+      (function(){
+        var startYear = 2024;
+        var currentYear = (new Date()).getFullYear();
+        var text = (currentYear > startYear) ? (startYear + "–" + currentYear) : ("" + startYear);
+        var y = document.getElementById("y");
+        if(y) y.textContent = text;
+      })();
 
-    function canOrder(){
-      return cart.size > 0 && validCustomer();
-    }
+      var packs = document.querySelectorAll(".pack");
+      var cartBox = document.getElementById("cartBox");
+      var emptyState = document.getElementById("emptyState");
+      var orderBtn = document.getElementById("orderBtn");
+      var clearBtn = document.getElementById("clearBtn");
+      var custName = document.getElementById("custName");
+      var custPhone = document.getElementById("custPhone");
 
-    function refreshButtons(){
-      const hasItems = cart.size > 0;
-      clearBtn.disabled = !hasItems;
-      orderBtn.disabled = !canOrder();
-    }
+      var cart = {};
 
-    function euro(n){
-      const x = Math.max(0, Math.round(Number(n) || 0));
-      return x.toLocaleString("el-GR");
-    }
+      function clampInt(v, fallback){
+        var s = (v === undefined || v === null) ? "" : String(v);
+        var n = parseInt(s, 10);
+        return isNaN(n) ? fallback : n;
+      }
 
-    function lineTotal(key, qty){
-      const price = PRICES[key] || 0;
-      return price * (qty || 0);
-    }
+      function sanitizePhone(v){
+        return String(v || "").replace(/\s+/g, " ").trim();
+      }
 
-    function cartTotal(){
-      let sum = 0;
-      cart.forEach((qty, key) => { sum += lineTotal(key, qty); });
-      return sum;
-    }
+      function cartSize(){
+        var c = 0;
+        for(var k in cart){
+          if(Object.prototype.hasOwnProperty.call(cart, k)) c++;
+        }
+        return c;
+      }
 
-    function renderCart(){
-      cartBox.querySelectorAll(".line, .totalbar").forEach(n => n.remove());
+      function validCustomer(){
+        var n = String(custName && custName.value ? custName.value : "").trim();
+        var p = sanitizePhone(custPhone && custPhone.value ? custPhone.value : "");
+        return n.length >= 2 && p.length >= 6;
+      }
 
-      const entries = Array.from(cart.entries());
-      if(entries.length === 0){
-        emptyState.style.display = "block";
+      function canOrder(){
+        return cartSize() > 0 && validCustomer();
+      }
+
+      function refreshButtons(){
+        var hasItems = cartSize() > 0;
+        if(clearBtn) clearBtn.disabled = !hasItems;
+        if(orderBtn) orderBtn.disabled = !canOrder();
+      }
+
+      function euro(n){
+        var x = Math.max(0, Math.round(Number(n) || 0));
+        try{
+          return x.toLocaleString("el-GR");
+        }catch(e){
+          return String(x);
+        }
+      }
+
+      function lineTotal(key, qty){
+        var price = PRICES[key] || 0;
+        return price * (qty || 0);
+      }
+
+      function cartTotal(){
+        var sum = 0;
+        for(var k in cart){
+          if(Object.prototype.hasOwnProperty.call(cart, k)){
+            sum += lineTotal(k, cart[k]);
+          }
+        }
+        return sum;
+      }
+
+      function clearCart(){
+        for(var k in cart){
+          if(Object.prototype.hasOwnProperty.call(cart, k)){
+            delete cart[k];
+          }
+        }
+      }
+
+      function sortEntries(entries){
+        entries.sort(function(a,b){
+          var ia = -1;
+          var ib = -1;
+          for(var i=0;i<SORT_ORDER.length;i++){
+            if(SORT_ORDER[i] === a[0]) ia = i;
+            if(SORT_ORDER[i] === b[0]) ib = i;
+          }
+          if(ia === -1) ia = 999;
+          if(ib === -1) ib = 999;
+          return ia - ib;
+        });
+      }
+
+      function renderCart(){
+        if(!cartBox) return;
+
+        var old = cartBox.querySelectorAll(".line, .totalbar");
+        for(var i=0;i<old.length;i++){
+          if(old[i] && old[i].parentNode) old[i].parentNode.removeChild(old[i]);
+        }
+
+        var entries = [];
+        for(var k in cart){
+          if(Object.prototype.hasOwnProperty.call(cart, k)){
+            entries.push([k, cart[k]]);
+          }
+        }
+
+        if(entries.length === 0){
+          if(emptyState) emptyState.style.display = "block";
+          refreshButtons();
+          return;
+        }
+
+        if(emptyState) emptyState.style.display = "none";
+
+        sortEntries(entries);
+
+        for(var j=0;j<entries.length;j++){
+          var key = entries[j][0];
+          var qty = entries[j][1];
+
+          var unitPrice = PRICES[key] || 0;
+          var u = UNIT[key] || "τεμ.";
+          var total = lineTotal(key, qty);
+
+          var el = document.createElement("div");
+          el.className = "line";
+          el.innerHTML =
+            '<div>' +
+              '<strong>' + (LABELS[key] || key) + '</strong>' +
+              '<span>Ποσότητα: ' + qty + ' ' + u + ' • Τιμή: ' + euro(unitPrice) + '€ / ' + u + ' • Σύνολο: ' + euro(total) + '€</span>' +
+            '</div>' +
+            '<div class="rightcol">' +
+              '<div class="qbadge" aria-label="Ποσότητα">' + qty + '</div>' +
+              '<div class="money" aria-label="Σύνολο γραμμής">' +
+                '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">' +
+                  '<path d="M14 4h-4a4 4 0 0 0 0 8h4a4 4 0 0 1 0 8h-4" stroke="rgba(255,255,255,.85)" stroke-width="2" stroke-linecap="round"/>' +
+                  '<path d="M12 2v20" stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-linecap="round"/>' +
+                '</svg>' +
+                euro(total) + '€' +
+              '</div>' +
+            '</div>';
+          cartBox.appendChild(el);
+        }
+
+        var totalEl = document.createElement("div");
+        totalEl.className = "totalbar";
+        totalEl.innerHTML = '<strong>Σύνολο (€)</strong><b id="grandTotal">' + euro(cartTotal()) + '€</b>';
+        cartBox.appendChild(totalEl);
+
         refreshButtons();
-        return;
       }
 
-      emptyState.style.display = "none";
+      function addToCart(key, qty, minQ){
+        var q = clampInt(qty, 0);
+        if(!q || q < minQ) return false;
 
-      entries.sort((a,b) => {
-        const ia = SORT_ORDER.indexOf(a[0]);
-        const ib = SORT_ORDER.indexOf(b[0]);
-        return (ia === -1 ? 999 : ia) - (ib === -1 ? 999 : ib);
-      });
-
-      entries.forEach(([key, qty]) => {
-        const unitPrice = PRICES[key] || 0;
-        const u = UNIT[key] || "τεμ.";
-        const total = lineTotal(key, qty);
-
-        const el = document.createElement("div");
-        el.className = "line";
-        el.innerHTML = `
-          <div>
-            <strong>${LABELS[key] || key}</strong>
-            <span>Ποσότητα: ${qty} ${u} • Τιμή: ${euro(unitPrice)}€ / ${u} • Σύνολο: ${euro(total)}€</span>
-          </div>
-          <div class="rightcol">
-            <div class="qbadge" aria-label="Ποσότητα">${qty}</div>
-            <div class="money" aria-label="Σύνολο γραμμής">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M14 4h-4a4 4 0 0 0 0 8h4a4 4 0 0 1 0 8h-4" stroke="rgba(255,255,255,.85)" stroke-width="2" stroke-linecap="round"/>
-                <path d="M12 2v20" stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-linecap="round"/>
-              </svg>
-              ${euro(total)}€
-            </div>
-          </div>
-        `;
-        cartBox.appendChild(el);
-      });
-
-      const totalEl = document.createElement("div");
-      totalEl.className = "totalbar";
-      totalEl.innerHTML = `
-        <strong>Σύνολο (€)</strong>
-        <b id="grandTotal">${euro(cartTotal())}€</b>
-      `;
-      cartBox.appendChild(totalEl);
-
-      refreshButtons();
-    }
-
-    function addToCart(key, qty, minQ){
-      const q = clampInt(qty, 0);
-      if(!q || q < minQ) return false;
-
-      const prev = cart.get(key) || 0;
-      cart.set(key, prev + q);
-      renderCart();
-      return true;
-    }
-
-    function markQtyInvalid(input, on){
-      if(!input) return;
-      input.style.borderColor = on ? "rgba(255,120,120,.55)" : "rgba(255,255,255,.12)";
-    }
-
-    function isOfferKey(key){
-      return /^OFF\d+$/i.test(String(key || ""));
-    }
-
-    function isEnabled(pack){
-      const v = (pack.getAttribute("data-enabled") || "").toString().trim();
-      if(v === "") return true;
-      return v !== "0";
-    }
-
-    function applyOfferState(pack){
-      const key = pack.getAttribute("data-pack");
-      if(!isOfferKey(key)) return;
-
-      const on = isEnabled(pack);
-      const dot = pack.querySelector(".statusdot");
-      const btn = pack.querySelector(".addPack");
-      const qtyInput = pack.querySelector(".qty");
-
-      if(dot){
-        dot.classList.remove("on","off");
-        dot.classList.add(on ? "on" : "off");
-        dot.title = on ? "Προσφορά διαθέσιμη" : "Προσφορά μη διαθέσιμη";
-        dot.setAttribute("aria-label", on ? "Προσφορά διαθέσιμη" : "Προσφορά μη διαθέσιμη");
+        var prev = Object.prototype.hasOwnProperty.call(cart, key) ? cart[key] : 0;
+        cart[key] = prev + q;
+        renderCart();
+        return true;
       }
 
-      if(btn) btn.disabled = !on;
-      if(qtyInput) qtyInput.disabled = !on;
-
-      if(!on){
-        if(qtyInput) qtyInput.value = String(Math.max(1, clampInt(pack.getAttribute("data-min"), 1)));
-        markQtyInvalid(qtyInput, false);
+      function markQtyInvalid(input, on){
+        if(!input) return;
+        input.style.borderColor = on ? "rgba(255,120,120,.55)" : "rgba(255,255,255,.12)";
       }
-    }
 
-    function updatePackPrice(pack){
-      const key = pack.getAttribute("data-pack");
-      const minQ = clampInt(pack.getAttribute("data-min"), 1);
-      const qtyInput = pack.querySelector(".qty");
-      const out = pack.querySelector(".packPrice");
-
-      const unitPrice = PRICES[key] || 0;
-      const qRaw = qtyInput ? clampInt(qtyInput.value, minQ) : minQ;
-      const qShow = Math.max(qRaw, minQ);
-      const total = unitPrice * qShow;
-
-      if(out) out.textContent = euro(total);
-
-      if(qtyInput){
-        const qNow = clampInt(qtyInput.value, minQ);
-        const invalid = !!qNow && qNow < minQ;
-        markQtyInvalid(qtyInput, invalid);
+      function isOfferKey(key){
+        return /^OFF\d+$/i.test(String(key || ""));
       }
-    }
 
-    packs.forEach(pack => {
-      const key = pack.getAttribute("data-pack");
-      const minQ = clampInt(pack.getAttribute("data-min"), 1);
-      const qtyInput = pack.querySelector(".qty");
-      const btn = pack.querySelector(".addPack");
+      function isEnabled(pack){
+        var v = String(pack.getAttribute("data-enabled") || "").trim();
+        if(v === "") return true;
+        return v !== "0";
+      }
 
-      const imgEl = pack.querySelector("img");
-      if(imgEl){
-        imgEl.addEventListener("error", () => {
-          const holder = document.createElement("div");
-          holder.className = "pholder";
-          holder.textContent = "Φωτογραφία σύντομα";
-          const wrap = imgEl.closest(".pimg");
-          if(wrap){
-            imgEl.remove();
-            wrap.appendChild(holder);
+      function applyOfferState(pack){
+        var key = pack.getAttribute("data-pack");
+        if(!isOfferKey(key)) return;
+
+        var on = isEnabled(pack);
+        var dot = pack.querySelector(".statusdot");
+        var btn = pack.querySelector(".addPack");
+        var qtyInput = pack.querySelector(".qty");
+
+        if(dot){
+          dot.classList.remove("on");
+          dot.classList.remove("off");
+          dot.classList.add(on ? "on" : "off");
+          dot.title = on ? "Προσφορά διαθέσιμη" : "Προσφορά μη διαθέσιμη";
+          dot.setAttribute("aria-label", on ? "Προσφορά διαθέσιμη" : "Προσφορά μη διαθέσιμη");
+        }
+
+        if(btn) btn.disabled = !on;
+        if(qtyInput) qtyInput.disabled = !on;
+
+        if(!on){
+          if(qtyInput) qtyInput.value = String(Math.max(1, clampInt(pack.getAttribute("data-min"), 1)));
+          markQtyInvalid(qtyInput, false);
+        }
+      }
+
+      function updatePackPrice(pack){
+        var key = pack.getAttribute("data-pack");
+        var minQ = clampInt(pack.getAttribute("data-min"), 1);
+        var qtyInput = pack.querySelector(".qty");
+        var out = pack.querySelector(".packPrice");
+
+        var unitPrice = PRICES[key] || 0;
+        var qRaw = qtyInput ? clampInt(qtyInput.value, minQ) : minQ;
+        var qShow = Math.max(qRaw, minQ);
+        var total = unitPrice * qShow;
+
+        if(out) out.textContent = euro(total);
+
+        if(qtyInput){
+          var qNow = clampInt(qtyInput.value, minQ);
+          var invalid = (qNow && qNow < minQ) ? true : false;
+          markQtyInvalid(qtyInput, invalid);
+        }
+      }
+
+      function findPimgWrapper(node){
+        var cur = node;
+        while(cur && cur !== document.body){
+          if(cur.classList && cur.classList.contains("pimg")) return cur;
+          cur = cur.parentNode;
+        }
+        return null;
+      }
+
+      for(var i=0;i<packs.length;i++){
+        (function(pack){
+          var key = pack.getAttribute("data-pack");
+          var minQ = clampInt(pack.getAttribute("data-min"), 1);
+          var qtyInput = pack.querySelector(".qty");
+          var btn = pack.querySelector(".addPack");
+          var imgEl = pack.querySelector("img");
+
+          if(imgEl){
+            imgEl.addEventListener("error", function(){
+              var holder = document.createElement("div");
+              holder.className = "pholder";
+              holder.textContent = "Φωτογραφία σύντομα";
+              var wrap = findPimgWrapper(imgEl);
+              if(wrap){
+                if(imgEl.parentNode) imgEl.parentNode.removeChild(imgEl);
+                wrap.appendChild(holder);
+              }
+            });
           }
-        });
-      }
 
-      if(qtyInput){
-        qtyInput.min = String(minQ);
-        if(clampInt(qtyInput.value, minQ) < minQ) qtyInput.value = String(minQ);
+          if(qtyInput){
+            qtyInput.min = String(minQ);
+            if(clampInt(qtyInput.value, minQ) < minQ) qtyInput.value = String(minQ);
 
-        qtyInput.addEventListener("input", () => {
+            qtyInput.addEventListener("input", function(){
+              updatePackPrice(pack);
+            });
+          }
+
+          if(btn){
+            btn.addEventListener("click", function(){
+              applyOfferState(pack);
+              if(isOfferKey(key) && !isEnabled(pack)) return;
+
+              var q = qtyInput ? qtyInput.value : minQ;
+              var ok = addToCart(key, q, minQ);
+              if(!ok && qtyInput){
+                markQtyInvalid(qtyInput, true);
+                qtyInput.focus();
+              }
+            });
+          }
+
           updatePackPrice(pack);
-        });
-      }
-
-      if(btn){
-        btn.addEventListener("click", () => {
           applyOfferState(pack);
-          if(isOfferKey(key) && !isEnabled(pack)) return;
+        })(packs[i]);
+      }
 
-          const q = qtyInput ? qtyInput.value : minQ;
-          const ok = addToCart(key, q, minQ);
-          if(!ok && qtyInput){
-            markQtyInvalid(qtyInput, true);
-            qtyInput.focus();
-          }
+      if(clearBtn){
+        clearBtn.addEventListener("click", function(){
+          clearCart();
+          renderCart();
         });
       }
 
-      updatePackPrice(pack);
-      applyOfferState(pack);
-    });
+      function buildEmailBody(){
+        var name = String(custName && custName.value ? custName.value : "").trim();
+        var phone = sanitizePhone(custPhone && custPhone.value ? custPhone.value : "");
 
-    clearBtn.addEventListener("click", () => {
-      cart.clear();
-      renderCart();
-    });
-
-    function buildEmailBody(){
-      const name = (custName.value || "").toString().trim();
-      const phone = sanitizePhone(custPhone.value);
-
-      const items = Array.from(cart.entries());
-      items.sort((a,b) => {
-        const ia = SORT_ORDER.indexOf(a[0]);
-        const ib = SORT_ORDER.indexOf(b[0]);
-        return (ia === -1 ? 999 : ia) - (ib === -1 ? 999 : ib);
-      });
-
-      const lines = items.map(([key, qty]) => {
-        const unitPrice = PRICES[key] || 0;
-        const u = UNIT[key] || "τεμ.";
-        const total = lineTotal(key, qty);
-        return `- ${LABELS[key] || key}: ${qty} ${u} | ${euro(unitPrice)}€/${u} | ${euro(total)}€`;
-      }).join("\n");
-
-      const grand = cartTotal();
-
-      return [
-        "ΝΕΑ ΠΑΡΑΓΓΕΛΙΑ (προσωρινά μέσω email)",
-        "",
-        "Στοιχεία πελάτη:",
-        `Ονοματεπώνυμο: ${name || "-"}`,
-        `Τηλέφωνο: ${phone || "-"}`,
-        "",
-        "Είδη:",
-        lines || "-",
-        "",
-        `ΣΥΝΟΛΟ (€): ${euro(grand)}€`,
-        "",
-        "Σχόλια:",
-        "",
-        "Επικοινωνία EcoPlant: 2312319652"
-      ].join("\n");
-    }
-
-    function openMailtoAndRedirect(){
-      if(!canOrder()) return;
-
-      const subject = encodeURIComponent(ORDER_SUBJECT);
-      const body = encodeURIComponent(buildEmailBody());
-      const href = `mailto:${encodeURIComponent(SALES_EMAIL)}?subject=${subject}&body=${body}`;
-
-      const a = document.createElement("a");
-      a.href = href;
-      a.target = "_blank";
-      a.rel = "noopener";
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-
-      setTimeout(() => { window.location.href = AFTER_ORDER_REDIRECT; }, 300);
-    }
-
-    orderBtn.addEventListener("click", openMailtoAndRedirect);
-
-    function markRequired(){
-      const n = (custName.value || "").toString().trim();
-      const p = sanitizePhone(custPhone.value);
-
-      custName.style.borderColor = (n.length === 0) ? "rgba(255,255,255,.12)" : (n.length >= 2 ? "rgba(102,242,179,.28)" : "rgba(255,120,120,.55)");
-      custPhone.style.borderColor = (p.length === 0) ? "rgba(255,255,255,.12)" : (p.length >= 6 ? "rgba(102,242,179,.28)" : "rgba(255,120,120,.55)");
-
-      orderBtn.disabled = !canOrder();
-      return validCustomer();
-    }
-
-    custName.addEventListener("input", () => { markRequired(); });
-    custPhone.addEventListener("input", () => { markRequired(); });
-
-    // Safer reveal: if IntersectionObserver fails, we still show content because reveal is visible by default
-    try{
-      const revealItems = document.querySelectorAll(".reveal");
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-          if(e.isIntersecting){
-            e.target.classList.add("on");
-            io.unobserve(e.target);
+        var entries = [];
+        for(var k in cart){
+          if(Object.prototype.hasOwnProperty.call(cart, k)){
+            entries.push([k, cart[k]]);
           }
-        });
-      }, { threshold: 0.15 });
-      revealItems.forEach(el => io.observe(el));
-    }catch(e){}
+        }
 
-    renderCart();
-    markRequired();
+        sortEntries(entries);
+
+        var linesArr = [];
+        for(var i=0;i<entries.length;i++){
+          var key = entries[i][0];
+          var qty = entries[i][1];
+          var unitPrice = PRICES[key] || 0;
+          var u = UNIT[key] || "τεμ.";
+          var total = lineTotal(key, qty);
+          linesArr.push("- " + (LABELS[key] || key) + ": " + qty + " " + u + " | " + euro(unitPrice) + "€/" + u + " | " + euro(total) + "€");
+        }
+
+        var lines = linesArr.join("\n");
+        var grand = cartTotal();
+
+        return [
+          "ΝΕΑ ΠΑΡΑΓΓΕΛΙΑ (προσωρινά μέσω email)",
+          "",
+          "Στοιχεία πελάτη:",
+          "Ονοματεπώνυμο: " + (name || "-"),
+          "Τηλέφωνο: " + (phone || "-"),
+          "",
+          "Είδη:",
+          lines || "-",
+          "",
+          "ΣΥΝΟΛΟ (€): " + euro(grand) + "€",
+          "",
+          "Σχόλια:",
+          "",
+          "Επικοινωνία EcoPlant: 2312319652"
+        ].join("\n");
+      }
+
+      function openMailtoAndRedirect(){
+        if(!canOrder()) return;
+
+        var subject = encodeURIComponent(ORDER_SUBJECT);
+        var body = encodeURIComponent(buildEmailBody());
+        var href = "mailto:" + encodeURIComponent(SALES_EMAIL) + "?subject=" + subject + "&body=" + body;
+
+        var a = document.createElement("a");
+        a.href = href;
+        a.target = "_blank";
+        a.rel = "noopener";
+        document.body.appendChild(a);
+        a.click();
+        if(a.parentNode) a.parentNode.removeChild(a);
+
+        setTimeout(function(){
+          window.location.href = AFTER_ORDER_REDIRECT;
+        }, 300);
+      }
+
+      if(orderBtn){
+        orderBtn.addEventListener("click", openMailtoAndRedirect);
+      }
+
+      function markRequired(){
+        var n = String(custName && custName.value ? custName.value : "").trim();
+        var p = sanitizePhone(custPhone && custPhone.value ? custPhone.value : "");
+
+        if(custName){
+          custName.style.borderColor = (n.length === 0) ? "rgba(255,255,255,.12)" : (n.length >= 2 ? "rgba(102,242,179,.28)" : "rgba(255,120,120,.55)");
+        }
+        if(custPhone){
+          custPhone.style.borderColor = (p.length === 0) ? "rgba(255,255,255,.12)" : (p.length >= 6 ? "rgba(102,242,179,.28)" : "rgba(255,120,120,.55)");
+        }
+
+        if(orderBtn) orderBtn.disabled = !canOrder();
+        return validCustomer();
+      }
+
+      if(custName){
+        custName.addEventListener("input", function(){ markRequired(); });
+      }
+      if(custPhone){
+        custPhone.addEventListener("input", function(){ markRequired(); });
+      }
+
+      renderCart();
+      markRequired();
+      refreshButtons();
+    })();
   </script>
 </body>
 </html>
