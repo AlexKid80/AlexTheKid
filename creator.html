@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="el">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="EcoPlant - Σύντομα κοντά σας." />
+  <title>Σύντομα κοντά σας!</title>
+
+  <style>
+    :root{
+      --bg0:#06150c;
+      --bg1:#0b2a15;
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.70);
+      --green:#32d583;
+      --green2:#66f2b3;
+      --lime:#c8ff7a;
+      --shadow: 0 20px 50px rgba(0,0,0,.45);
+      --radius: 22px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 15% 10%, rgba(102,242,179,.18), transparent 60%),
+        radial-gradient(900px 600px at 85% 25%, rgba(200,255,122,.12), transparent 60%),
+        radial-gradient(900px 800px at 35% 110%, rgba(50,213,131,.10), transparent 60%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      overflow:hidden;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:22px 18px;
+    }
+
+    body::before{
+      content:"";
+      position:fixed;
+      inset:-2px;
+      pointer-events:none;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,.05) 0 1px, transparent 2px) 0 0/34px 34px,
+        radial-gradient(circle at 70% 30%, rgba(255,255,255,.035) 0 1px, transparent 2px) 0 0/40px 40px;
+      opacity:.55;
+      mix-blend-mode:soft-light;
+    }
+
+    .panel{
+      width:min(760px, 100%);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+      box-shadow: var(--shadow);
+      padding:22px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .panel::before,.panel::after{
+      content:"";
+      position:absolute;
+      width:520px; height:520px;
+      border-radius:50%;
+      opacity:.24;
+      pointer-events:none;
+    }
+    .panel::before{
+      left:-240px; top:-320px;
+      background: radial-gradient(circle at 30% 30%, rgba(102,242,179,.8), transparent 60%);
+      animation: float1 10s ease-in-out infinite;
+    }
+    .panel::after{
+      right:-300px; bottom:-340px;
+      background: radial-gradient(circle at 35% 40%, rgba(200,255,122,.7), transparent 62%);
+      animation: float2 12s ease-in-out infinite;
+    }
+    @keyframes float1{ 0%,100%{transform: translate(0,0)} 50%{transform: translate(25px, 18px)}}
+    @keyframes float2{ 0%,100%{transform: translate(0,0)} 50%{transform: translate(-18px, -22px)}}
+
+    .content{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:18px;
+      align-items:center;
+      position:relative;
+      z-index:2;
+    }
+
+    .kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:8px 12px;
+      border-radius:999px;
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.10);
+      color:var(--muted);
+      font-size:13px;
+      width:fit-content;
+      line-height:1.25;
+      white-space:normal;
+    }
+    .dot{
+      width:8px; height:8px; border-radius:50%;
+      background: var(--green);
+      box-shadow:0 0 0 6px rgba(50,213,131,.12);
+      flex: 0 0 auto;
+    }
+
+    h1{
+      margin:14px 0 10px;
+      font-size: clamp(24px, 3.2vw, 38px);
+      line-height:1.1;
+      letter-spacing:-.6px;
+    }
+
+    .lead{
+      margin:0;
+      color:var(--muted);
+      font-size: 15px;
+      line-height:1.6;
+      max-width: 62ch;
+    }
+
+    .count{
+      margin-top:14px;
+      width:fit-content;
+      padding:10px 14px;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.16);
+      box-shadow: 0 14px 34px rgba(0,0,0,.26);
+      font-weight:800;
+      font-size: clamp(40px, 6vw, 64px);
+      letter-spacing: .5px;
+      line-height:1;
+      color: rgba(255,255,255,.92);
+      text-shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+
+    .art{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height: 260px;
+    }
+
+    .sprout{
+      width:min(340px, 100%);
+      height:auto;
+      filter: drop-shadow(0 14px 30px rgba(0,0,0,.35));
+    }
+
+    .stem{
+      stroke: rgba(255,255,255,.55);
+      stroke-width: 4;
+      stroke-linecap: round;
+      fill: none;
+      stroke-dasharray: 240;
+      stroke-dashoffset: 240;
+      animation: draw 5s ease forwards;
+    }
+
+    .leafFill{
+      fill: url(#leafGrad);
+      opacity: 0;
+      transform-origin: 50% 90%;
+      transform: scale(.6);
+      animation: leafIn 5s ease forwards;
+    }
+
+    .glow{
+      opacity:.0;
+      animation: glow 5s ease forwards;
+    }
+
+    @keyframes draw{
+      0%{stroke-dashoffset:240; opacity:0}
+      12%{opacity:1}
+      100%{stroke-dashoffset:0; opacity:1}
+    }
+
+    @keyframes leafIn{
+      0%{opacity:0; transform: translateY(10px) scale(.55)}
+      35%{opacity:0; transform: translateY(10px) scale(.55)}
+      70%{opacity:.95; transform: translateY(0) scale(1)}
+      100%{opacity:.95; transform: translateY(0) scale(1)}
+    }
+
+    @keyframes glow{
+      0%{opacity:0; transform: scale(.9)}
+      40%{opacity:0}
+      75%{opacity:.22; transform: scale(1)}
+      100%{opacity:.0; transform: scale(1.08)}
+    }
+
+    .reveal{
+      opacity:0;
+      transform: translateY(10px);
+      animation: reveal .7s ease forwards;
+    }
+    .reveal.d2{animation-delay:.12s}
+    .reveal.d3{animation-delay:.24s}
+    @keyframes reveal{
+      to{opacity:1; transform: translateY(0)}
+    }
+
+    @media (max-width: 980px){
+      .content{grid-template-columns: 1fr; gap:12px}
+      .art{min-height: 200px}
+    }
+
+    @media (max-width: 480px){
+      body{padding:16px 14px}
+      .panel{padding:16px; border-radius:20px}
+      h1{font-size:24px; margin:12px 0 10px; letter-spacing:-.4px; line-height:1.12}
+      .lead{font-size:14px}
+      .count{width:100%; text-align:center; padding:14px 14px}
+      .art{min-height: 180px}
+      .sprout{width:min(280px, 92%)}
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      *{animation:none !important; transition:none !important}
+      .stem{stroke-dashoffset:0; opacity:1}
+      .leafFill{opacity:.95; transform:none}
+      .glow{opacity:0}
+      body{overflow:auto}
+    }
+  </style>
+</head>
+
+<body>
+  <main class="panel" aria-label="Σύντομα κοντά σας">
+    <div class="content">
+      <section>
+        <div class="kicker reveal">
+          <span class="dot" aria-hidden="true"></span>
+          ΣΥΝΤΟΜΑ ΚΟΝΤΑ ΣΑΣ
+        </div>
+        <h1 class="reveal d2">Κάτι πράσινο έρχεται σύντομα!! 🌱</h1>
+        <p class="lead reveal d3">
+          Επιστροφή στις ρίζες μας σε λίγα δευτερόλεπτα!
+        </p>
+        <div class="count reveal d3" id="countdown" aria-live="polite">5</div>
+      </section>
+
+      <div class="art" aria-hidden="true">
+        <svg class="sprout" viewBox="0 0 360 320" xmlns="http://www.w3.org/2000/svg" fill="none">
+          <defs>
+            <linearGradient id="leafGrad" x1="80" y1="120" x2="300" y2="260" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#66F2B3" stop-opacity="0.95"/>
+              <stop offset="1" stop-color="#C8FF7A" stop-opacity="0.70"/>
+            </linearGradient>
+          </defs>
+
+          <circle class="glow" cx="180" cy="190" r="120" fill="url(#leafGrad)" opacity="0.16"/>
+
+          <path class="stem" d="M180 270C180 232 180 214 180 186C180 160 175 140 160 122"/>
+
+          <path class="leafFill" d="M156 125C140 114 115 112 92 126C109 151 134 163 156 165C169 166 182 161 192 153C175 140 165 133 156 125Z"/>
+
+          <path class="leafFill" d="M190 168C218 170 246 150 268 122C239 108 212 111 196 126C187 134 176 146 168 160C174 165 182 168 190 168Z"/>
+        </svg>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    (function(){
+      const el = document.getElementById("countdown");
+      let n = 5;
+      const tick = () => {
+        n -= 1;
+        if(el) el.textContent = String(Math.max(n, 0));
+        if(n <= 0){
+          clearInterval(timer);
+          window.location.href = "index.html";
+        }
+      };
+      if(el) el.textContent = String(n);
+      const timer = setInterval(tick, 1000);
+    })();
+  </script>
+</body>
+</html>
