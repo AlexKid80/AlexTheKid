@@ -356,10 +356,17 @@
     }
     .mark svg{display:block}
 
-    .cta-row{display:flex; gap:12px; flex-wrap:wrap; align-items:center}
+    .cta-row{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap:12px;
+      align-items:stretch;
+      max-width: 62ch;
+    }
     .cta{
-      display:inline-flex;
+      display:flex;
       align-items:center;
+      justify-content:space-between;
       gap:10px;
       text-decoration:none;
       padding:12px 14px;
@@ -367,6 +374,8 @@
       border:1px solid rgba(255,255,255,.12);
       background: rgba(255,255,255,.06);
       transition: transform .15s ease, background .15s ease, border-color .15s ease;
+      width:100%;
+      min-width:0;
     }
     .cta:hover{
       transform: translateY(-1px);
@@ -377,7 +386,8 @@
       background: linear-gradient(135deg, rgba(50,213,131,.22), rgba(200,255,122,.16));
       border-color: rgba(102,242,179,.26);
     }
-    .cta .hint{color:var(--muted); font-size:13px}
+    .cta span{min-width:0}
+    .cta .hint{color:var(--muted); font-size:13px; white-space:nowrap}
 
     .art{
       display:flex; justify-content:center; align-items:center;
@@ -486,6 +496,7 @@
       .portal{grid-template-columns: repeat(2, 1fr)}
       .art{min-height: 190px}
       .art svg{width:min(300px, 92%)}
+      .cta-row{max-width:100%}
     }
     @media (max-width: 520px){
       .portal{grid-template-columns: 1fr}
@@ -497,6 +508,8 @@
       .menu-btn{width:34px; height:34px}
       .menu-btn svg{width:16px; height:16px}
       .menu-panel{min-width: 0; width:min(92vw, 320px)}
+      .cta-row{grid-template-columns: 1fr}
+      .cta .hint{font-size:12px}
     }
 
     @media (max-width: 480px){
@@ -520,8 +533,8 @@
       .features{gap:9px}
       .features li{font-size:13px; line-height:1.45}
       .mark{width:16px; height:16px; flex:0 0 16px; border-radius:6px}
-      .cta-row{justify-content:flex-start}
-      .cta.primary{width:100%; justify-content:center}
+      .cta-row{grid-template-columns: 1fr}
+      .cta.primary{width:100%}
       .cta.primary .hint{font-size:10px}
       .art{min-height:170px; margin:6px 0 4px}
       .art svg{width:min(260px, 92%); height:auto}
@@ -533,6 +546,7 @@
       .features li{font-size:12.5px}
       .art{min-height:155px}
       .art svg{width:min(240px, 92%)}
+      .cta .hint{font-size:11px}
     }
 
     @media (prefers-reduced-motion: reduce){
@@ -614,6 +628,8 @@
             <a class="menu-item" role="menuitem" href="downloads.html">Αρχείο.</a>
             <a class="menu-item" role="menuitem" href="ai.html">AI.</a>
             <a class="menu-item" role="menuitem" href="contact.html">Επικοινωνία.</a>
+            <a class="menu-item" role="menuitem" href="creator.html">Ο δημιουργός.</a>
+            <a class="menu-item" role="menuitem" href="ecovideos.html">Eco Videos</a>
             <div class="menu-sep" aria-hidden="true"></div>
             <a class="menu-item" role="menuitem" href="eshop.html">Παραγγελίες.</a>
           </div>
@@ -692,6 +708,16 @@
             <a class="cta primary" href="crops.html">
               <span>Καλλιέργειες..</span>
               <span class="hint">50+ οδηγίες.</span>
+            </a>
+
+            <a class="cta primary" href="creator.html">
+              <span>Ο δημιουργός.</span>
+              <span class="hint">Πληροφορίες.</span>
+            </a>
+
+            <a class="cta primary" href="ecovideos.html">
+              <span>Eco Vids</span>
+              <span class="hint">Videos.</span>
             </a>
           </div>
         </div>
