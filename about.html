@@ -73,7 +73,7 @@
     .brand{
       display:flex; align-items:center; gap:10px;
       text-decoration:none;
-      min-width: 220px;
+      min-width:220px;
     }
 
     .logo{
@@ -232,7 +232,7 @@
 
     .card{
       border:1px solid rgba(255,255,255,.10);
-      border-radius: 18px;
+      border-radius:18px;
       background: rgba(255,255,255,.05);
       padding:14px;
       overflow:hidden;
@@ -249,14 +249,15 @@
       margin:0 0 10px;
       font-size:16px;
       letter-spacing:.1px;
+      line-height:1.3;
     }
 
     .lead{
       margin:0;
       color:var(--muted);
-      font-size: 15px;
+      font-size:15px;
       line-height:1.6;
-      max-width: 78ch;
+      max-width:78ch;
     }
     .lead p{margin:0}
     .lead p + p{margin-top:12px}
@@ -276,7 +277,7 @@
       background: rgba(0,0,0,.10);
       padding:10px;
       width:100%;
-      min-height: 240px;
+      min-height:240px;
     }
     .art svg{width:min(240px, 100%); height:auto}
 
@@ -320,13 +321,13 @@
       font-size:12px;
       color: rgba(255,255,255,.62);
       line-height:1.45;
-      margin: 6px 0 0;
+      margin:6px 0 0;
     }
 
     .list{
       list-style:none;
       padding:0;
-      margin: 12px 0 0;
+      margin:12px 0 0;
       display:grid;
       gap:10px;
     }
@@ -346,7 +347,7 @@
       place-items:center;
       background: linear-gradient(135deg, rgba(50,213,131,.22), rgba(200,255,122,.14));
       border: 1px solid rgba(102,242,179,.22);
-      margin-top: 2px;
+      margin-top:2px;
     }
     .mark svg{display:block}
 
@@ -365,7 +366,7 @@
       border:1px solid rgba(255,255,255,.12);
       background: rgba(255,255,255,.06);
       color:var(--text);
-      border-radius: 14px;
+      border-radius:14px;
       padding:12px 14px;
       cursor:pointer;
       transition: transform .15s ease, background .15s ease, border-color .15s ease;
@@ -402,12 +403,31 @@
 
     @media (max-width: 980px){
       .grid{grid-template-columns:1fr}
-      .art{min-height: 220px}
+      .art{min-height:220px}
+    }
+
+    @media (max-width: 640px){
+      .topbar{
+        padding:12px 14px;
+        gap:10px;
+        flex-wrap:wrap;
+      }
+      .brand{
+        min-width:0;
+        width:100%;
+      }
+      .mini-links{
+        width:100%;
+        margin-left:0;
+        justify-content:space-between;
+      }
+      .cta-row .cta-btn{
+        width:100%;
+      }
     }
 
     @media (max-width: 480px){
       .wrap{padding:16px 14px 54px}
-      .topbar{padding:12px 14px; gap:10px}
       main{padding-top:16px}
       .panel{padding:16px; border-radius:20px}
       .kicker{width:100%; font-size:12px; padding:8px 10px}
@@ -606,6 +626,145 @@
           </div>
 
           <div class="card">
+            <h2>Σημαντικό:</h2>
+            <div class="tiny">Βασικές οδηγίες ασφάλειας και άμεσης επικοινωνίας σε περίπτωση ανάγκης.</div>
+
+            <ul class="list">
+              <li>
+                <span class="mark" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                    <path d="M20 7l-10 10-5-5" stroke="rgba(255,255,255,.85)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                Υγρό προϊόν, εύχρηστο και ασφαλές στη σωστή χρήση.
+              </li>
+
+              <li>
+                <span class="mark" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                    <path d="M20 7l-10 10-5-5" stroke="rgba(255,255,255,.85)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                Με βάση τα χαρακτηριστικά του προϊόντος, δεν αναμένεται να προκαλέσει πρόβλημα ακόμη και σε περίπτωση μικρής τυχαίας κατάποσης.
+              </li>
+
+              <li>
+                <span class="mark" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                    <path d="M20 7l-10 10-5-5" stroke="rgba(255,255,255,.85)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                Σε περίπτωση επαφής με το δέρμα, πλύνετε καλά με άφθονο νερό.
+              </li>
+
+              <li>
+                <span class="mark" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                    <path d="M20 7l-10 10-5-5" stroke="rgba(255,255,255,.85)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                Σε περίπτωση επαφής με τα μάτια, ξεπλύνετε αμέσως με άφθονο καθαρό νερό.
+              </li>
+
+              <li>
+                <span class="mark" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                    <path d="M20 7l-10 10-5-5" stroke="rgba(255,255,255,.85)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                Αν εμφανιστεί οποιαδήποτε ενόχληση ή αν τα συμπτώματα επιμείνουν, επικοινωνήστε άμεσα με γιατρό ή με το Κέντρο Δηλητηριάσεων: 210 7793777.
+              </li>
+
+              <li>
+                <span class="mark" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                    <path d="M20 7l-10 10-5-5" stroke="rgba(255,255,255,.85)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                Το Κέντρο Δηλητηριάσεων στην Ελλάδα λειτουργεί όλο το 24ωρο.
+              </li>
+
+              <li>
+                <span class="mark" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                    <path d="M20 7l-10 10-5-5" stroke="rgba(255,255,255,.85)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                Σε περίπτωση έντονων ή ανησυχητικών συμπτωμάτων, ζητήστε άμεσα ιατρική βοήθεια.
+              </li>
+            </ul>
+
+            <div class="cta-row">
+              <a class="cta-btn primary" href="tel:2107793777">Κλήση στο Κέντρο Δηλητηριάσεων: 210 7793777</a>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2>Επιστροφές / Ακυρώσεις</h2>
+            <div class="tiny">Χρονικά όρια και βασικοί όροι για ακύρωση παραγγελίας ή αίτημα επιστροφής.</div>
+
+            <ul class="list">
+              <li>
+                <span class="mark" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                    <path d="M20 7l-10 10-5-5" stroke="rgba(255,255,255,.85)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                Η ακύρωση παραγγελίας είναι δυνατή μόνο εντός δύο (2) εργάσιμων ημερών από την ημερομηνία καταχώρισής της.
+              </li>
+
+              <li>
+                <span class="mark" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                    <path d="M20 7l-10 10-5-5" stroke="rgba(255,255,255,.85)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                Η επιστροφή προϊόντων και η αντίστοιχη επιστροφή χρημάτων γίνονται δεκτές μόνο εντός σαράντα οκτώ (48) ωρών από την παραλαβή της παραγγελίας.
+              </li>
+
+              <li>
+                <span class="mark" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                    <path d="M20 7l-10 10-5-5" stroke="rgba(255,255,255,.85)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                Η ημερομηνία και ώρα παραλαβής επιβεβαιώνονται μέσω της συνεργαζόμενης εταιρείας courier.
+              </li>
+
+              <li>
+                <span class="mark" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                    <path d="M20 7l-10 10-5-5" stroke="rgba(255,255,255,.85)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                Αιτήματα που υποβάλλονται μετά τα παραπάνω χρονικά όρια δεν μπορούν να γίνουν αποδεκτά.
+              </li>
+
+              <li>
+                <span class="mark" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                    <path d="M20 7l-10 10-5-5" stroke="rgba(255,255,255,.85)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                Η εταιρεία διατηρεί το δικαίωμα ελέγχου της κατάστασης του προϊόντος πριν από την ολοκλήρωση της διαδικασίας επιστροφής.
+              </li>
+
+              <li>
+                <span class="mark" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                    <path d="M20 7l-10 10-5-5" stroke="rgba(255,255,255,.85)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                Για την υποβολή αιτήματος ακύρωσης ή επιστροφής, ο πελάτης οφείλει να επικοινωνήσει άμεσα με την εταιρεία.
+              </li>
+            </ul>
+
+            <div class="cta-row">
+              <a class="cta-btn primary" href="contact.html">Επικοινωνία για αίτημα επιστροφής ή ακύρωσης</a>
+            </div>
+          </div>
+
+          <div class="card">
             <h2>Υποστήριξη</h2>
             <div class="tiny">Είμαστε δίπλα σας για όλα.</div>
 
@@ -653,26 +812,47 @@
   </div>
 
   <script>
-    const img = document.getElementById("brandLogo");
-    img?.addEventListener("error", () => { img.style.display = "none"; });
-
     (function(){
-      const startYear = 2024;
-      const currentYear = new Date().getFullYear();
-      const text = (currentYear > startYear) ? `${startYear}–${currentYear}` : `${startYear}`;
-      document.getElementById("y").textContent = text;
-    })();
+      var img = document.getElementById("brandLogo");
+      if (img) {
+        img.onerror = function() {
+          img.style.display = "none";
+        };
+      }
 
-    const items = document.querySelectorAll(".reveal");
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if(e.isIntersecting){
-          e.target.classList.add("on");
-          io.unobserve(e.target);
+      var startYear = 2024;
+      var currentYear = new Date().getFullYear();
+      var text = currentYear > startYear ? startYear + "–" + currentYear : String(startYear);
+      var yearEl = document.getElementById("y");
+      if (yearEl) {
+        yearEl.textContent = text;
+      }
+
+      var items = document.querySelectorAll(".reveal");
+      var i;
+
+      if ("IntersectionObserver" in window) {
+        var io = new IntersectionObserver(function(entries) {
+          var j;
+          for (j = 0; j < entries.length; j++) {
+            if (entries[j].isIntersecting) {
+              entries[j].target.className += " on";
+              io.unobserve(entries[j].target);
+            }
+          }
+        }, { threshold: 0.15 });
+
+        for (i = 0; i < items.length; i++) {
+          io.observe(items[i]);
         }
-      });
-    }, { threshold: 0.15 });
-    items.forEach(el => io.observe(el));
+      } else {
+        for (i = 0; i < items.length; i++) {
+          if (items[i].className.indexOf("on") === -1) {
+            items[i].className += " on";
+          }
+        }
+      }
+    })();
   </script>
 </body>
 </html>
