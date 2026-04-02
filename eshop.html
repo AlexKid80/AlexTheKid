@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="EcoPlant - Σύντομα κοντά σας." />
-  <title>Σύντομα κοντά σας!</title>
+  <meta name="description" content="EcoPlant - eShop. Σύντομες πληροφορίες πριν μπείτε στο ηλεκτρονικό μας κατάστημα." />
+  <title>eShop</title>
 
   <style>
     :root{
@@ -30,11 +30,7 @@
         radial-gradient(900px 600px at 85% 25%, rgba(200,255,122,.12), transparent 60%),
         radial-gradient(900px 800px at 35% 110%, rgba(50,213,131,.10), transparent 60%),
         linear-gradient(180deg, var(--bg0), var(--bg1));
-      overflow:hidden;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:22px 18px;
+      overflow-x:hidden;
     }
 
     body::before{
@@ -49,8 +45,127 @@
       mix-blend-mode:soft-light;
     }
 
+    a{color:inherit}
+    .skip{
+      position:absolute; left:-999px; top:0;
+      background:#fff; color:#000;
+      padding:.6rem 1rem; border-radius:10px;
+      z-index:1000;
+    }
+    .skip:focus{left:12px; top:12px}
+
+    .wrap{max-width:1100px; margin:0 auto; padding:22px 18px 60px}
+
+    header{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, rgba(6,21,12,.75), rgba(6,21,12,.25));
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+
+    .topbar{
+      width:100%;
+      padding:14px 22px;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:16px;
+    }
+
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      text-decoration:none;
+      min-width:220px;
+    }
+
+    .logo{
+      width:34px; height:34px;
+      border-radius:12px;
+      overflow:hidden;
+      display:grid;
+      place-items:center;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(200,255,122,.9), rgba(50,213,131,.9));
+      box-shadow:0 10px 25px rgba(0,0,0,.35);
+    }
+    .logo img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      padding:4px;
+      display:block;
+    }
+
+    .brand strong{letter-spacing:.2px}
+    .brand span{display:block; font-size:12px; color:var(--muted); margin-top:2px}
+
+    .mini-links{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
+      margin-left:auto;
+      justify-content:flex-end;
+    }
+
+    .mini-links a{
+      font-size:13px;
+      color:var(--muted);
+      text-decoration:none;
+      padding:8px 10px;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:999px;
+      transition:transform .15s ease, background .15s ease, border-color .15s ease;
+      letter-spacing:.2px;
+    }
+    .mini-links a:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.14);
+      color:var(--text);
+    }
+
+    .lang-pill{
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      padding:6px 8px;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:999px;
+      background: rgba(255,255,255,.03);
+    }
+
+    a.lang-btn{
+      appearance:none;
+      border:0;
+      background:transparent;
+      cursor:pointer;
+      padding:4px 6px;
+      border-radius:10px;
+      transition: transform .12s ease, background .12s ease;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:6px;
+      text-decoration:none;
+    }
+    a.lang-btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.06);
+    }
+
+    .flag{
+      width:18px;
+      height:12px;
+      border-radius:3px;
+      overflow:hidden;
+      display:block;
+      box-shadow: 0 6px 14px rgba(0,0,0,.25);
+      border: 1px solid rgba(255,255,255,.14);
+    }
+    .flag svg{width:100%; height:100%; display:block}
+
+    main{padding-top:22px}
+
     .panel{
-      width:min(760px, 100%);
       border:1px solid rgba(255,255,255,.10);
       border-radius: var(--radius);
       background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
@@ -65,7 +180,7 @@
       position:absolute;
       width:520px; height:520px;
       border-radius:50%;
-      opacity:.24;
+      opacity:.22;
       pointer-events:none;
     }
     .panel::before{
@@ -81,18 +196,9 @@
     @keyframes float1{ 0%,100%{transform: translate(0,0)} 50%{transform: translate(25px, 18px)}}
     @keyframes float2{ 0%,100%{transform: translate(0,0)} 50%{transform: translate(-18px, -22px)}}
 
-    .content{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:18px;
-      align-items:center;
-      position:relative;
-      z-index:2;
-    }
-
     .kicker{
       display:inline-flex;
-      align-items:center;
+      align-items:flex-start;
       gap:10px;
       padding:8px 12px;
       border-radius:999px;
@@ -103,187 +209,376 @@
       width:fit-content;
       line-height:1.25;
       white-space:normal;
+      position:relative;
+      z-index:2;
     }
     .dot{
       width:8px; height:8px; border-radius:50%;
       background: var(--green);
       box-shadow:0 0 0 6px rgba(50,213,131,.12);
       flex: 0 0 auto;
+      margin-top:4px;
     }
 
-    h1{
-      margin:14px 0 10px;
-      font-size: clamp(24px, 3.2vw, 38px);
+    .card{
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:18px;
+      background: rgba(255,255,255,.05);
+      padding:14px;
+      overflow:hidden;
+      position:relative;
+      z-index:2;
+    }
+
+    .card h1{
+      margin:0 0 10px;
+      font-size: clamp(26px, 3.2vw, 40px);
       line-height:1.1;
       letter-spacing:-.6px;
+    }
+
+    .card h2{
+      margin:0 0 10px;
+      font-size:16px;
+      letter-spacing:.1px;
+      line-height:1.3;
     }
 
     .lead{
       margin:0;
       color:var(--muted);
-      font-size: 15px;
+      font-size:15px;
       line-height:1.6;
-      max-width: 62ch;
+      max-width:78ch;
     }
+    .lead p{margin:0}
+    .lead p + p{margin-top:12px}
 
-    .count{
+    .stack{
       margin-top:14px;
-      width:fit-content;
-      padding:10px 14px;
-      border-radius: 16px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.16);
-      box-shadow: 0 14px 34px rgba(0,0,0,.26);
-      font-weight:800;
-      font-size: clamp(40px, 6vw, 64px);
-      letter-spacing: .5px;
-      line-height:1;
-      color: rgba(255,255,255,.92);
-      text-shadow: 0 10px 30px rgba(0,0,0,.35);
+      display:grid;
+      gap:14px;
+      position:relative;
+      z-index:2;
     }
 
-    .art{
+    .tiny{
+      font-size:12px;
+      color: rgba(255,255,255,.62);
+      line-height:1.45;
+      margin:6px 0 0;
+    }
+
+    .list{
+      list-style:none;
+      padding:0;
+      margin:12px 0 0;
+      display:grid;
+      gap:10px;
+    }
+    .list li{
       display:flex;
+      gap:10px;
+      align-items:flex-start;
+      color: rgba(255,255,255,.86);
+      font-size:14px;
+      line-height:1.4;
+    }
+    .mark{
+      width:18px; height:18px;
+      flex:0 0 18px;
+      border-radius:7px;
+      display:grid;
+      place-items:center;
+      background: linear-gradient(135deg, rgba(50,213,131,.22), rgba(200,255,122,.14));
+      border: 1px solid rgba(102,242,179,.22);
+      margin-top:2px;
+    }
+    .mark svg{display:block}
+
+    .cta-row{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:12px;
+    }
+
+    .cta-btn{
+      display:inline-flex;
       align-items:center;
       justify-content:center;
-      min-height: 260px;
+      gap:10px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      color:var(--text);
+      border-radius:14px;
+      padding:12px 14px;
+      cursor:pointer;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+      text-decoration:none;
+      font-size:14px;
+      width:fit-content;
+      max-width:100%;
+      white-space:normal;
+      text-align:center;
+      line-height:1.25;
+    }
+    .cta-btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.10);
+      border-color: rgba(255,255,255,.18);
+    }
+    .cta-btn.primary{
+      background: linear-gradient(135deg, rgba(50,213,131,.22), rgba(200,255,122,.16));
+      border-color: rgba(102,242,179,.26);
     }
 
-    .sprout{
-      width:min(340px, 100%);
-      height:auto;
-      filter: drop-shadow(0 14px 30px rgba(0,0,0,.35));
+    footer{
+      margin-top:22px;
+      padding:18px 4px 0;
+      color:rgba(255,255,255,.58);
+      font-size:13px;
+      display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;
     }
+    footer a{color:rgba(255,255,255,.70); text-decoration:none}
+    footer a:hover{text-decoration:underline}
 
-    .stem{
-      stroke: rgba(255,255,255,.55);
-      stroke-width: 4;
-      stroke-linecap: round;
-      fill: none;
-      stroke-dasharray: 240;
-      stroke-dashoffset: 240;
-      animation: draw 5s ease forwards;
-    }
-
-    .leafFill{
-      fill: url(#leafGrad);
-      opacity: 0;
-      transform-origin: 50% 90%;
-      transform: scale(.6);
-      animation: leafIn 5s ease forwards;
-    }
-
-    .glow{
-      opacity:.0;
-      animation: glow 5s ease forwards;
-    }
-
-    @keyframes draw{
-      0%{stroke-dashoffset:240; opacity:0}
-      12%{opacity:1}
-      100%{stroke-dashoffset:0; opacity:1}
-    }
-
-    @keyframes leafIn{
-      0%{opacity:0; transform: translateY(10px) scale(.55)}
-      35%{opacity:0; transform: translateY(10px) scale(.55)}
-      70%{opacity:.95; transform: translateY(0) scale(1)}
-      100%{opacity:.95; transform: translateY(0) scale(1)}
-    }
-
-    @keyframes glow{
-      0%{opacity:0; transform: scale(.9)}
-      40%{opacity:0}
-      75%{opacity:.22; transform: scale(1)}
-      100%{opacity:.0; transform: scale(1.08)}
-    }
-
-    .reveal{
-      opacity:0;
-      transform: translateY(10px);
-      animation: reveal .7s ease forwards;
-    }
-    .reveal.d2{animation-delay:.12s}
-    .reveal.d3{animation-delay:.24s}
-    @keyframes reveal{
-      to{opacity:1; transform: translateY(0)}
-    }
+    .reveal{opacity:0; transform: translateY(10px); transition: opacity .55s ease, transform .55s ease}
+    .reveal.on{opacity:1; transform: translateY(0)}
 
     @media (max-width: 980px){
-      .content{grid-template-columns: 1fr; gap:12px}
-      .art{min-height: 200px}
+      .cta-row .cta-btn{width:100%}
+    }
+
+    @media (max-width: 640px){
+      .topbar{
+        padding:12px 14px;
+        gap:10px;
+        flex-wrap:wrap;
+      }
+      .brand{
+        min-width:0;
+        width:100%;
+      }
+      .mini-links{
+        width:100%;
+        margin-left:0;
+        justify-content:space-between;
+      }
+      .cta-row .cta-btn{
+        width:100%;
+      }
     }
 
     @media (max-width: 480px){
-      body{padding:16px 14px}
+      .wrap{padding:16px 14px 54px}
+      main{padding-top:16px}
       .panel{padding:16px; border-radius:20px}
-      h1{font-size:24px; margin:12px 0 10px; letter-spacing:-.4px; line-height:1.12}
-      .lead{font-size:14px}
-      .count{width:100%; text-align:center; padding:14px 14px}
-      .art{min-height: 180px}
-      .sprout{width:min(280px, 92%)}
+      .kicker{width:100%; font-size:12px; padding:8px 10px}
+      .card h1{font-size:24px; letter-spacing:-.4px; line-height:1.12}
+      .cta-btn{font-size:16px; padding:14px 14px}
     }
 
     @media (prefers-reduced-motion: reduce){
-      *{animation:none !important; transition:none !important}
-      .stem{stroke-dashoffset:0; opacity:1}
-      .leafFill{opacity:.95; transform:none}
-      .glow{opacity:0}
-      body{overflow:auto}
+      *{animation:none !important; transition:none !important; scroll-behavior:auto !important}
+      .reveal{opacity:1; transform:none}
     }
   </style>
 </head>
 
 <body>
-  <main class="panel" aria-label="Σύντομα κοντά σας">
-    <div class="content">
-      <section>
-        <div class="kicker reveal">
-          <span class="dot" aria-hidden="true"></span>
-          ΣΥΝΤΟΜΑ ΚΟΝΤΑ ΣΑΣ
+  <a class="skip" href="#content">Μετάβαση στο περιεχόμενο</a>
+
+  <header>
+    <div class="topbar">
+      <a class="brand" href="index.html" aria-label="EcoPlant αρχική">
+        <div class="logo" aria-hidden="true">
+          <img id="brandLogo" src="assets/ecoplant-logo.svg" alt="EcoPlant logo" />
         </div>
-        <h1 class="reveal d2">Κάτι πράσινο έρχεται σύντομα!! 🌱</h1>
-        <p class="lead reveal d3">
-          Επιστροφή στις ρίζες μας σε λίγα δευτερόλεπτα!
-        </p>
-        <div class="count reveal d3" id="countdown" aria-live="polite">5</div>
+        <div>
+          <strong>EcoPlant</strong>
+          <span>• 100% Organic •</span>
+        </div>
+      </a>
+
+      <nav class="mini-links" aria-label="Γρήγορο μενού">
+        <span class="lang-pill" aria-label="Γλώσσα">
+          <a class="lang-btn" href="eshop.html" aria-label="Ελληνικά (τρέχουσα σελίδα)">
+            <span class="flag" aria-hidden="true">
+              <svg viewBox="0 0 18 12" xmlns="http://www.w3.org/2000/svg">
+                <rect width="18" height="12" fill="#0D5EAF"/>
+                <g fill="#ffffff">
+                  <rect y="1.333" width="18" height="1.333"/>
+                  <rect y="4" width="18" height="1.333"/>
+                  <rect y="6.667" width="18" height="1.333"/>
+                  <rect y="9.333" width="18" height="1.333"/>
+                  <rect x="0" y="0" width="6.666" height="6.666" fill="#0D5EAF"/>
+                  <rect x="2.666" y="0" width="1.333" height="6.666"/>
+                  <rect x="0" y="2.666" width="6.666" height="1.333"/>
+                </g>
+              </svg>
+            </span>
+          </a>
+
+          <a class="lang-btn" href="en/index.html" aria-label="English">
+            <span class="flag" aria-hidden="true">
+              <svg viewBox="0 0 18 12" xmlns="http://www.w3.org/2000/svg">
+                <rect width="18" height="12" fill="#012169"/>
+                <path d="M0 0 L7 0 L18 7 L18 12 L11 12 L0 5 Z" fill="#ffffff" opacity="0.95"/>
+                <path d="M18 0 L11 0 L0 7 L0 12 L7 12 L18 5 Z" fill="#ffffff" opacity="0.95"/>
+                <path d="M18 0 L18 2 L13 0 Z" fill="#C8102E"/>
+                <path d="M0 0 L5 0 L0 3 Z" fill="#C8102E"/>
+                <path d="M18 12 L13 12 L18 9 Z" fill="#C8102E"/>
+                <path d="M0 12 L0 10 L5 12 Z" fill="#C8102E"/>
+                <rect x="0" y="4.5" width="18" height="3" fill="#ffffff"/>
+                <rect x="7.5" y="0" width="3" height="12" fill="#ffffff"/>
+                <rect x="0" y="5.25" width="18" height="1.5" fill="#C8102E"/>
+                <rect x="8.25" y="0" width="1.5" height="12" fill="#C8102E"/>
+              </svg>
+            </span>
+          </a>
+        </span>
+
+        <a href="/">Αρχική</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <main id="content">
+      <section class="panel reveal">
+        <div class="kicker">
+          <span class="dot" aria-hidden="true"></span>
+          Πριν μπείτε στο κατάστημα!!!
+        </div>
+
+        <div class="card" style="margin-top:16px;">
+          <h1>eShop</h1>
+          <div class="lead">
+            <p>
+              Για αγορές, θα μεταφερθείτε στο ασφαλές μας ηλεκτρονικό κατάστημα (Shopify).
+              Εδώ μπορείτε να δείτε γρήγορα όσα χρειάζεται να γνωρίζετε (πληρωμές, αποστολές, υποστήριξη)
+              πριν συνεχίσετε.
+            </p>
+          </div>
+        </div>
+
+        <div class="stack">
+          <div class="card">
+            <h2>Γρήγορες ενέργειες</h2>
+            <div class="tiny">Quick Links.</div>
+
+            <div class="cta-row">
+              <button class="cta-btn primary" id="btnShop" type="button">Παραγγελίες</button>
+              <a class="cta-btn" href="products.html">Προϊόντα</a>
+              <a class="cta-btn" href="contact.html">Επικοινωνία</a>
+              <a class="cta-btn" href="/">Αρχική</a>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2>Πληρωμές & Αποστολές</h2>
+            <div class="tiny">Οι τελικές επιλογές εμφανίζονται μέσα στο eShop κατά το checkout.</div>
+
+            <ul class="list">
+              <li>
+                <span class="mark" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                    <path d="M20 7l-10 10-5-5" stroke="rgba(255,255,255,.85)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                Οι διαθέσιμοι τρόποι πληρωμής εμφανίζονται στο checkout.
+              </li>
+              <li>
+                <span class="mark" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                    <path d="M20 7l-10 10-5-5" stroke="rgba(255,255,255,.85)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                Τα έξοδα/τρόποι αποστολής εμφανίζονται ανά περιοχή στο checkout.
+              </li>
+              <li>
+                <span class="mark" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                    <path d="M20 7l-10 10-5-5" stroke="rgba(255,255,255,.85)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                Θα βρείτε και πακέτα (π.χ. συνδυασμοί 60ml & 1L) μέσα στο eShop.
+              </li>
+              <li>
+                <span class="mark" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                    <path d="M20 7l-10 10-5-5" stroke="rgba(255,255,255,.85)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                Για μεγάλες ποσότητες ή ειδικούς συνδυασμούς: <b>sales@ecoplant.bio</b> • <b>2312319652</b>
+              </li>
+            </ul>
+          </div>
+        </div>
       </section>
 
-      <div class="art" aria-hidden="true">
-        <svg class="sprout" viewBox="0 0 360 320" xmlns="http://www.w3.org/2000/svg" fill="none">
-          <defs>
-            <linearGradient id="leafGrad" x1="80" y1="120" x2="300" y2="260" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#66F2B3" stop-opacity="0.95"/>
-              <stop offset="1" stop-color="#C8FF7A" stop-opacity="0.70"/>
-            </linearGradient>
-          </defs>
-
-          <circle class="glow" cx="180" cy="190" r="120" fill="url(#leafGrad)" opacity="0.16"/>
-
-          <path class="stem" d="M180 270C180 232 180 214 180 186C180 160 175 140 160 122"/>
-
-          <path class="leafFill" d="M156 125C140 114 115 112 92 126C109 151 134 163 156 165C169 166 182 161 192 153C175 140 165 133 156 125Z"/>
-
-          <path class="leafFill" d="M190 168C218 170 246 150 268 122C239 108 212 111 196 126C187 134 176 146 168 160C174 165 182 168 190 168Z"/>
-        </svg>
-      </div>
-    </div>
-  </main>
+      <footer>
+        <div>© <span id="y"></span> EcoPlant.bio • Κυκλοφορεί σύμφωνα με την 217217, ΦΕΚ 35/2004.</div>
+        <div><a href="mailto:info@ecoplant.bio">info@ecoplant.bio</a></div>
+      </footer>
+    </main>
+  </div>
 
   <script>
     (function(){
-      const el = document.getElementById("countdown");
-      let n = 5;
-      const tick = () => {
-        n -= 1;
-        if(el) el.textContent = String(Math.max(n, 0));
-        if(n <= 0){
-          clearInterval(timer);
-          window.location.href = "index.html";
+      var SHOP_URL = "https://ecoplant-7251.myshopify.com/";
+
+      var img = document.getElementById("brandLogo");
+      if (img) {
+        img.onerror = function() {
+          img.style.display = "none";
+        };
+      }
+
+      var startYear = 2024;
+      var currentYear = new Date().getFullYear();
+      var text = currentYear > startYear ? startYear + "–" + currentYear : String(startYear);
+      var yearEl = document.getElementById("y");
+      if (yearEl) {
+        yearEl.textContent = text;
+      }
+
+      var btnShop = document.getElementById("btnShop");
+      if (btnShop) {
+        btnShop.onclick = function(){
+          if (!SHOP_URL || SHOP_URL.indexOf("http") !== 0) {
+            alert("Το eShop δεν είναι διαθέσιμο ακόμη.");
+            return;
+          }
+          window.location.href = SHOP_URL;
+        };
+      }
+
+      var items = document.querySelectorAll(".reveal");
+      var i;
+
+      if ("IntersectionObserver" in window) {
+        var io = new IntersectionObserver(function(entries) {
+          var j;
+          for (j = 0; j < entries.length; j++) {
+            if (entries[j].isIntersecting) {
+              entries[j].target.className += " on";
+              io.unobserve(entries[j].target);
+            }
+          }
+        }, { threshold: 0.15 });
+
+        for (i = 0; i < items.length; i++) {
+          io.observe(items[i]);
         }
-      };
-      if(el) el.textContent = String(n);
-      const timer = setInterval(tick, 1000);
+      } else {
+        for (i = 0; i < items.length; i++) {
+          if (items[i].className.indexOf("on") === -1) {
+            items[i].className += " on";
+          }
+        }
+      }
     })();
   </script>
 </body>
