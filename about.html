@@ -275,38 +275,20 @@
       border-radius:18px;
       border:1px solid rgba(255,255,255,.10);
       background: rgba(0,0,0,.10);
-      padding:10px;
+      padding:8px;
       width:100%;
       min-height:240px;
+      overflow:hidden;
     }
-    .art svg{width:min(240px, 100%); height:auto}
-
-    .droplet{transform-origin: 50% 0%;}
-    @keyframes drop {
-      0%{transform: translateY(-36px); opacity:0}
-      25%{opacity:1}
-      65%{transform: translateY(70px); opacity:1}
-      72%{transform: translateY(70px) scaleY(.9)}
-      100%{transform: translateY(70px) scaleY(.9); opacity:0}
-    }
-    .droplet{animation: drop 2.4s ease-in-out infinite}
-
-    .ripple{opacity:0; transform-origin: 50% 50%;}
-    @keyframes ripple {
-      0%{opacity:0; transform: scale(.6)}
-      60%{opacity:0}
-      75%{opacity:.35; transform: scale(1)}
-      100%{opacity:0; transform: scale(1.18)}
-    }
-    .ripple{animation: ripple 2.4s ease-in-out infinite}
-
-    .leaf{
-      transform-origin: 50% 70%;
-      animation: sway 4.2s ease-in-out infinite;
-    }
-    @keyframes sway{
-      0%,100%{transform: rotate(-1deg)}
-      50%{transform: rotate(2deg)}
+    .about-photo{
+      display:block;
+      width:100%;
+      height:100%;
+      max-height:340px;
+      object-fit:cover;
+      object-position:center;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.08);
     }
 
     .stack{
@@ -404,6 +386,7 @@
     @media (max-width: 980px){
       .grid{grid-template-columns:1fr}
       .art{min-height:220px}
+      .about-photo{max-height:300px}
     }
 
     @media (max-width: 640px){
@@ -433,6 +416,7 @@
       .kicker{width:100%; font-size:12px; padding:8px 10px}
       .card h1{font-size:24px; letter-spacing:-.4px; line-height:1.12}
       .cta-btn{font-size:16px; padding:14px 14px}
+      .about-photo{max-height:260px}
     }
 
     @media (prefers-reduced-motion: reduce){
@@ -527,36 +511,7 @@
 
           <div class="card art-card" aria-hidden="true">
             <div class="art">
-              <svg viewBox="0 0 360 320" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                  <linearGradient id="g1" x1="30" y1="40" x2="300" y2="280" gradientUnits="userSpaceOnUse">
-                    <stop stop-color="#66F2B3" stop-opacity="0.95"/>
-                    <stop offset="1" stop-color="#C8FF7A" stop-opacity="0.65"/>
-                  </linearGradient>
-                </defs>
-
-                <circle cx="180" cy="170" r="120" fill="url(#g1)" opacity="0.16"/>
-
-                <g class="leaf">
-                  <path d="M180 110C230 110 270 145 270 190C270 236 230 270 180 270C130 270 90 236 90 190C90 145 130 110 180 110Z" fill="url(#g1)" opacity="0.35"/>
-                  <path d="M180 132C214 132 242 156 242 190C242 224 214 248 180 248C146 248 118 224 118 190C118 156 146 132 180 132Z" fill="url(#g1)" opacity="0.48"/>
-                  <path d="M180 145V248" stroke="rgba(255,255,255,.55)" stroke-width="3" stroke-linecap="round"/>
-                  <path d="M180 170C205 175 218 190 230 206" stroke="rgba(255,255,255,.38)" stroke-width="2.2" stroke-linecap="round"/>
-                  <path d="M180 180C155 185 142 198 130 212" stroke="rgba(255,255,255,.30)" stroke-width="2.2" stroke-linecap="round"/>
-                </g>
-
-                <g class="droplet">
-                  <path d="M180 36C196 58 208 78 208 96C208 112 195 125 180 125C165 125 152 112 152 96C152 78 164 58 180 36Z" fill="url(#g1)" opacity="0.9"/>
-                  <path d="M170 92C176 80 186 66 192 56" stroke="rgba(255,255,255,.42)" stroke-width="3" stroke-linecap="round"/>
-                </g>
-
-                <g class="ripple">
-                  <ellipse cx="180" cy="214" rx="42" ry="12" stroke="rgba(200,255,122,.55)" stroke-width="2"/>
-                  <ellipse cx="180" cy="214" rx="68" ry="19" stroke="rgba(102,242,179,.35)" stroke-width="2"/>
-                </g>
-
-                <path d="M70 268C106 286 135 290 180 290C226 290 256 286 290 268" stroke="rgba(255,255,255,.20)" stroke-width="2" stroke-linecap="round"/>
-              </svg>
+              <img src="assets/arc/about.jpg" alt="EcoPlant παρουσίαση" class="about-photo" />
             </div>
           </div>
         </div>
@@ -587,7 +542,7 @@
             </ul>
 
             <div class="cta-row">
-              <a class="cta-btn primary" href="mailto:info@ecoplant.bio?subject=Ecoplant%20%2C%20we%20need%20support&body=%CE%9A%CE%B1%CE%BB%CE%BB%CE%B9%CE%AD%CF%81%CE%B3%CE%B5%CE%B9%CE%B1%3A%20%0A%CE%A0%CE%B5%CF%81%CE%B9%CE%BF%CF%87%CE%AE%3A%20%0A%CE%A3%CF%84%CE%AC%CE%B4%CE%B9%CE%BF%20%CE%BA%CE%B1%CE%BB%CE%BB%CE%B9%CE%AD%CF%81%CE%B3%CE%B5%CE%B9%CE%B1%CF%82%3A%20%0A%CE%95%CF%81%CF%8E%CF%84%CE%B7%CF%83%CE%B7%2F%CE%A3%CF%84%CF%8C%CF%87%CE%BF%CF%82%3A%20%0A%0A%CE%9C%CE%AE%CE%BD%CF%85%CE%BC%CE%B1%3A%20">Πείτε μας την καλλιέργειά σας και εμείς θα σας βοηθήσουμε για την ανάπτυξή της!</a>
+              <a class="cta-btn primary" href="mailto:info@ecoplant.bio?subject=Ecoplant%20%2C%20we%20need%20support&body=%CE%9A%CE%B1%CE%BB%CE%BB%CE%B9%CE%AD%CF%81%CE%B3%CE%B5%CE%B9%CE%B1%3A%20%0A%CE%A0%CE%B5%CF%81%CE%B9%CE%BF%CF%87%CE%AE%3A%20%0A%CE%A3%CF%84%CE%AC%CE%B4%CE%B9%CE%BF%20%CE%BA%CE%B1%CE%BB%CE%BB%CE%B9%CE%AD%CF%81%CE%B3%CE%B5%CE%B9%CE%B1%CF%82%3A%20%0A%CE%95%CF%81%CF%8E%CF%84%CE%B7%CF%83%CE%B7%2F%CE%A3%CF%84%CF%8C%CF%87%CE%BF%CF%82%3A%20%0A%0A%CE%9C%CE%AE%CE%BD%CF%85%CE%BC%CE%B1%3A%20">Πείτε մեզ την καλλιέργειά σας και εμείς θα σας βοηθήσουμε για την ανάπτυξή της!</a>
             </div>
           </div>
 
@@ -765,6 +720,71 @@
 
             <div class="cta-row">
               <a class="cta-btn primary" href="contact.html">Επικοινωνία για αίτημα επιστροφής ή ακύρωσης</a>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2>Πολιτική Απορρήτου</h2>
+            <div class="tiny">Σύντομη ενημέρωση για την προστασία της ιδιωτικότητας και τη χρήση της ιστοσελίδας μας.</div>
+
+            <ul class="list">
+              <li>
+                <span class="mark" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                    <path d="M20 7l-10 10-5-5" stroke="rgba(255,255,255,.85)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                Η ιστοσελίδα μας δεν χρησιμοποιεί από δική μας πλευρά εργαλεία παρακολούθησης επισκεπτών ή διαφημιστική στόχευση.
+              </li>
+
+              <li>
+                <span class="mark" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                    <path d="M20 7l-10 10-5-5" stroke="rgba(255,255,255,.85)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                Δεν συλλέγουμε προσωπικά δεδομένα περιήγησης, πέρα από όσα επιλέγετε εσείς να μας στείλετε οικειοθελώς μέσω email, φόρμας επικοινωνίας ή παραγγελίας.
+              </li>
+
+              <li>
+                <span class="mark" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                    <path d="M20 7l-10 10-5-5" stroke="rgba(255,255,255,.85)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                Τυχόν τεχνική καταγραφή επισκέψεων, cookies ή βασικά στοιχεία σύνδεσης ενδέχεται να προέρχονται από τρίτες υπηρεσίες φιλοξενίας ή πλατφόρμες που χρησιμοποιούνται για τη λειτουργία του site ή του καταστήματος.
+              </li>
+
+              <li>
+                <span class="mark" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                    <path d="M20 7l-10 10-5-5" stroke="rgba(255,255,255,.85)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                Τέτοιες υπηρεσίες μπορεί να περιλαμβάνουν, όπου εφαρμόζεται, παρόχους όπως GitHub Pages, Namecheap, Shopify ή άλλες αντίστοιχες υποδομές, οι οποίες λειτουργούν με τους δικούς τους όρους και πολιτικές απορρήτου.
+              </li>
+
+              <li>
+                <span class="mark" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                    <path d="M20 7l-10 10-5-5" stroke="rgba(255,255,255,.85)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                Δεν πουλάμε, δεν ενοικιάζουμε και δεν διαμοιράζουμε προσωπικά στοιχεία χρηστών για δικούς μας διαφημιστικούς σκοπούς.
+              </li>
+
+              <li>
+                <span class="mark" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                    <path d="M20 7l-10 10-5-5" stroke="rgba(255,255,255,.85)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                Αν έχετε οποιαδήποτε απορία σχετικά με την επικοινωνία ή τα στοιχεία που μας αποστέλλετε, μπορείτε να επικοινωνήσετε μαζί μας άμεσα.
+              </li>
+            </ul>
+
+            <div class="cta-row">
+              <a class="cta-btn primary" href="mailto:info@ecoplant.bio?subject=Privacy%20Policy%20Question">Επικοινωνία για θέματα ιδιωτικότητας</a>
             </div>
           </div>
 
