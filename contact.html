@@ -420,27 +420,95 @@
     .partner-name span{font-size:12px; color:var(--muted)}
 
     .partner-card{
-      border-radius: 14px;
+      border-radius:14px;
       border:1px solid rgba(255,255,255,.10);
       background: rgba(0,0,0,.12);
       padding:10px;
       overflow:hidden;
-      display:grid;
-      gap:10px;
     }
 
-    .cardLink{display:block; text-decoration:none}
-
-    .partner-card img{
+    .flip-card{
+      appearance:none;
+      border:0;
+      background:transparent;
+      padding:0;
+      margin:0;
       width:100%;
-      height:auto;
-      border-radius:10px;
+      cursor:pointer;
+      text-align:left;
+      perspective:1200px;
       display:block;
-      object-fit:cover;
-      max-height: 280px;
     }
 
-    .fallbackLink{display:none}
+    .flip-card[disabled]{
+      cursor:default;
+    }
+
+    .flip-card-inner{
+      position:relative;
+      width:100%;
+      aspect-ratio: 931 / 603;
+      transform-style:preserve-3d;
+      transition: transform .7s ease;
+    }
+
+    .flip-card.is-flipped .flip-card-inner{
+      transform: rotateY(180deg);
+    }
+
+    .flip-face{
+      position:absolute;
+      inset:0;
+      border-radius:10px;
+      overflow:hidden;
+      backface-visibility:hidden;
+      -webkit-backface-visibility:hidden;
+      background: rgba(0,0,0,.12);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .flip-face.back{
+      transform: rotateY(180deg);
+    }
+
+    .flip-face img{
+      width:100%;
+      height:100%;
+      display:block;
+    }
+
+    .flip-face.front img{
+      object-fit:cover;
+    }
+
+    .flip-face.back img{
+      object-fit:contain;
+      background: rgba(0,0,0,.12);
+    }
+
+    .flip-fallback{
+      width:100%;
+      height:100%;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+      text-align:center;
+      color:rgba(255,255,255,.80);
+      font-size:14px;
+      line-height:1.5;
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+    }
+
+    .flip-face.show-fallback .flip-fallback{
+      display:flex;
+    }
+
+    .flip-face.show-fallback img{
+      display:none;
+    }
 
     footer{
       margin-top:22px;
@@ -473,7 +541,7 @@
         width:100%;
       }
       .pill{width:100%; justify-content:center}
-      .partner-card img{max-height:none}
+      .flip-card-inner{aspect-ratio: 931 / 603}
     }
 
     @media (prefers-reduced-motion: reduce){
@@ -635,11 +703,19 @@
                   </div>
                   <a class="pill" href="mailto:vikas@ecoplant.bio">vikas@ecoplant.bio</a>
                 </div>
-                <div class="partner-card" data-pdf="assets/cards/vikas-card.pdf">
-                  <a class="cardLink" href="assets/cards/vikas-card.pdf" target="_blank" rel="noopener">
-                    <img class="cardImg" src="assets/cards/vikas-card.jpg" alt="Ψηφιακή κάρτα Vikas" loading="lazy" decoding="async" />
-                  </a>
-                  <a class="fallbackLink pill" href="assets/cards/vikas-card.pdf" target="_blank" rel="noopener">Άνοιγμα κάρτας (PDF)</a>
+                <div class="partner-card">
+                  <button class="flip-card" type="button" aria-label="Εμφάνιση κάρτας Αθανάσιου Βήκα">
+                    <span class="flip-card-inner">
+                      <span class="flip-face front">
+                        <img class="frontImg" src="assets/cards/team.jpg" alt="EcoPlant team" loading="lazy" decoding="async" />
+                        <span class="flip-fallback">Η εικόνα team.jpg δεν βρέθηκε.</span>
+                      </span>
+                      <span class="flip-face back">
+                        <img class="backImg" src="assets/cards/vikas-card.jpg" alt="Ψηφιακή κάρτα Vikas" loading="lazy" decoding="async" />
+                        <span class="flip-fallback">Η κάρτα δεν είναι διαθέσιμη αυτή τη στιγμή.</span>
+                      </span>
+                    </span>
+                  </button>
                 </div>
               </div>
 
@@ -651,11 +727,19 @@
                   </div>
                   <a class="pill" href="mailto:georgiadis@ecoplant.bio">georgiadis@ecoplant.bio</a>
                 </div>
-                <div class="partner-card" data-pdf="assets/cards/georgiadis-card.pdf">
-                  <a class="cardLink" href="assets/cards/georgiadis-card.pdf" target="_blank" rel="noopener">
-                    <img class="cardImg" src="assets/cards/georgiadis-card.jpg" alt="Ψηφιακή κάρτα Georgiadis" loading="lazy" decoding="async" />
-                  </a>
-                  <a class="fallbackLink pill" href="assets/cards/georgiadis-card.pdf" target="_blank" rel="noopener">Άνοιγμα κάρτας (PDF)</a>
+                <div class="partner-card">
+                  <button class="flip-card" type="button" aria-label="Εμφάνιση κάρτας Βασίλη Γεωργιάδη">
+                    <span class="flip-card-inner">
+                      <span class="flip-face front">
+                        <img class="frontImg" src="assets/cards/team.jpg" alt="EcoPlant team" loading="lazy" decoding="async" />
+                        <span class="flip-fallback">Η εικόνα team.jpg δεν βρέθηκε.</span>
+                      </span>
+                      <span class="flip-face back">
+                        <img class="backImg" src="assets/cards/georgiadis-card.jpg" alt="Ψηφιακή κάρτα Georgiadis" loading="lazy" decoding="async" />
+                        <span class="flip-fallback">Η κάρτα δεν είναι διαθέσιμη αυτή τη στιγμή.</span>
+                      </span>
+                    </span>
+                  </button>
                 </div>
               </div>
             </div>
@@ -671,6 +755,7 @@
   </div>
 
   <script>
+    const FLIP_BACK_MS = 30000;
     const img = document.getElementById("brandLogo");
     if(img){ img.addEventListener("error", () => { img.style.display = "none"; }); }
 
@@ -682,16 +767,43 @@
       if(y) y.textContent = text;
     })();
 
-    document.querySelectorAll(".partner-card").forEach(card=>{
-      const imgEl = card.querySelector(".cardImg");
-      const fallback = card.querySelector(".fallbackLink");
-      if(fallback) fallback.style.display = "none";
-      if(imgEl){
-        imgEl.addEventListener("error", ()=>{
-          imgEl.style.display = "none";
-          if(fallback) fallback.style.display = "inline-flex";
+    document.querySelectorAll(".flip-card").forEach(card => {
+      let timer = null;
+      const frontFace = card.querySelector(".front");
+      const backFace = card.querySelector(".back");
+      const frontImg = card.querySelector(".frontImg");
+      const backImg = card.querySelector(".backImg");
+
+      if(frontImg){
+        frontImg.addEventListener("error", () => {
+          if(frontFace) frontFace.classList.add("show-fallback");
         });
       }
+
+      if(backImg){
+        backImg.addEventListener("error", () => {
+          if(backFace) backFace.classList.add("show-fallback");
+          card.disabled = true;
+        });
+      }
+
+      card.addEventListener("click", () => {
+        if(card.disabled) return;
+
+        const isFlipped = card.classList.toggle("is-flipped");
+
+        if(timer){
+          clearTimeout(timer);
+          timer = null;
+        }
+
+        if(isFlipped){
+          timer = window.setTimeout(() => {
+            card.classList.remove("is-flipped");
+            timer = null;
+          }, FLIP_BACK_MS);
+        }
+      });
     });
 
     const form = document.getElementById("feedbackForm");
