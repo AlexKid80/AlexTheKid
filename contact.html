@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="WYLTOR AI elevator support." />
+  <meta name="description" content="WYLTOR contact page." />
   <meta name="theme-color" content="#0a0d10" />
-  <title>WYLTOR Support</title>
+  <title>WYLTOR Contact</title>
 
   <style>
     :root{
@@ -52,7 +52,7 @@
     }
 
     a{text-decoration:none;color:inherit}
-    button{font:inherit}
+    button,input,textarea{font:inherit}
 
     .container{
       width:min(1080px, calc(100% - 32px));
@@ -134,7 +134,7 @@
       border-radius:36px;
       background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
       box-shadow:var(--shadow);
-      padding:54px 42px 30px;
+      padding:54px 42px 34px;
     }
 
     .hero-box:before{
@@ -172,6 +172,8 @@
       color:var(--muted);
       font-size:12px;
       margin-bottom:16px;
+      position:relative;
+      z-index:1;
     }
 
     .dot{
@@ -190,6 +192,8 @@
     }
 
     h1{
+      position:relative;
+      z-index:1;
       margin:0;
       max-width:760px;
       font-size:clamp(36px, 5vw, 60px);
@@ -204,54 +208,132 @@
     }
 
     .hero-copy{
+      position:relative;
+      z-index:1;
       margin-top:18px;
+      max-width:760px;
+      color:var(--muted);
+      font-size:16px;
+      line-height:1.75;
+    }
+
+    .contact-form{
+      position:relative;
+      z-index:1;
+      margin-top:28px;
+      display:grid;
+      gap:18px;
       max-width:760px;
     }
 
-    .info-list{
+    .field-grid{
       display:grid;
+      grid-template-columns:1fr 1fr;
       gap:16px;
     }
 
-    .info-item{
-      display:flex;
-      align-items:flex-start;
-      gap:12px;
-      color:var(--muted);
-      font-size:16px;
-      line-height:1.7;
+    .field{
+      display:grid;
+      gap:8px;
     }
 
-    .info-icon{
-      width:26px;
-      height:26px;
-      min-width:26px;
-      border-radius:999px;
+    .field label{
+      color:var(--white);
+      font-size:14px;
+      font-weight:600;
+      letter-spacing:.02em;
+    }
+
+    .input,
+    .textarea{
+      width:100%;
+      border:1px solid var(--line);
+      border-radius:16px;
+      background:rgba(255,255,255,.04);
+      color:var(--white);
+      padding:14px 16px;
+      outline:none;
+      transition:.22s ease;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.03);
+    }
+
+    .input::placeholder,
+    .textarea::placeholder{
+      color:#7f8b94;
+    }
+
+    .input:focus,
+    .textarea:focus{
+      border-color:rgba(141,189,63,.45);
+      box-shadow:0 0 0 1px rgba(141,189,63,.10), 0 0 18px rgba(141,189,63,.10);
+      background:rgba(255,255,255,.055);
+    }
+
+    .textarea{
+      min-height:160px;
+      resize:vertical;
+    }
+
+    .rating-wrap{
+      display:grid;
+      gap:10px;
+    }
+
+    .rating-label{
+      color:var(--white);
+      font-size:14px;
+      font-weight:600;
+      letter-spacing:.02em;
+    }
+
+    .rating{
       display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .rating input{
+      position:absolute;
+      opacity:0;
+      pointer-events:none;
+    }
+
+    .rating label{
+      min-width:48px;
+      height:48px;
+      padding:0 12px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+      color:var(--muted);
+      display:inline-flex;
       align-items:center;
       justify-content:center;
-      margin-top:2px;
-      background:rgba(141,189,63,.12);
-      border:1px solid rgba(141,189,63,.30);
-      box-shadow:0 0 14px rgba(141,189,63,.09);
+      cursor:pointer;
+      transition:.22s ease;
+      user-select:none;
+      font-size:20px;
+      line-height:1;
     }
 
-    .info-icon svg{
-      width:14px;
-      height:14px;
-      display:block;
-      fill:var(--accent);
+    .rating label:hover{
+      transform:translateY(-1px);
+      border-color:rgba(141,189,63,.35);
+      color:var(--white);
+      background:rgba(141,189,63,.10);
     }
 
-    .info-text{
-      flex:1;
+    .rating input:checked + label{
+      background:rgba(141,189,63,.16);
+      border-color:rgba(141,189,63,.48);
+      color:var(--white);
+      box-shadow:0 0 0 1px rgba(141,189,63,.08), 0 0 18px rgba(141,189,63,.10);
     }
 
-    .hero-actions{
-      margin-top:28px;
-      display:grid;
-      grid-template-columns:repeat(3, minmax(0, 220px));
+    .form-actions{
+      display:flex;
       gap:14px;
+      flex-wrap:wrap;
       align-items:center;
     }
 
@@ -267,7 +349,6 @@
       color:var(--white);
       background:rgba(255,255,255,.05);
       transition:.22s ease;
-      width:100%;
       text-align:center;
     }
 
@@ -287,6 +368,11 @@
       background:rgba(141,189,63,.18);
       border-color:rgba(141,189,63,.55);
       box-shadow:0 0 24px rgba(141,189,63,.14);
+    }
+
+    .helper{
+      color:var(--muted);
+      font-size:13px;
     }
 
     footer{
@@ -321,20 +407,19 @@
       transform:translateY(0);
     }
 
-    @media (max-width: 960px){
-      .hero-actions{
-        grid-template-columns:repeat(3, minmax(0, 1fr));
-      }
-    }
-
     @media (max-width: 860px){
       .hero-box{
-        padding:42px 28px 26px;
+        padding:42px 28px 28px;
       }
 
       h1,
-      .hero-copy{
+      .hero-copy,
+      .contact-form{
         max-width:100%;
+      }
+
+      .field-grid{
+        grid-template-columns:1fr;
       }
     }
 
@@ -344,7 +429,7 @@
       }
 
       .hero-box{
-        padding:32px 18px 22px;
+        padding:32px 18px 24px;
         border-radius:28px;
       }
 
@@ -369,35 +454,37 @@
 
       .hero-copy{
         margin-top:14px;
-      }
-
-      .info-list{
-        gap:14px;
-      }
-
-      .info-item{
-        gap:10px;
         font-size:15px;
         line-height:1.65;
       }
 
-      .info-icon{
-        width:24px;
-        height:24px;
-        min-width:24px;
+      .contact-form{
+        margin-top:24px;
+        gap:16px;
       }
 
-      .info-icon svg{
-        width:13px;
-        height:13px;
+      .input,
+      .textarea{
+        padding:13px 14px;
       }
 
-      .hero-actions{
-        grid-template-columns:1fr;
-        gap:12px;
+      .rating{
+        gap:8px;
+      }
+
+      .rating label{
+        min-width:44px;
+        height:44px;
+        font-size:18px;
+      }
+
+      .form-actions{
+        flex-direction:column;
+        align-items:stretch;
       }
 
       .btn{
+        width:100%;
         min-height:50px;
         padding:0 14px;
         font-size:14px;
@@ -442,22 +529,14 @@
         font-size:30px;
       }
 
-      .info-item{
-        gap:9px;
+      .hero-copy{
         font-size:14px;
-        line-height:1.6;
       }
 
-      .info-icon{
-        width:22px;
-        height:22px;
-        min-width:22px;
-        margin-top:3px;
-      }
-
-      .info-icon svg{
-        width:12px;
-        height:12px;
+      .rating label{
+        min-width:42px;
+        height:42px;
+        font-size:17px;
       }
 
       .footer-copy{
@@ -501,68 +580,65 @@
       <div class="hero-box reveal">
         <div class="eyebrow">
           <span class="dot"></span>
-          Chatbot &amp; Manuals
+          Contact &amp; Feedback
         </div>
 
         <h1>
-          AI <span class="accent">Wyltor</span> support.
+          Contact <span class="accent">Wyltor</span>.
         </h1>
 
         <div class="hero-copy">
-          <div class="info-list">
-            <div class="info-item">
-              <span class="info-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24">
-                  <path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V8h2v5z"></path>
-                </svg>
-              </span>
-              <div class="info-text">
-                I am only a first-level elevator support assistant, designed to provide basic technical guidance, troubleshooting and commissioning support. I aim to assist quickly and professionally, but my responses should always be reviewed carefully before any action is taken, as mistakes or incomplete interpretations are possible.
-              </div>
+          Send us your feedback, rating or message. All fields are required before sending.
+        </div>
+
+        <form class="contact-form" id="contactForm">
+          <div class="field-grid">
+            <div class="field">
+              <label for="name">Name</label>
+              <input class="input" id="name" name="name" type="text" placeholder="Your name" required />
             </div>
 
-            <div class="info-item">
-              <span class="info-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24">
-                  <path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V8h2v5z"></path>
-                </svg>
-              </span>
-              <div class="info-text">
-                Safety must always come first. Under no circumstances should any instruction, request, or pressure override established safety procedures, company policy, or applicable technical standards. If a task involves risk, uncertainty, or safety-critical intervention, the safest approved procedure must always be followed.
-              </div>
-            </div>
-
-            <div class="info-item">
-              <span class="info-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24">
-                  <path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V8h2v5z"></path>
-                </svg>
-              </span>
-              <div class="info-text">
-                For more detailed information, please consult the manuals section and official technical documentation. If further clarification or case-specific support is required, please contact the After Sales Department.
-              </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input class="input" id="email" name="email" type="email" placeholder="your@email.com" required />
             </div>
           </div>
-        </div>
 
-        <div class="hero-actions">
-          <a class="btn primary" href="ai.html">
-            Open Assistant.
-          </a>
+          <div class="rating-wrap">
+            <div class="rating-label">Rating</div>
+            <div class="rating">
+              <input type="radio" id="star1" name="rating" value="1" required />
+              <label for="star1" aria-label="1 star">★</label>
 
-          <a class="btn" href="mv.html">
-            Manuals &amp; Videos
-          </a>
+              <input type="radio" id="star2" name="rating" value="2" required />
+              <label for="star2" aria-label="2 stars">★</label>
 
-          <a class="btn" href="mailto:support@wyltor.ai">
-            Human Suppot
-          </a>
-        </div>
+              <input type="radio" id="star3" name="rating" value="3" required />
+              <label for="star3" aria-label="3 stars">★</label>
+
+              <input type="radio" id="star4" name="rating" value="4" required />
+              <label for="star4" aria-label="4 stars">★</label>
+
+              <input type="radio" id="star5" name="rating" value="5" required />
+              <label for="star5" aria-label="5 stars">★</label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="comments">Comments</label>
+            <textarea class="textarea" id="comments" name="comments" placeholder="Write your message here..." required></textarea>
+          </div>
+
+          <div class="form-actions">
+            <button class="btn primary" type="submit">Send Message</button>
+            <div class="helper">The message opens in your default email app.</div>
+          </div>
+        </form>
       </div>
 
       <footer>
         <span class="footer-copy">© <span id="year"></span></span>
-        <a href="contact.html">Contact!</a>
+        <span>info@wyltor.ai</span>
       </footer>
     </div>
   </section>
@@ -577,21 +653,50 @@
         for (var i = 0; i < items.length; i++) {
           items[i].classList.add("show");
         }
-        return;
-      }
-
-      var obs = new IntersectionObserver(function(entries) {
-        for (var i = 0; i < entries.length; i++) {
-          if (entries[i].isIntersecting) {
-            entries[i].target.classList.add("show");
-            obs.unobserve(entries[i].target);
+      } else {
+        var obs = new IntersectionObserver(function(entries) {
+          for (var i = 0; i < entries.length; i++) {
+            if (entries[i].isIntersecting) {
+              entries[i].target.classList.add("show");
+              obs.unobserve(entries[i].target);
+            }
           }
-        }
-      }, { threshold: 0.12 });
+        }, { threshold: 0.12 });
 
-      for (var j = 0; j < items.length; j++) {
-        obs.observe(items[j]);
+        for (var j = 0; j < items.length; j++) {
+          obs.observe(items[j]);
+        }
       }
+
+      var form = document.getElementById("contactForm");
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return;
+        }
+
+        var name = document.getElementById("name").value.trim();
+        var email = document.getElementById("email").value.trim();
+        var rating = form.querySelector('input[name="rating"]:checked');
+        var comments = document.getElementById("comments").value.trim();
+
+        var subject = "WYLTOR Contact Form";
+        var body =
+          "Name: " + name + "\n" +
+          "Email: " + email + "\n" +
+          "Rating: " + (rating ? rating.value : "") + "/5\n\n" +
+          "Comments:\n" + comments;
+
+        var mailto =
+          "mailto:info@wyltor.ai" +
+          "?subject=" + encodeURIComponent(subject) +
+          "&body=" + encodeURIComponent(body);
+
+        window.location.href = mailto;
+      });
     })();
   </script>
 </body>

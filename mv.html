@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="WYLTOR AI elevator support." />
+  <meta name="description" content="WYLTOR manuals, videos and QR codes." />
   <meta name="theme-color" content="#0a0d10" />
-  <title>WYLTOR Support</title>
+  <title>WYLTOR Manuals & Videos</title>
 
   <style>
     :root{
@@ -52,7 +52,6 @@
     }
 
     a{text-decoration:none;color:inherit}
-    button{font:inherit}
 
     .container{
       width:min(1080px, calc(100% - 32px));
@@ -205,65 +204,97 @@
 
     .hero-copy{
       margin-top:18px;
-      max-width:760px;
-    }
-
-    .info-list{
-      display:grid;
-      gap:16px;
-    }
-
-    .info-item{
-      display:flex;
-      align-items:flex-start;
-      gap:12px;
+      max-width:780px;
       color:var(--muted);
       font-size:16px;
-      line-height:1.7;
+      line-height:1.75;
     }
 
-    .info-icon{
-      width:26px;
-      height:26px;
-      min-width:26px;
-      border-radius:999px;
+    .resources{
+      margin-top:30px;
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      gap:18px;
+    }
+
+    .resource-card{
+      position:relative;
+      border:1px solid var(--line);
+      border-radius:24px;
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      box-shadow:var(--shadow);
+      padding:24px 22px 22px;
+      min-height:250px;
+      display:flex;
+      flex-direction:column;
+      overflow:hidden;
+      transition:.22s ease;
+    }
+
+    .resource-card:hover{
+      transform:translateY(-2px);
+      border-color:var(--line-strong);
+      background:linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.025));
+    }
+
+    .resource-card:before{
+      content:"";
+      position:absolute;
+      right:-34px;
+      top:-34px;
+      width:120px;
+      height:120px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(141,189,63,.10), transparent 68%);
+      pointer-events:none;
+    }
+
+    .resource-icon{
+      width:52px;
+      height:52px;
+      min-width:52px;
+      border-radius:16px;
       display:flex;
       align-items:center;
       justify-content:center;
-      margin-top:2px;
-      background:rgba(141,189,63,.12);
-      border:1px solid rgba(141,189,63,.30);
-      box-shadow:0 0 14px rgba(141,189,63,.09);
+      background:rgba(141,189,63,.11);
+      border:1px solid rgba(141,189,63,.26);
+      box-shadow:0 0 16px rgba(141,189,63,.08);
+      margin-bottom:16px;
     }
 
-    .info-icon svg{
-      width:14px;
-      height:14px;
-      display:block;
+    .resource-icon svg{
+      width:24px;
+      height:24px;
       fill:var(--accent);
+      display:block;
     }
 
-    .info-text{
+    .resource-title{
+      margin:0;
+      color:var(--white);
+      font-size:22px;
+      letter-spacing:-.4px;
+      line-height:1.1;
+    }
+
+    .resource-text{
+      margin:14px 0 0;
+      color:var(--muted);
+      font-size:15px;
+      line-height:1.7;
       flex:1;
     }
 
-    .hero-actions{
-      margin-top:28px;
-      display:grid;
-      grid-template-columns:repeat(3, minmax(0, 220px));
-      gap:14px;
-      align-items:center;
-    }
-
-    .btn{
-      min-height:52px;
-      padding:0 20px;
+    .resource-btn{
+      min-height:50px;
+      margin-top:18px;
+      padding:0 18px;
       border-radius:16px;
       border:1px solid var(--line);
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      cursor:pointer;
       color:var(--white);
       background:rgba(255,255,255,.05);
       transition:.22s ease;
@@ -271,19 +302,19 @@
       text-align:center;
     }
 
-    .btn:hover{
+    .resource-btn:hover{
       transform:translateY(-1px);
       background:rgba(255,255,255,.08);
       border-color:var(--line-strong);
     }
 
-    .btn.primary{
+    .resource-btn.primary{
       background:rgba(141,189,63,.13);
       border-color:rgba(141,189,63,.38);
       box-shadow:0 0 0 1px rgba(141,189,63,.04), 0 0 22px rgba(141,189,63,.08);
     }
 
-    .btn.primary:hover{
+    .resource-btn.primary:hover{
       background:rgba(141,189,63,.18);
       border-color:rgba(141,189,63,.55);
       box-shadow:0 0 24px rgba(141,189,63,.14);
@@ -321,9 +352,13 @@
       transform:translateY(0);
     }
 
-    @media (max-width: 960px){
-      .hero-actions{
-        grid-template-columns:repeat(3, minmax(0, 1fr));
+    @media (max-width: 980px){
+      .resources{
+        grid-template-columns:1fr;
+      }
+
+      .resource-card{
+        min-height:unset;
       }
     }
 
@@ -369,37 +404,44 @@
 
       .hero-copy{
         margin-top:14px;
-      }
-
-      .info-list{
-        gap:14px;
-      }
-
-      .info-item{
-        gap:10px;
         font-size:15px;
         line-height:1.65;
       }
 
-      .info-icon{
-        width:24px;
-        height:24px;
-        min-width:24px;
+      .resources{
+        margin-top:24px;
+        gap:14px;
       }
 
-      .info-icon svg{
-        width:13px;
-        height:13px;
+      .resource-card{
+        padding:20px 18px 18px;
+        border-radius:22px;
       }
 
-      .hero-actions{
-        grid-template-columns:1fr;
-        gap:12px;
+      .resource-icon{
+        width:48px;
+        height:48px;
+        min-width:48px;
+        border-radius:15px;
+        margin-bottom:14px;
       }
 
-      .btn{
-        min-height:50px;
-        padding:0 14px;
+      .resource-icon svg{
+        width:22px;
+        height:22px;
+      }
+
+      .resource-title{
+        font-size:20px;
+      }
+
+      .resource-text{
+        font-size:14px;
+        line-height:1.6;
+      }
+
+      .resource-btn{
+        min-height:48px;
         font-size:14px;
       }
 
@@ -442,22 +484,8 @@
         font-size:30px;
       }
 
-      .info-item{
-        gap:9px;
+      .hero-copy{
         font-size:14px;
-        line-height:1.6;
-      }
-
-      .info-icon{
-        width:22px;
-        height:22px;
-        min-width:22px;
-        margin-top:3px;
-      }
-
-      .info-icon svg{
-        width:12px;
-        height:12px;
       }
 
       .footer-copy{
@@ -470,7 +498,7 @@
 
   <div class="nav-wrap">
     <div class="container nav">
-      <a class="brand" href="#">
+      <a class="brand" href="index.html">
         <div class="brand-mark" aria-hidden="true">
           <svg viewBox="0 0 64 64">
             <defs>
@@ -490,8 +518,8 @@
         <span>Troubleshoot &amp; Commission</span>
       </a>
 
-      <a class="nav-link" href="https://www.wyltor.com/" target="_blank" rel="noopener">
-        Wyltor
+      <a class="nav-link" href="index.html">
+        Home
       </a>
     </div>
   </div>
@@ -501,68 +529,68 @@
       <div class="hero-box reveal">
         <div class="eyebrow">
           <span class="dot"></span>
-          Chatbot &amp; Manuals
+          Manuals, Videos &amp; QR Codes
         </div>
 
         <h1>
-          AI <span class="accent">Wyltor</span> support.
+          <span class="accent">Wyltor</span> Information Center.
         </h1>
 
         <div class="hero-copy">
-          <div class="info-list">
-            <div class="info-item">
-              <span class="info-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24">
-                  <path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V8h2v5z"></path>
-                </svg>
-              </span>
-              <div class="info-text">
-                I am only a first-level elevator support assistant, designed to provide basic technical guidance, troubleshooting and commissioning support. I aim to assist quickly and professionally, but my responses should always be reviewed carefully before any action is taken, as mistakes or incomplete interpretations are possible.
-              </div>
-            </div>
-
-            <div class="info-item">
-              <span class="info-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24">
-                  <path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V8h2v5z"></path>
-                </svg>
-              </span>
-              <div class="info-text">
-                Safety must always come first. Under no circumstances should any instruction, request, or pressure override established safety procedures, company policy, or applicable technical standards. If a task involves risk, uncertainty, or safety-critical intervention, the safest approved procedure must always be followed.
-              </div>
-            </div>
-
-            <div class="info-item">
-              <span class="info-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24">
-                  <path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V8h2v5z"></path>
-                </svg>
-              </span>
-              <div class="info-text">
-                For more detailed information, please consult the manuals section and official technical documentation. If further clarification or case-specific support is required, please contact the After Sales Department.
-              </div>
-            </div>
-          </div>
+          Quick access to company manuals, technical videos and QR resources. This page is designed to keep documentation simple, organized and easy to reach from one place. Manuals and videos are uploaded through bitly for extra security reasons and huge google drive links. Hit "Continue to Destination" to continue to files. You will need a google account and permission to access wyltor files.
         </div>
 
-        <div class="hero-actions">
-          <a class="btn primary" href="ai.html">
-            Open Assistant.
-          </a>
+        <div class="resources">
+          <div class="resource-card">
+            <div class="resource-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M6 2h9l5 5v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm8 1.5V8h4.5L14 3.5zM8 12h8v1.8H8V12zm0 4h8v1.8H8V16z"></path>
+              </svg>
+            </div>
+            <h2 class="resource-title">Manuals</h2>
+            <div class="resource-text">
+              Technical documents, user guides and official reference material stored in the company Google Drive folder.
+            </div>
+            <a class="resource-btn primary" href="https://bit.ly/WyltorManuals" target="_blank" rel="noopener">
+              Open Manuals
+            </a>
+          </div>
 
-          <a class="btn" href="mv.html">
-            Manuals &amp; Videos
-          </a>
+          <div class="resource-card">
+            <div class="resource-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v13a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 18.5v-13zm6 2.2v8.6l6.8-4.3L10 7.7z"></path>
+              </svg>
+            </div>
+            <h2 class="resource-title">Videos</h2>
+            <div class="resource-text">
+              Training clips, installation references and support videos available through the company Google Drive video folder.
+            </div>
+            <a class="resource-btn primary" href="https://bit.ly/WyltorVideos" target="_blank" rel="noopener">
+              Open Videos
+            </a>
+          </div>
 
-          <a class="btn" href="mailto:support@wyltor.ai">
-            Human Suppot
-          </a>
+          <div class="resource-card">
+            <div class="resource-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M3 3h8v8H3V3zm2 2v4h4V5H5zm8-2h8v8h-8V3zm2 2v4h4V5h-4zM3 13h8v8H3v-8zm2 2v4h4v-4H5zm10-2h2v2h-2v-2zm2 2h2v2h-2v-2zm-4 0h2v4h-2v-4zm4 4h2v2h-2v-2zm2-4h2v6h-2v-6z"></path>
+              </svg>
+            </div>
+            <h2 class="resource-title">QR Codes</h2>
+            <div class="resource-text">
+              Direct access to QR resources and company portal material for quick reference in the field or office.
+            </div>
+            <a class="resource-btn" href="qr.html">
+              Open QR Codes
+            </a>
+          </div>
         </div>
       </div>
 
       <footer>
         <span class="footer-copy">© <span id="year"></span></span>
-        <a href="contact.html">Contact!</a>
+        <a href="mailto:support@wyltor.ai">support@wyltor.ai</a>
       </footer>
     </div>
   </section>

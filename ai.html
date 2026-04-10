@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="WYLTOR AI elevator support." />
+  <meta name="theme-color" content="#0a0d10" />
+  <title>WYLTOR Support</title>
+
+  <style>
+    :root{
+      --bg:#0a0d10;
+      --bg2:#10161b;
+      --line:rgba(255,255,255,.10);
+      --line-strong:rgba(255,255,255,.18);
+      --text:#e9edf0;
+      --muted:#97a3ac;
+      --white:#ffffff;
+      --accent:#8dbd3f;
+      --accent-2:#6f9830;
+      --accent-glow:rgba(141,189,63,.20);
+      --shadow:0 18px 40px rgba(0,0,0,.32);
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+
+    body{
+      margin:0;
+      font-family:Inter,Segoe UI,Arial,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 18% 0%, rgba(141,189,63,.10), transparent 24%),
+        radial-gradient(circle at 82% 0%, rgba(111,152,48,.08), transparent 28%),
+        linear-gradient(180deg, #090c0f 0%, #0c1115 100%);
+      line-height:1.5;
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
+    }
+
+    body:before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.16;
+      background-image:
+        linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+      background-size:46px 46px;
+      mask-image:radial-gradient(circle at center, black 35%, transparent 85%);
+    }
+
+    a{text-decoration:none;color:inherit}
+
+    .container{
+      width:min(1080px, calc(100% - 32px));
+      margin:0 auto;
+    }
+
+    .nav-wrap{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      background:rgba(10,13,16,.78);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid var(--line);
+    }
+
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:flex-start;
+      gap:16px;
+      padding:14px 0;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:600;
+      letter-spacing:.35px;
+      min-width:0;
+    }
+
+    .brand-mark{
+      width:40px;
+      height:40px;
+      border-radius:14px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+      flex:0 0 auto;
+      filter:drop-shadow(0 0 14px rgba(141,189,63,.16));
+    }
+
+    .brand-mark svg{
+      width:100%;
+      height:100%;
+      display:block;
+    }
+
+    .brand span{
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      line-height:1;
+      color:var(--accent);
+      text-shadow:0 0 16px rgba(141,189,63,.14);
+    }
+
+    .hero{
+      padding:72px 0 0;
+    }
+
+    .hero-box{
+      position:relative;
+      overflow:hidden;
+      border:1px solid var(--line);
+      border-radius:36px;
+      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      box-shadow:var(--shadow);
+      padding:42px 28px;
+      min-height:340px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+    }
+
+    .hero-box:before{
+      content:"";
+      position:absolute;
+      right:-70px;
+      top:-60px;
+      width:220px;
+      height:220px;
+      border-radius:50%;
+      background:radial-gradient(circle, var(--accent-glow), transparent 68%);
+      pointer-events:none;
+    }
+
+    .hero-box:after{
+      content:"";
+      position:absolute;
+      left:-60px;
+      bottom:-90px;
+      width:220px;
+      height:220px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(111,152,48,.10), transparent 72%);
+      pointer-events:none;
+    }
+
+    .intro-wrap{
+      position:relative;
+      z-index:1;
+      width:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:210px;
+    }
+
+    .type-line{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:0;
+      font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size:clamp(24px, 4.1vw, 48px);
+      font-weight:600;
+      letter-spacing:-0.02em;
+      line-height:1.15;
+      color:var(--white);
+      text-shadow:0 0 20px rgba(141,189,63,.08);
+      min-height:1.2em;
+      word-break:break-word;
+    }
+
+    .typed-text{
+      color:var(--white);
+    }
+
+    .cursor{
+      display:inline-block;
+      width:.11em;
+      height:1.05em;
+      margin-left:.10em;
+      border-radius:999px;
+      background:var(--accent);
+      box-shadow:0 0 14px rgba(141,189,63,.55);
+      animation:blink .8s steps(1,end) infinite;
+      transform:translateY(.06em);
+      flex:0 0 auto;
+    }
+
+    @keyframes blink{
+      0%, 49%{opacity:1}
+      50%, 100%{opacity:0}
+    }
+
+    footer{
+      padding:24px 0 34px;
+      margin-top:72px;
+      display:flex;
+      justify-content:flex-start;
+      gap:12px;
+      flex-wrap:wrap;
+      font-size:12px;
+      color:#80909b;
+    }
+
+    .footer-copy{
+      font-family:Georgia,"Times New Roman",serif;
+      font-style:italic;
+      font-weight:600;
+      font-size:17px;
+      line-height:1;
+      letter-spacing:.5px;
+      color:#8c98a2;
+    }
+
+    .reveal{
+      opacity:0;
+      transform:translateY(18px);
+      transition:opacity .75s ease, transform .75s ease;
+    }
+
+    .reveal.show{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    @media (max-width: 760px){
+      .hero{
+        padding:54px 0 0;
+      }
+
+      .hero-box{
+        min-height:280px;
+        padding:34px 18px;
+        border-radius:28px;
+      }
+
+      .nav{
+        padding:12px 0;
+      }
+
+      .type-line{
+        font-size:clamp(20px, 7vw, 34px);
+        line-height:1.2;
+      }
+
+      footer{
+        justify-content:center;
+        text-align:center;
+        padding-top:22px;
+        margin-top:54px;
+      }
+
+      .footer-copy{
+        width:100%;
+      }
+    }
+
+    @media (max-width: 480px){
+      .container{
+        width:min(1080px, calc(100% - 20px));
+      }
+
+      .brand{
+        gap:10px;
+      }
+
+      .brand-mark{
+        width:34px;
+        height:34px;
+      }
+
+      .brand span{
+        font-size:14px;
+      }
+
+      .hero-box{
+        min-height:250px;
+        padding:28px 16px;
+        border-radius:24px;
+      }
+
+      .type-line{
+        font-size:clamp(18px, 7.8vw, 28px);
+      }
+
+      .footer-copy{
+        font-size:16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="nav-wrap">
+    <div class="container nav">
+      <a class="brand" href="https://www.wyltor.com/" target="_blank" rel="noopener">
+        <div class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 64 64">
+            <defs>
+              <linearGradient id="wyltorWGlow" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#9ed14d"></stop>
+                <stop offset="100%" stop-color="#6f9830"></stop>
+              </linearGradient>
+            </defs>
+            <rect x="4" y="4" width="56" height="56" rx="18" fill="#1a2024"></rect>
+            <rect x="4.5" y="4.5" width="55" height="55" rx="17.5" fill="none" stroke="rgba(255,255,255,0.14)"></rect>
+            <circle cx="32" cy="32" r="21" fill="none" stroke="url(#wyltorWGlow)" stroke-width="3.2" opacity="0.95"></circle>
+            <circle cx="32" cy="32" r="15.5" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1.4"></circle>
+            <path d="M16 21 L23 45 L31 28 L39 45 L48 21" fill="none" stroke="#d7dde1" stroke-width="5.2" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M23 45 L31 28 L39 45" fill="none" stroke="url(#wyltorWGlow)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </div>
+        <span>Wyltor</span>
+      </a>
+    </div>
+  </div>
+
+  <section class="hero">
+    <div class="container">
+      <div class="hero-box reveal">
+        <div class="intro-wrap">
+          <div class="type-line" aria-label="Do you believe in magic ?!">
+            <span class="typed-text" id="typedText"></span><span class="cursor" aria-hidden="true"></span>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <span class="footer-copy">© <span id="year"></span></span>
+      </footer>
+    </div>
+  </section>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    (function () {
+      var items = document.querySelectorAll(".reveal");
+
+      if (!("IntersectionObserver" in window)) {
+        for (var i = 0; i < items.length; i++) {
+          items[i].classList.add("show");
+        }
+      } else {
+        var obs = new IntersectionObserver(function(entries) {
+          for (var i = 0; i < entries.length; i++) {
+            if (entries[i].isIntersecting) {
+              entries[i].target.classList.add("show");
+              obs.unobserve(entries[i].target);
+            }
+          }
+        }, { threshold: 0.12 });
+
+        for (var j = 0; j < items.length; j++) {
+          obs.observe(items[j]);
+        }
+      }
+
+      var text = "Do you believe in magic ?!";
+      var target = document.getElementById("typedText");
+      var index = 0;
+      var startDelay = 180;
+      var typeSpeed = 55;
+      var redirectDelay = 2000;
+
+      setTimeout(function () {
+        var timer = setInterval(function () {
+          target.textContent += text.charAt(index);
+          index += 1;
+
+          if (index >= text.length) {
+            clearInterval(timer);
+          }
+        }, typeSpeed);
+      }, startDelay);
+
+      setTimeout(function () {
+        window.location.href = "index.html";
+      }, redirectDelay);
+    })();
+  </script>
+</body>
+</html>
