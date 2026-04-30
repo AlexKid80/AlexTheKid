@@ -371,9 +371,9 @@
       var text = "Do you believe in magic ?!";
       var target = document.getElementById("typedText");
       var index = 0;
-      var startDelay = 140;
-      var typeSpeed = 45;
-      var redirectDelay = 2000;
+      var startDelay = 1000;
+      var typeSpeed = 40;
+      var redirectDelay = 3000;
 
       setTimeout(function () {
         var timer = setInterval(function () {
@@ -387,7 +387,7 @@
       }, startDelay);
 
       setTimeout(function () {
-        window.location.href = "index.html";
+        window.location.href = "intro.html";
       }, redirectDelay);
     })();
   </script>
