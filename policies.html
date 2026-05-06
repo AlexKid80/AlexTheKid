@@ -1,0 +1,1194 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="WYLTOR policies, privacy and safety information." />
+  <meta name="theme-color" content="#0a0d10" />
+  <title>WYLTOR Policies</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='wyltorWGlow' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%239ed14d'/%3E%3Cstop offset='100%25' stop-color='%236f9830'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='4' y='4' width='56' height='56' rx='18' fill='%231a2024'/%3E%3Crect x='4.5' y='4.5' width='55' height='55' rx='17.5' fill='none' stroke='rgba(255,255,255,0.14)'/%3E%3Ccircle cx='32' cy='32' r='21' fill='none' stroke='url(%23wyltorWGlow)' stroke-width='3.2' opacity='0.95'/%3E%3Ccircle cx='32' cy='32' r='15.5' fill='none' stroke='rgba(255,255,255,0.08)' stroke-width='1.4'/%3E%3Cpath d='M16 21 L23 45 L31 28 L39 45 L48 21' fill='none' stroke='%23d7dde1' stroke-width='5.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M23 45 L31 28 L39 45' fill='none' stroke='url(%23wyltorWGlow)' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+
+  <style>
+    :root{
+      --bg:#0a0d10;
+      --bg2:#10161b;
+      --line:rgba(255,255,255,.10);
+      --line-strong:rgba(255,255,255,.18);
+      --text:#e9edf0;
+      --muted:#97a3ac;
+      --white:#ffffff;
+      --accent:#8dbd3f;
+      --accent-2:#6f9830;
+      --accent-glow:rgba(141,189,63,.20);
+      --shadow:0 18px 40px rgba(0,0,0,.32);
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+
+    body{
+      margin:0;
+      font-family:Inter,Segoe UI,Arial,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 18% 0%, rgba(141,189,63,.10), transparent 24%),
+        radial-gradient(circle at 82% 0%, rgba(111,152,48,.08), transparent 28%),
+        linear-gradient(180deg, #090c0f 0%, #0c1115 100%);
+      line-height:1.5;
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
+    }
+
+    body:before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.16;
+      background-image:
+        linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+      background-size:46px 46px;
+      mask-image:radial-gradient(circle at center, black 35%, transparent 85%);
+    }
+
+    a{text-decoration:none;color:inherit}
+
+    .container{
+      width:min(1080px, calc(100% - 32px));
+      margin:0 auto;
+    }
+
+    .nav-wrap{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      background:rgba(10,13,16,.78);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid var(--line);
+    }
+
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding:14px 0;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:600;
+      letter-spacing:.35px;
+      min-width:0;
+    }
+
+    .brand-mark{
+      width:40px;
+      height:40px;
+      border-radius:14px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+      flex:0 0 auto;
+      filter:drop-shadow(0 0 14px rgba(141,189,63,.16));
+    }
+
+    .brand-mark svg{
+      width:100%;
+      height:100%;
+      display:block;
+    }
+
+    .brand span{
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      line-height:1;
+      color:var(--accent);
+      text-shadow:0 0 16px rgba(141,189,63,.14);
+    }
+
+    .nav-link{
+      color:var(--muted);
+      font-size:14px;
+      transition:.2s ease;
+      white-space:nowrap;
+    }
+
+    .nav-link:hover{
+      color:var(--white);
+    }
+
+    .hero{
+      padding:72px 0 0;
+    }
+
+    .hero-box{
+      position:relative;
+      overflow:hidden;
+      border:1px solid var(--line);
+      border-radius:36px;
+      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      box-shadow:var(--shadow);
+      padding:54px 42px 34px;
+    }
+
+    .hero-box:before{
+      content:"";
+      position:absolute;
+      right:-70px;
+      top:-60px;
+      width:220px;
+      height:220px;
+      border-radius:50%;
+      background:radial-gradient(circle, var(--accent-glow), transparent 68%);
+      pointer-events:none;
+    }
+
+    .hero-box:after{
+      content:"";
+      position:absolute;
+      left:-60px;
+      bottom:-90px;
+      width:220px;
+      height:220px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(111,152,48,.10), transparent 72%);
+      pointer-events:none;
+    }
+
+    .eyebrow{
+      position:relative;
+      z-index:1;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+      color:var(--muted);
+      font-size:12px;
+      margin-bottom:16px;
+    }
+
+    .dot{
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:var(--accent);
+      box-shadow:0 0 12px rgba(141,189,63,.75);
+      animation:pulse 1.7s infinite;
+      flex:0 0 auto;
+    }
+
+    @keyframes pulse{
+      0%,100%{transform:scale(1);opacity:1}
+      50%{transform:scale(1.2);opacity:.65}
+    }
+
+    h1{
+      position:relative;
+      z-index:1;
+      margin:0;
+      max-width:760px;
+      font-size:clamp(36px, 5vw, 60px);
+      line-height:1.04;
+      letter-spacing:-1.45px;
+      color:var(--white);
+    }
+
+    .accent{
+      color:var(--accent);
+      text-shadow:0 0 16px rgba(141,189,63,.14);
+    }
+
+    .hero-copy{
+      position:relative;
+      z-index:1;
+      margin-top:18px;
+      max-width:780px;
+      color:var(--muted);
+      font-size:16px;
+      line-height:1.75;
+    }
+
+    .cards{
+      position:relative;
+      z-index:1;
+      margin-top:30px;
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      gap:18px;
+    }
+
+    .card{
+      position:relative;
+      border:1px solid var(--line);
+      border-radius:24px;
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      box-shadow:var(--shadow);
+      padding:24px 22px 22px;
+      min-height:260px;
+      display:flex;
+      flex-direction:column;
+      overflow:hidden;
+      transition:.22s ease;
+    }
+
+    .card:hover{
+      transform:translateY(-2px);
+      border-color:var(--line-strong);
+      background:linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.025));
+    }
+
+    .card:before{
+      content:"";
+      position:absolute;
+      right:-34px;
+      top:-34px;
+      width:120px;
+      height:120px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(141,189,63,.10), transparent 68%);
+      pointer-events:none;
+    }
+
+    .card-icon{
+      width:52px;
+      height:52px;
+      min-width:52px;
+      border-radius:16px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:rgba(141,189,63,.11);
+      border:1px solid rgba(141,189,63,.26);
+      box-shadow:0 0 16px rgba(141,189,63,.08);
+      margin-bottom:16px;
+    }
+
+    .card-icon svg{
+      width:24px;
+      height:24px;
+      fill:var(--accent);
+      display:block;
+    }
+
+    .card-title{
+      margin:0;
+      color:var(--white);
+      font-size:22px;
+      letter-spacing:-.4px;
+      line-height:1.1;
+    }
+
+    .card-text{
+      margin:14px 0 0;
+      color:var(--muted);
+      font-size:15px;
+      line-height:1.7;
+      flex:1;
+    }
+
+    .card-btn{
+      min-height:50px;
+      margin-top:18px;
+      padding:0 18px;
+      border-radius:16px;
+      border:1px solid rgba(141,189,63,.38);
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      color:var(--white);
+      background:rgba(141,189,63,.13);
+      box-shadow:0 0 0 1px rgba(141,189,63,.04), 0 0 22px rgba(141,189,63,.08);
+      transition:.22s ease;
+      width:100%;
+      text-align:center;
+    }
+
+    .card-btn:hover{
+      transform:translateY(-1px);
+      background:rgba(141,189,63,.18);
+      border-color:rgba(141,189,63,.55);
+      box-shadow:0 0 24px rgba(141,189,63,.14);
+    }
+
+    .details{
+      position:relative;
+      z-index:1;
+      margin-top:24px;
+      display:grid;
+      gap:16px;
+    }
+
+    .detail-box{
+      border:1px solid var(--line);
+      border-radius:24px;
+      background:rgba(255,255,255,.03);
+      padding:22px 22px 20px;
+    }
+
+    .detail-box h3{
+      margin:0 0 14px;
+      color:var(--white);
+      font-size:20px;
+      letter-spacing:-.3px;
+    }
+
+    .info-list{
+      display:grid;
+      gap:16px;
+    }
+
+    .info-item{
+      display:flex;
+      align-items:flex-start;
+      gap:12px;
+      color:var(--muted);
+      font-size:15px;
+      line-height:1.75;
+    }
+
+    .info-icon{
+      width:26px;
+      height:26px;
+      min-width:26px;
+      border-radius:999px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin-top:2px;
+      background:rgba(141,189,63,.12);
+      border:1px solid rgba(141,189,63,.30);
+      box-shadow:0 0 14px rgba(141,189,63,.09);
+    }
+
+    .info-icon svg{
+      width:14px;
+      height:14px;
+      display:block;
+      fill:var(--accent);
+    }
+
+    .info-text{
+      flex:1;
+    }
+
+    .detail-action{
+      margin-top:18px;
+      display:flex;
+      justify-content:flex-start;
+    }
+
+    .detail-btn{
+      min-height:40px;
+      padding:0 16px;
+      border-radius:14px;
+      border:1px solid rgba(141,189,63,.34);
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      color:var(--white);
+      background:rgba(141,189,63,.12);
+      box-shadow:0 0 0 1px rgba(141,189,63,.04), 0 0 16px rgba(141,189,63,.08);
+      transition:.22s ease;
+      text-align:center;
+      font-size:13px;
+      white-space:nowrap;
+    }
+
+    .detail-btn:hover{
+      transform:translateY(-1px);
+      background:rgba(141,189,63,.18);
+      border-color:rgba(141,189,63,.52);
+      box-shadow:0 0 20px rgba(141,189,63,.12);
+    }
+
+    footer{
+      padding:24px 0 34px;
+      margin-top:72px;
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      font-size:12px;
+      color:#80909b;
+    }
+
+    .footer-copy{
+      font-family:Georgia,"Times New Roman",serif;
+      font-style:italic;
+      font-weight:600;
+      font-size:17px;
+      line-height:1;
+      letter-spacing:.5px;
+      color:#8c98a2;
+    }
+
+    .reveal{
+      opacity:0;
+      transform:translateY(18px);
+      transition:opacity .75s ease, transform .75s ease;
+    }
+
+    .reveal.show{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    @media (max-width: 980px){
+      .cards{
+        grid-template-columns:1fr;
+      }
+
+      .card{
+        min-height:unset;
+      }
+    }
+
+    @media (max-width: 860px){
+      .hero-box{
+        padding:42px 28px 28px;
+      }
+
+      h1,
+      .hero-copy{
+        max-width:100%;
+      }
+    }
+
+    @media (max-width: 760px){
+      .hero{
+        padding:54px 0 0;
+      }
+
+      .hero-box{
+        padding:32px 18px 24px;
+        border-radius:28px;
+      }
+
+      .nav{
+        padding:12px 0;
+      }
+
+      .nav-link{
+        font-size:13px;
+      }
+
+      .eyebrow{
+        font-size:11px;
+        padding:7px 10px;
+      }
+
+      h1{
+        font-size:clamp(30px, 10vw, 44px);
+        line-height:1.07;
+        letter-spacing:-1.1px;
+      }
+
+      .hero-copy{
+        margin-top:14px;
+        font-size:15px;
+        line-height:1.65;
+      }
+
+      .cards{
+        margin-top:24px;
+        gap:14px;
+      }
+
+      .card{
+        padding:20px 18px 18px;
+        border-radius:22px;
+      }
+
+      .card-icon{
+        width:48px;
+        height:48px;
+        min-width:48px;
+        border-radius:15px;
+        margin-bottom:14px;
+      }
+
+      .card-icon svg{
+        width:22px;
+        height:22px;
+      }
+
+      .card-title{
+        font-size:20px;
+      }
+
+      .card-text{
+        font-size:14px;
+        line-height:1.6;
+      }
+
+      .card-btn{
+        min-height:48px;
+        font-size:14px;
+      }
+
+      .detail-box{
+        padding:18px 18px 16px;
+        border-radius:22px;
+      }
+
+      .detail-box h3{
+        font-size:18px;
+      }
+
+      .info-list{
+        gap:14px;
+      }
+
+      .info-item{
+        gap:10px;
+        font-size:14px;
+        line-height:1.65;
+      }
+
+      .info-icon{
+        width:24px;
+        height:24px;
+        min-width:24px;
+      }
+
+      .info-icon svg{
+        width:13px;
+        height:13px;
+      }
+
+      .detail-btn{
+        min-height:38px;
+        padding:0 14px;
+        font-size:12px;
+      }
+
+      footer{
+        justify-content:center;
+        text-align:center;
+        padding-top:22px;
+        margin-top:54px;
+      }
+
+      .footer-copy{
+        width:100%;
+      }
+    }
+
+    @media (max-width: 480px){
+      .container{
+        width:min(1080px, calc(100% - 20px));
+      }
+
+      .brand{
+        gap:10px;
+      }
+
+      .brand-mark{
+        width:34px;
+        height:34px;
+      }
+
+      .brand span{
+        font-size:14px;
+      }
+
+      .hero-box{
+        padding:28px 16px 20px;
+        border-radius:24px;
+      }
+
+      h1{
+        font-size:30px;
+      }
+
+      .hero-copy{
+        font-size:14px;
+      }
+
+      .info-item{
+        gap:9px;
+        font-size:14px;
+        line-height:1.6;
+      }
+
+      .info-icon{
+        width:22px;
+        height:22px;
+        min-width:22px;
+        margin-top:3px;
+      }
+
+      .info-icon svg{
+        width:12px;
+        height:12px;
+      }
+
+      .detail-action{
+        justify-content:stretch;
+      }
+
+      .detail-btn{
+        width:100%;
+      }
+
+      .footer-copy{
+        font-size:16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="nav-wrap">
+    <div class="container nav">
+      <a class="brand" href="index.html">
+        <div class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 64 64">
+            <defs>
+              <linearGradient id="wyltorWGlow" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#9ed14d"></stop>
+                <stop offset="100%" stop-color="#6f9830"></stop>
+              </linearGradient>
+            </defs>
+            <rect x="4" y="4" width="56" height="56" rx="18" fill="#1a2024"></rect>
+            <rect x="4.5" y="4.5" width="55" height="55" rx="17.5" fill="none" stroke="rgba(255,255,255,0.14)"></rect>
+            <circle cx="32" cy="32" r="21" fill="none" stroke="url(#wyltorWGlow)" stroke-width="3.2" opacity="0.95"></circle>
+            <circle cx="32" cy="32" r="15.5" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1.4"></circle>
+            <path d="M16 21 L23 45 L31 28 L39 45 L48 21" fill="none" stroke="#d7dde1" stroke-width="5.2" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M23 45 L31 28 L39 45" fill="none" stroke="url(#wyltorWGlow)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </div>
+        <span>Troubleshoot &amp; Commission</span>
+      </a>
+
+      <a class="nav-link" href="index.html">
+        Home
+      </a>
+    </div>
+  </div>
+
+  <section class="hero">
+    <div class="container">
+      <div class="hero-box reveal">
+        <div class="eyebrow">
+          <span class="dot"></span>
+          Terms, Privacy &amp; Safety
+        </div>
+
+        <h1>
+          Read <span class="accent">Before</span> Use.
+        </h1>
+
+        <div class="hero-copy">
+          Please review the information below before using the assistant, relying on technical guidance, or accessing company material. These sections explain the intended use of the service, the privacy approach of the website, and the safety principles that must always be followed.
+        </div>
+
+        <div class="cards">
+          <div class="card">
+            <div class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V8h2v5z"></path>
+              </svg>
+            </div>
+            <h2 class="card-title">Safety Rules</h2>
+            <div class="card-text">
+              Critical safety guidance for any inspection, troubleshooting, testing, commissioning, or field work. Safety procedures always override chatbot output, convenience, or urgency.
+            </div>
+            <a class="card-btn" href="#safety">Read Safety</a>
+          </div>
+
+          <div class="card">
+            <div class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M5 3h11l3 3v15H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm1 4v12h10V8.5L13.5 6H6zm2 3h6v1.8H8V10zm0 4h6v1.8H8V14z"></path>
+              </svg>
+            </div>
+            <h2 class="card-title">Terms of Use</h2>
+            <div class="card-text">
+              General terms for using the website, support assistant, and technical resources. This section explains the intended purpose of the service and the user’s responsibility to verify information before acting.
+            </div>
+            <a class="card-btn" href="#terms">Read Terms</a>
+          </div>
+
+          <div class="card">
+            <div class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 2 4 5v6c0 5.25 3.4 10.08 8 11 4.6-.92 8-5.75 8-11V5l-8-3zm0 4.2 5 1.88V11c0 3.98-2.42 7.76-5 8.78C9.42 18.76 7 14.98 7 11V8.08l5-1.88z"></path>
+              </svg>
+            </div>
+            <h2 class="card-title">Privacy &amp; Cookies</h2>
+            <div class="card-text">
+              General information about privacy, cookies, technical logs, and external services connected through the website. This section explains how privacy is respected and what limited technical processing may occur.
+            </div>
+            <a class="card-btn" href="#privacy">Read Privacy</a>
+          </div>
+        </div>
+
+        <div class="details">
+          <div class="detail-box" id="safety">
+            <h3>Safety Rules</h3>
+            <div class="info-list">
+              <div class="info-item">
+                <span class="info-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V8h2v5z"></path>
+                  </svg>
+                </span>
+                <div class="info-text">
+                  Safety must always be treated as the highest priority in any inspection, troubleshooting, commissioning, testing, or maintenance activity.
+                </div>
+              </div>
+
+              <div class="info-item">
+                <span class="info-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V8h2v5z"></path>
+                  </svg>
+                </span>
+                <div class="info-text">
+                  Only properly trained, qualified, and authorized technicians should perform work on elevator systems, control panels, shaft equipment, or related safety functions.
+                </div>
+              </div>
+
+              <div class="info-item">
+                <span class="info-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V8h2v5z"></path>
+                  </svg>
+                </span>
+                <div class="info-text">
+                  Before any test or intervention begins, it must be confirmed that the shaft, cabin, and working area are clear of passengers and unauthorized persons.
+                </div>
+              </div>
+
+              <div class="info-item">
+                <span class="info-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V8h2v5z"></path>
+                  </svg>
+                </span>
+                <div class="info-text">
+                  It must also be ensured that no person can enter the cabin or access the working area during the full duration of the test or procedure.
+                </div>
+              </div>
+
+              <div class="info-item">
+                <span class="info-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V8h2v5z"></path>
+                  </svg>
+                </span>
+                <div class="info-text">
+                  Any test condition involving load, balance, or performance must be carried out only after confirming that the car has the correct and intended load condition for that procedure.
+                </div>
+              </div>
+
+              <div class="info-item">
+                <span class="info-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V8h2v5z"></path>
+                  </svg>
+                </span>
+                <div class="info-text">
+                  No instruction, request, urgency, or troubleshooting assumption should ever override official safety procedures, site rules, company policy, or applicable technical standards.
+                </div>
+              </div>
+
+              <div class="info-item">
+                <span class="info-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V8h2v5z"></path>
+                  </svg>
+                </span>
+                <div class="info-text">
+                  Safety circuits, protective devices, and critical safety functions must never be bypassed, disabled, or defeated, except where such action is explicitly required by an approved procedure and carried out only by authorized personnel under controlled conditions.
+                </div>
+              </div>
+
+              <div class="info-item">
+                <span class="info-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V8h2v5z"></path>
+                  </svg>
+                </span>
+                <div class="info-text">
+                  Even where a technical procedure is known, work must not continue unless the technician is satisfied that the environment, equipment condition, and method of work are safe.
+                </div>
+              </div>
+
+              <div class="info-item">
+                <span class="info-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V8h2v5z"></path>
+                  </svg>
+                </span>
+                <div class="info-text">
+                  If a situation involves uncertainty, unexpected behavior, unsafe conditions, or a risk of injury, the task must be stopped immediately and escalated through the appropriate technical or supervisory channel.
+                </div>
+              </div>
+
+              <div class="info-item">
+                <span class="info-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V8h2v5z"></path>
+                  </svg>
+                </span>
+                <div class="info-text">
+                  The support assistant and website content are provided only as general support tools and must never be used as a reason to ignore safe working practice, technical judgment, or approved procedures.
+                </div>
+              </div>
+
+              <div class="info-item">
+                <span class="info-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V8h2v5z"></path>
+                  </svg>
+                </span>
+                <div class="info-text">
+                  Under no circumstances should convenience, speed, pressure from others, or repeated success in previous cases be used to justify bypassing safety rules.
+                </div>
+              </div>
+
+              <div class="info-item">
+                <span class="info-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V8h2v5z"></path>
+                  </svg>
+                </span>
+                <div class="info-text">
+                  When in doubt, always follow the safest approved procedure and consult official documentation or qualified human support before continuing.
+                </div>
+              </div>
+            </div>
+            <div class="detail-action">
+              <a class="detail-btn" href="mailto:support@wyltor.ai">Email Support</a>
+            </div>
+          </div>
+
+          <div class="detail-box" id="terms">
+            <h3>Terms of Use</h3>
+            <div class="info-list">
+              <div class="info-item">
+                <span class="info-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V8h2v5z"></path>
+                  </svg>
+                </span>
+                <div class="info-text">
+                  This website and support assistant are provided for general first-level informational and technical support purposes only.
+                </div>
+              </div>
+
+              <div class="info-item">
+                <span class="info-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V8h2v5z"></path>
+                  </svg>
+                </span>
+                <div class="info-text">
+                  The assistant is intended to help with basic guidance, troubleshooting direction, and commissioning-related support, but it does not replace official documentation, qualified technical judgment, or authorized human support.
+                </div>
+              </div>
+
+              <div class="info-item">
+                <span class="info-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V8h2v5z"></path>
+                  </svg>
+                </span>
+                <div class="info-text">
+                  While every effort may be made to provide useful and professional responses, the information generated by the assistant may be incomplete, simplified, outdated, or incorrect in specific cases.
+                </div>
+              </div>
+
+              <div class="info-item">
+                <span class="info-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V8h2v5z"></path>
+                  </svg>
+                </span>
+                <div class="info-text">
+                  Users are solely responsible for reviewing, verifying, and evaluating any information provided before applying it in practice.
+                </div>
+              </div>
+
+              <div class="info-item">
+                <span class="info-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V8h2v5z"></path>
+                  </svg>
+                </span>
+                <div class="info-text">
+                  No response from the assistant should be treated as a substitute for official manuals, technical instructions, company procedures, applicable regulations, or site-specific requirements.
+                </div>
+              </div>
+
+              <div class="info-item">
+                <span class="info-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V8h2v5z"></path>
+                  </svg>
+                </span>
+                <div class="info-text">
+                  Where additional certainty, case-specific clarification, or official confirmation is required, users should consult the manuals section, official technical documentation, or the After Sales Department.
+                </div>
+              </div>
+
+              <div class="info-item">
+                <span class="info-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V8h2v5z"></path>
+                  </svg>
+                </span>
+                <div class="info-text">
+                  The assistant is not intended to authorize, approve, or validate work that requires qualified supervision, formal inspection, or safety-critical decision-making.
+                </div>
+              </div>
+
+              <div class="info-item">
+                <span class="info-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V8h2v5z"></path>
+                  </svg>
+                </span>
+                <div class="info-text">
+                  Use of this website and assistant must always remain lawful, professional, and within the intended technical scope of the service.
+                </div>
+              </div>
+
+              <div class="info-item">
+                <span class="info-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V8h2v5z"></path>
+                  </svg>
+                </span>
+                <div class="info-text">
+                  Users must not rely on the assistant in situations where an incorrect interpretation could create risk to persons, equipment, compliance, or property without proper independent verification.
+                </div>
+              </div>
+
+              <div class="info-item">
+                <span class="info-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V8h2v5z"></path>
+                  </svg>
+                </span>
+                <div class="info-text">
+                  The website owner reserves the right to update, restrict, suspend, or modify the content, structure, or availability of the assistant and related resources at any time, without prior notice, where necessary for operational, technical, legal, or security reasons.
+                </div>
+              </div>
+
+              <div class="info-item">
+                <span class="info-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V8h2v5z"></path>
+                  </svg>
+                </span>
+                <div class="info-text">
+                  Continued use of the website and assistant constitutes acceptance that the service is provided as a support tool only, and that final responsibility for any action taken remains with the user or the responsible qualified party.
+                </div>
+              </div>
+            </div>
+            <div class="detail-action">
+              <a class="detail-btn" href="contact.html">Contact</a>
+            </div>
+          </div>
+
+          <div class="detail-box" id="privacy">
+            <h3>Privacy &amp; Cookies</h3>
+            <div class="info-list">
+              <div class="info-item">
+                <span class="info-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V8h2v5z"></path>
+                  </svg>
+                </span>
+                <div class="info-text">
+                  We respect your privacy and aim to keep this website simple, transparent, and easy to use.
+                </div>
+              </div>
+
+              <div class="info-item">
+                <span class="info-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V8h2v5z"></path>
+                  </svg>
+                </span>
+                <div class="info-text">
+                  This website does not use cookies for analytics, advertising, profiling, marketing, or visitor tracking.
+                </div>
+              </div>
+
+              <div class="info-item">
+                <span class="info-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V8h2v5z"></path>
+                  </svg>
+                </span>
+                <div class="info-text">
+                  We do not intentionally track user behavior across pages, sessions, or third-party platforms.
+                </div>
+              </div>
+
+              <div class="info-item">
+                <span class="info-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V8h2v5z"></path>
+                  </svg>
+                </span>
+                <div class="info-text">
+                  We do not build visitor profiles, run advertising technologies, or use this website for behavioral monitoring.
+                </div>
+              </div>
+
+              <div class="info-item">
+                <span class="info-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V8h2v5z"></path>
+                  </svg>
+                </span>
+                <div class="info-text">
+                  We do not use non-essential cookies on this website. If this changes in the future, this section will be updated accordingly.
+                </div>
+              </div>
+
+              <div class="info-item">
+                <span class="info-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V8h2v5z"></path>
+                  </svg>
+                </span>
+                <div class="info-text">
+                  In normal use of this website, we do not request unnecessary personal data and we aim to limit data handling to what is strictly needed for support and technical operation.
+                </div>
+              </div>
+
+              <div class="info-item">
+                <span class="info-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V8h2v5z"></path>
+                  </svg>
+                </span>
+                <div class="info-text">
+                  Some technical records may be processed where necessary for security, reliability, or system administration, including limited server-side information such as IP address, access time, and basic request details.
+                </div>
+              </div>
+
+              <div class="info-item">
+                <span class="info-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V8h2v5z"></path>
+                  </svg>
+                </span>
+                <div class="info-text">
+                  This website may redirect users to third-party services such as document platforms, chatbot infrastructure, or company-hosted resources. When a user opens an external service, that service may process data according to its own privacy notice, terms, and technical settings.
+                </div>
+              </div>
+
+              <div class="info-item">
+                <span class="info-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V8h2v5z"></path>
+                  </svg>
+                </span>
+                <div class="info-text">
+                  External destinations linked through this website may include services such as Google Drive, the chatbot platform or API infrastructure, and company-hosted QR or file delivery resources.
+                </div>
+              </div>
+
+              <div class="info-item">
+                <span class="info-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V8h2v5z"></path>
+                  </svg>
+                </span>
+                <div class="info-text">
+                  QR-related resources hosted on company infrastructure may keep basic technical logs, such as IP address and access timestamp, where needed for system availability, delivery, and security control. These records should be kept only as long as reasonably necessary for those purposes.
+                </div>
+              </div>
+
+              <div class="info-item">
+                <span class="info-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V8h2v5z"></path>
+                  </svg>
+                </span>
+                <div class="info-text">
+                  If additional technologies are added in the future, including analytics tools, embedded media, tracking systems, consent tools, marketing features, or expanded contact forms, this Privacy &amp; Cookies section should be reviewed and updated.
+                </div>
+              </div>
+
+              <div class="info-item">
+                <span class="info-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V8h2v5z"></path>
+                  </svg>
+                </span>
+                <div class="info-text">
+                  Individuals may have rights regarding their personal data, including the right to be informed, access, rectification, erasure, restriction, portability, objection, and rights related to automated decision-making or profiling where applicable.
+                </div>
+              </div>
+
+              <div class="info-item">
+                <span class="info-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V8h2v5z"></path>
+                  </svg>
+                </span>
+                <div class="info-text">
+                  For privacy-related questions or requests, users may contact the company through the official contact details provided on this website.
+                </div>
+              </div>
+            </div>
+            <div class="detail-action">
+              <a class="detail-btn" href="contact.html">Contact</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <span class="footer-copy">© <span id="year"></span></span>
+        <a href="contact.html">Contact!</a>
+      </footer>
+    </div>
+  </section>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    (function () {
+      var items = document.querySelectorAll(".reveal");
+
+      if (!("IntersectionObserver" in window)) {
+        for (var i = 0; i < items.length; i++) {
+          items[i].classList.add("show");
+        }
+        return;
+      }
+
+      var obs = new IntersectionObserver(function(entries) {
+        for (var i = 0; i < entries.length; i++) {
+          if (entries[i].isIntersecting) {
+            entries[i].target.classList.add("show");
+            obs.unobserve(entries[i].target);
+          }
+        }
+      }, { threshold: 0.12 });
+
+      for (var j = 0; j < items.length; j++) {
+        obs.observe(items[j]);
+      }
+    })();
+  </script>
+</body>
+</html>

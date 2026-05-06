@@ -251,7 +251,7 @@
     .hero-actions{
       margin-top:28px;
       display:grid;
-      grid-template-columns:repeat(3, minmax(0, 220px));
+      grid-template-columns:repeat(2, minmax(0, 220px));
       gap:14px;
       align-items:center;
     }
@@ -324,7 +324,7 @@
 
     @media (max-width: 960px){
       .hero-actions{
-        grid-template-columns:repeat(3, minmax(0, 1fr));
+        grid-template-columns:repeat(2, minmax(0, 1fr));
       }
     }
 
@@ -394,14 +394,14 @@
       }
 
       .hero-actions{
-        grid-template-columns:1fr;
+        grid-template-columns:repeat(2, minmax(0, 1fr));
         gap:12px;
       }
 
       .btn{
         min-height:50px;
-        padding:0 14px;
-        font-size:14px;
+        padding:0 12px;
+        font-size:13px;
       }
 
       footer{
@@ -461,6 +461,16 @@
         height:12px;
       }
 
+      .hero-actions{
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+      }
+
+      .btn{
+        min-height:48px;
+        padding:0 10px;
+        font-size:12px;
+      }
+
       .footer-copy{
         font-size:16px;
       }
@@ -518,7 +528,7 @@
                 </svg>
               </span>
               <div class="info-text">
-                I am only a first-level elevator support assistant, designed to provide basic technical guidance, troubleshooting and commissioning support. I aim to assist quickly and professionally, but my responses should always be reviewed carefully before any action is taken, as mistakes or incomplete interpretations are possible.
+                I am a first-level elevator support assistant, designed to provide basic technical guidance, troubleshooting and commissioning support. I aim to assist quickly and professionally, but my responses should always be reviewed carefully before any action is taken, as mistakes or incomplete interpretations are possible.
               </div>
             </div>
 
@@ -547,8 +557,12 @@
         </div>
 
         <div class="hero-actions">
-          <a class="btn primary" href="ai.html">
+          <a class="btn primary" href="intro.html">
             Open Assistant.
+          </a>
+
+          <a class="btn primary" href="policies.html">
+            Read Before Use
           </a>
 
           <a class="btn" href="mv.html">
@@ -556,7 +570,7 @@
           </a>
 
           <a class="btn" href="mailto:support@wyltor.ai">
-            Human Support
+            Email Support
           </a>
         </div>
       </div>
