@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="g" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#5ee7ff"></stop>
+      <stop offset="1" stop-color="#59f0a8"></stop>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="35%" r="65%">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.45"></stop>
+      <stop offset="0.45" stop-color="#5ee7ff" stop-opacity="0.18"></stop>
+      <stop offset="1" stop-color="#08111f" stop-opacity="0"></stop>
+    </radialGradient>
+  </defs>
+  <rect width="64" height="64" rx="18" fill="#08111f"></rect>
+  <rect x="5" y="5" width="54" height="54" rx="15" fill="url(#g)"></rect>
+  <rect x="8" y="8" width="48" height="48" rx="13" fill="#08111f" opacity="0.92"></rect>
+  <circle cx="32" cy="28" r="25" fill="url(#glow)"></circle>
+  <text x="32" y="41" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="800" letter-spacing="-1" fill="#ffffff">AI</text>
+</svg>
