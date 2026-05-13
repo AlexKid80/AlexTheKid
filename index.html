@@ -429,6 +429,39 @@
       flex:0 0 auto;
     }
 
+    .channel-card{
+      background:
+        linear-gradient(135deg, rgba(94,231,255,.09), rgba(89,240,168,.08)),
+        rgba(255,255,255,.07);
+    }
+
+    .channel-button{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:9px;
+      width:100%;
+      min-height:44px;
+      margin-top:16px;
+      padding:11px 15px;
+      border-radius:999px;
+      color:#07101d;
+      background:linear-gradient(135deg, var(--blue), var(--green));
+      font-weight:800;
+      border:1px solid rgba(255,255,255,.18);
+      box-shadow:0 12px 32px rgba(94,231,255,.16);
+      transition:.2s ease;
+    }
+
+    .channel-button:hover{
+      transform:translateY(-2px);
+    }
+
+    .channel-button span{
+      font-size:.9rem;
+      line-height:1;
+    }
+
     .mission{
       margin-top:34px;
       padding:32px;
@@ -724,6 +757,15 @@
               <span>Check facts, dates, and results before trusting them.</span>
               <span>Keep your own words, effort, and personal voice.</span>
             </div>
+          </div>
+
+          <div class="note-card channel-card">
+            <h3>Support the community!</h3>
+            <p>If you like practical results, Net Ethics, subscribe plz!.</p>
+            <a class="channel-button" href="https://www.youtube.com/results?search_query=payback+scammers" target="_blank" rel="noopener" aria-label="Visit our YouTube channel">
+              <span>▶</span>
+              Visit YouTube
+            </a>
           </div>
         </aside>
       </div>
