@@ -1,0 +1,544 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="AXL" />
+  <meta name="theme-color" content="#06080d" />
+  <link rel="icon" type="image/png" href="assets/images/logo.png">
+  <title>AXL | Intro</title>
+
+  <style>
+    :root{
+      --bg:#06080d;
+      --bg2:#0c111a;
+      --line:rgba(255,255,255,.10);
+      --line-strong:rgba(255,255,255,.18);
+      --text:#edf3f8;
+      --muted:#9aa8b5;
+      --white:#ffffff;
+      --accent:#1da7ff;
+      --accent-2:#8fd7ff;
+      --accent-3:#d8e2ea;
+      --accent-glow:rgba(29,167,255,.24);
+      --silver-glow:rgba(216,226,234,.12);
+      --red:#ff4d5e;
+      --red-2:#ff9aa3;
+      --red-glow:rgba(255,77,94,.32);
+      --shadow:0 18px 44px rgba(0,0,0,.42);
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+
+    body{
+      margin:0;
+      font-family:Inter,Segoe UI,Arial,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 18% 0%, rgba(29,167,255,.16), transparent 25%),
+        radial-gradient(circle at 82% 0%, rgba(216,226,234,.10), transparent 28%),
+        radial-gradient(circle at 50% 100%, rgba(29,167,255,.08), transparent 32%),
+        linear-gradient(180deg, #030509 0%, #070b12 48%, #05070c 100%);
+      line-height:1.5;
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
+    }
+
+    body:before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.16;
+      background-image:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+      background-size:46px 46px;
+      mask-image:radial-gradient(circle at center, black 35%, transparent 85%);
+    }
+
+    body:after{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.20;
+      background:
+        linear-gradient(115deg, transparent 0%, rgba(29,167,255,.07) 40%, transparent 62%),
+        linear-gradient(245deg, transparent 10%, rgba(216,226,234,.05) 48%, transparent 70%);
+    }
+
+    a{text-decoration:none;color:inherit}
+
+    .container{
+      width:min(1080px, calc(100% - 32px));
+      margin:0 auto;
+    }
+
+    .nav-wrap{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      background:rgba(4,7,12,.78);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid var(--line);
+    }
+
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:flex-start;
+      gap:16px;
+      padding:14px 0;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:700;
+      letter-spacing:.35px;
+      min-width:0;
+    }
+
+    .brand-mark{
+      width:44px;
+      height:44px;
+      border-radius:15px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+      flex:0 0 auto;
+      overflow:hidden;
+      background:rgba(255,255,255,.045);
+      border:1px solid rgba(255,255,255,.14);
+      filter:drop-shadow(0 0 16px rgba(29,167,255,.22));
+    }
+
+    .brand-mark img{
+      width:100%;
+      height:100%;
+      display:block;
+      object-fit:cover;
+    }
+
+    .brand span{
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      line-height:1;
+      color:var(--accent-3);
+      text-shadow:0 0 18px rgba(29,167,255,.22);
+    }
+
+    .hero{
+      padding:72px 0 0;
+    }
+
+    .hero-box{
+      position:relative;
+      overflow:hidden;
+      border:1px solid var(--line);
+      border-radius:36px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.065), rgba(255,255,255,.022)),
+        rgba(255,255,255,.018);
+      box-shadow:var(--shadow);
+      padding:42px 28px;
+      min-height:340px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+    }
+
+    .hero-box:before{
+      content:"";
+      position:absolute;
+      right:-70px;
+      top:-60px;
+      width:230px;
+      height:230px;
+      border-radius:50%;
+      background:radial-gradient(circle, var(--accent-glow), transparent 68%);
+      pointer-events:none;
+    }
+
+    .hero-box:after{
+      content:"";
+      position:absolute;
+      left:-60px;
+      bottom:-90px;
+      width:230px;
+      height:230px;
+      border-radius:50%;
+      background:radial-gradient(circle, var(--silver-glow), transparent 72%);
+      pointer-events:none;
+    }
+
+    .hero-frame{
+      position:absolute;
+      inset:18px;
+      border-radius:28px;
+      border:1px solid rgba(255,255,255,.07);
+      pointer-events:none;
+    }
+
+    .hero-frame:before,
+    .hero-frame:after{
+      content:"";
+      position:absolute;
+      width:90px;
+      height:1px;
+      background:linear-gradient(90deg, transparent, rgba(29,167,255,.72), transparent);
+      top:28px;
+    }
+
+    .hero-frame:before{
+      left:32px;
+    }
+
+    .hero-frame:after{
+      right:32px;
+    }
+
+    .intro-wrap{
+      position:relative;
+      z-index:1;
+      width:100%;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      min-height:230px;
+      gap:28px;
+    }
+
+    .type-line{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:0;
+      font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size:clamp(24px, 4.1vw, 48px);
+      font-weight:600;
+      letter-spacing:-0.02em;
+      line-height:1.15;
+      color:var(--white);
+      text-shadow:0 0 24px rgba(29,167,255,.12);
+      min-height:2.4em;
+      word-break:break-word;
+    }
+
+    .typed-text{
+      color:var(--white);
+    }
+
+    .cursor{
+      display:inline-block;
+      width:.11em;
+      height:1.05em;
+      margin-left:.10em;
+      border-radius:999px;
+      background:var(--accent);
+      box-shadow:0 0 16px rgba(29,167,255,.75);
+      animation:blink .8s steps(1,end) infinite;
+      transform:translateY(.06em);
+      flex:0 0 auto;
+    }
+
+    .choice-actions{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:14px;
+    }
+
+    .choice-button{
+      min-width:145px;
+      min-height:48px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:13px 22px;
+      border-radius:999px;
+      font-weight:900;
+      letter-spacing:.02em;
+      transition:.22s ease;
+    }
+
+    .choice-button.accept{
+      color:#03101c;
+      background:linear-gradient(135deg, var(--accent-2), #ffffff);
+      border:1px solid rgba(255,255,255,.48);
+      box-shadow:
+        0 0 18px rgba(29,167,255,.42),
+        0 0 34px rgba(143,215,255,.24),
+        0 16px 38px rgba(29,167,255,.18);
+    }
+
+    .choice-button.leave{
+      color:#ffffff;
+      background:linear-gradient(135deg, var(--red), #8d101b);
+      border:1px solid rgba(255,255,255,.22);
+      box-shadow:
+        0 0 18px var(--red-glow),
+        0 16px 38px rgba(255,77,94,.14);
+    }
+
+    .choice-button:hover{
+      transform:translateY(-2px);
+    }
+
+    .choice-button.accept:hover{
+      box-shadow:
+        0 0 24px rgba(29,167,255,.58),
+        0 0 48px rgba(143,215,255,.34),
+        0 20px 44px rgba(29,167,255,.24);
+    }
+
+    .choice-button.leave:hover{
+      box-shadow:
+        0 0 24px rgba(255,77,94,.50),
+        0 0 42px rgba(255,154,163,.18),
+        0 20px 44px rgba(255,77,94,.18);
+    }
+
+    @keyframes blink{
+      0%, 49%{opacity:1}
+      50%, 100%{opacity:0}
+    }
+
+    footer{
+      padding:24px 0 34px;
+      margin-top:72px;
+      display:flex;
+      justify-content:flex-start;
+      gap:12px;
+      flex-wrap:wrap;
+      font-size:12px;
+      color:#7f8c97;
+    }
+
+    .footer-copy{
+      font-family:Georgia,"Times New Roman",serif;
+      font-style:italic;
+      font-weight:600;
+      font-size:17px;
+      line-height:1;
+      letter-spacing:.5px;
+      color:#8d9aa5;
+    }
+
+    .reveal{
+      opacity:0;
+      transform:translateY(18px);
+      transition:opacity .75s ease, transform .75s ease;
+    }
+
+    .reveal.show{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    @media (max-width: 760px){
+      .hero{
+        padding:54px 0 0;
+      }
+
+      .hero-box{
+        min-height:310px;
+        padding:34px 18px;
+        border-radius:28px;
+      }
+
+      .hero-frame{
+        inset:12px;
+        border-radius:22px;
+      }
+
+      .nav{
+        padding:12px 0;
+      }
+
+      .type-line{
+        font-size:clamp(20px, 7vw, 34px);
+        line-height:1.2;
+      }
+
+      footer{
+        justify-content:center;
+        text-align:center;
+        padding-top:22px;
+        margin-top:54px;
+      }
+
+      .footer-copy{
+        width:100%;
+      }
+    }
+
+    @media (max-width: 480px){
+      .container{
+        width:min(1080px, calc(100% - 20px));
+      }
+
+      .brand{
+        gap:10px;
+      }
+
+      .brand-mark{
+        width:36px;
+        height:36px;
+        border-radius:13px;
+      }
+
+      .brand span{
+        font-size:14px;
+      }
+
+      .hero-box{
+        min-height:330px;
+        padding:28px 16px;
+        border-radius:24px;
+      }
+
+      .type-line{
+        font-size:clamp(18px, 7.8vw, 28px);
+      }
+
+      .choice-actions{
+        width:100%;
+        display:grid;
+        gap:12px;
+      }
+
+      .choice-button{
+        width:100%;
+      }
+
+      .footer-copy{
+        font-size:16px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      html{
+        scroll-behavior:auto;
+      }
+
+      .choice-button,
+      .reveal,
+      .reveal.show{
+        transition:none;
+        transform:none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="nav-wrap">
+    <div class="container nav">
+      <a class="brand" href="https://alexkid.org/" target="_blank" rel="noopener">
+        <div class="brand-mark" aria-hidden="true">
+          <img src="logo.png" alt="">
+        </div>
+        <span>AXL</span>
+      </a>
+    </div>
+  </div>
+
+  <section class="hero">
+    <div class="container">
+      <div class="hero-box reveal">
+        <div class="hero-frame"></div>
+        <div class="intro-wrap">
+          <div class="type-line" aria-label="If you continue please read carefully the policies. Accept to continue or leave away.">
+            <span class="typed-text" id="typedText"></span><span class="cursor" aria-hidden="true"></span>
+          </div>
+
+          <div class="choice-actions">
+            <a class="choice-button leave" href="https://www.google.com/">Leave</a>
+            <a class="choice-button accept" href="main.html">Accept</a>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <span class="footer-copy">© <span id="year"></span></span>
+      </footer>
+    </div>
+  </section>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    (function () {
+      var items = document.querySelectorAll(".reveal");
+
+      if (!("IntersectionObserver" in window)) {
+        for (var i = 0; i < items.length; i++) {
+          items[i].classList.add("show");
+        }
+      } else {
+        var obs = new IntersectionObserver(function(entries) {
+          for (var i = 0; i < entries.length; i++) {
+            if (entries[i].isIntersecting) {
+              entries[i].target.classList.add("show");
+              obs.unobserve(entries[i].target);
+            }
+          }
+        }, { threshold: 0.12 });
+
+        for (var j = 0; j < items.length; j++) {
+          obs.observe(items[j]);
+        }
+      }
+
+      var messages = [
+        "If you continue please read carefully the policies.",
+        "Accept to continue or leave away."
+      ];
+
+      var target = document.getElementById("typedText");
+      var messageIndex = 0;
+      var charIndex = 0;
+      var startDelay = 700;
+      var typeSpeed = 38;
+      var holdDelay = 2200;
+      var clearDelay = 420;
+
+      function typeMessage() {
+        target.textContent = "";
+        charIndex = 0;
+
+        var timer = setInterval(function () {
+          target.textContent += messages[messageIndex].charAt(charIndex);
+          charIndex += 1;
+
+          if (charIndex >= messages[messageIndex].length) {
+            clearInterval(timer);
+
+            setTimeout(function () {
+              messageIndex += 1;
+
+              if (messageIndex >= messages.length) {
+                messageIndex = 0;
+              }
+
+              setTimeout(typeMessage, clearDelay);
+            }, holdDelay);
+          }
+        }, typeSpeed);
+      }
+
+      setTimeout(typeMessage, startDelay);
+    })();
+  </script>
+</body>
+</html>

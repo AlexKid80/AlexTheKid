@@ -1,0 +1,754 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Linux Community resources, downloads, and support links." />
+  <meta name="theme-color" content="#06080d" />
+  <link rel="icon" type="image/png" href="assets/images/logo.png">
+  <title>AXL | Linux Community</title>
+
+  <style>
+    :root{
+      --bg:#06080d;
+      --bg2:#0c111a;
+      --line:rgba(255,255,255,.10);
+      --line-strong:rgba(255,255,255,.18);
+      --text:#edf3f8;
+      --muted:#9aa8b5;
+      --white:#ffffff;
+      --accent:#1da7ff;
+      --accent-2:#8fd7ff;
+      --accent-3:#d8e2ea;
+      --accent-glow:rgba(29,167,255,.24);
+      --silver-glow:rgba(216,226,234,.12);
+      --shadow:0 18px 44px rgba(0,0,0,.42);
+      --radius:28px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family:Inter,Segoe UI,Arial,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 18% 0%, rgba(29,167,255,.16), transparent 25%),
+        radial-gradient(circle at 82% 0%, rgba(216,226,234,.10), transparent 28%),
+        radial-gradient(circle at 50% 100%, rgba(29,167,255,.08), transparent 32%),
+        linear-gradient(180deg, #030509 0%, #070b12 48%, #05070c 100%);
+      line-height:1.5;
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
+    }
+
+    body:before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.16;
+      background-image:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+      background-size:46px 46px;
+      mask-image:radial-gradient(circle at center, black 35%, transparent 85%);
+    }
+
+    body:after{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.20;
+      background:
+        linear-gradient(115deg, transparent 0%, rgba(29,167,255,.07) 40%, transparent 62%),
+        linear-gradient(245deg, transparent 10%, rgba(216,226,234,.05) 48%, transparent 70%);
+    }
+
+    a{text-decoration:none;color:inherit}
+
+    .container{
+      width:min(1080px, calc(100% - 32px));
+      margin:0 auto;
+      position:relative;
+      z-index:1;
+    }
+
+    .nav-wrap{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      background:rgba(4,7,12,.78);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid var(--line);
+    }
+
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding:14px 0;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:700;
+      letter-spacing:.35px;
+      min-width:0;
+    }
+
+    .brand-mark{
+      width:44px;
+      height:44px;
+      border-radius:15px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+      flex:0 0 auto;
+      overflow:hidden;
+      background:rgba(255,255,255,.045);
+      border:1px solid rgba(255,255,255,.14);
+      filter:drop-shadow(0 0 16px rgba(29,167,255,.22));
+    }
+
+    .brand-mark img{
+      width:100%;
+      height:100%;
+      display:block;
+      object-fit:cover;
+    }
+
+    .brand span{
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      line-height:1;
+      color:var(--accent-3);
+      text-shadow:0 0 18px rgba(29,167,255,.22);
+    }
+
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+
+    .nav-links a{
+      color:var(--muted);
+      font-size:14px;
+      padding:9px 13px;
+      border:1px solid transparent;
+      border-radius:999px;
+      transition:.22s ease;
+    }
+
+    .nav-links a:hover{
+      color:var(--white);
+      border-color:var(--line);
+      background:rgba(255,255,255,.055);
+    }
+
+    .hero{
+      padding:72px 0 0;
+    }
+
+    .hero-box{
+      position:relative;
+      overflow:hidden;
+      border:1px solid var(--line);
+      border-radius:36px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.065), rgba(255,255,255,.022)),
+        rgba(255,255,255,.018);
+      box-shadow:var(--shadow);
+      padding:48px;
+      min-height:440px;
+      display:grid;
+      grid-template-columns:1fr 340px;
+      gap:34px;
+      align-items:center;
+    }
+
+    .hero-box:before{
+      content:"";
+      position:absolute;
+      right:-80px;
+      top:-70px;
+      width:260px;
+      height:260px;
+      border-radius:50%;
+      background:radial-gradient(circle, var(--accent-glow), transparent 68%);
+      pointer-events:none;
+    }
+
+    .hero-box:after{
+      content:"";
+      position:absolute;
+      left:-70px;
+      bottom:-100px;
+      width:260px;
+      height:260px;
+      border-radius:50%;
+      background:radial-gradient(circle, var(--silver-glow), transparent 72%);
+      pointer-events:none;
+    }
+
+    .hero-frame{
+      position:absolute;
+      inset:18px;
+      border-radius:28px;
+      border:1px solid rgba(255,255,255,.07);
+      pointer-events:none;
+    }
+
+    .hero-frame:before,
+    .hero-frame:after{
+      content:"";
+      position:absolute;
+      width:90px;
+      height:1px;
+      background:linear-gradient(90deg, transparent, rgba(29,167,255,.72), transparent);
+      top:28px;
+    }
+
+    .hero-frame:before{
+      left:32px;
+    }
+
+    .hero-frame:after{
+      right:32px;
+    }
+
+    .hero-content{
+      position:relative;
+      z-index:1;
+    }
+
+    .eyebrow{
+      margin:0 0 12px;
+      color:var(--accent-2);
+      font-size:12px;
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      text-shadow:0 0 16px rgba(29,167,255,.25);
+    }
+
+    h1{
+      margin:0 0 20px;
+      max-width:680px;
+      font-size:clamp(42px, 7vw, 82px);
+      line-height:.92;
+      letter-spacing:-.07em;
+      color:var(--white);
+    }
+
+    .hero-lead{
+      max-width:620px;
+      margin:0 0 28px;
+      color:var(--muted);
+      font-size:clamp(16px, 2vw, 19px);
+    }
+
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      align-items:center;
+    }
+
+    .back-button{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:46px;
+      padding:12px 20px;
+      border-radius:999px;
+      color:#03101c;
+      background:linear-gradient(135deg, #8fd7ff, #ffffff);
+      font-weight:900;
+      letter-spacing:.02em;
+      box-shadow:
+        0 0 18px rgba(29,167,255,.42),
+        0 0 34px rgba(143,215,255,.24),
+        0 16px 38px rgba(29,167,255,.18);
+      border:1px solid rgba(255,255,255,.48);
+      transition:.22s ease;
+    }
+
+    .back-button:hover{
+      transform:translateY(-2px);
+      box-shadow:
+        0 0 24px rgba(29,167,255,.58),
+        0 0 48px rgba(143,215,255,.34),
+        0 20px 44px rgba(29,167,255,.24);
+    }
+
+    .hero-logo{
+      position:relative;
+      z-index:1;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .logo-orb{
+      width:min(310px, 100%);
+      aspect-ratio:1;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:34px;
+      border:1px solid rgba(255,255,255,.13);
+      background:
+        radial-gradient(circle at 50% 30%, rgba(29,167,255,.15), transparent 45%),
+        linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.025));
+      box-shadow:
+        inset 0 0 36px rgba(255,255,255,.035),
+        0 24px 60px rgba(0,0,0,.34),
+        0 0 44px rgba(29,167,255,.12);
+      overflow:hidden;
+      padding:26px;
+    }
+
+    .linux-icon{
+      width:100%;
+      max-width:230px;
+      height:auto;
+      display:block;
+      filter:drop-shadow(0 0 24px rgba(29,167,255,.28));
+    }
+
+    .projects{
+      padding:28px 0 0;
+    }
+
+    .project-grid{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:18px;
+    }
+
+    .project-card{
+      position:relative;
+      overflow:hidden;
+      min-height:230px;
+      border:1px solid var(--line);
+      border-radius:28px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.058), rgba(255,255,255,.022)),
+        rgba(255,255,255,.018);
+      box-shadow:0 14px 34px rgba(0,0,0,.24);
+      padding:26px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      transition:.22s ease;
+    }
+
+    .project-card:before{
+      content:"";
+      position:absolute;
+      right:-54px;
+      top:-54px;
+      width:140px;
+      height:140px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(29,167,255,.16), transparent 70%);
+      pointer-events:none;
+    }
+
+    .project-card:hover{
+      transform:translateY(-5px);
+      border-color:rgba(29,167,255,.34);
+      box-shadow:0 22px 48px rgba(0,0,0,.32), 0 0 32px rgba(29,167,255,.08);
+    }
+
+    .project-top{
+      position:relative;
+      z-index:1;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+
+    .project-number{
+      color:var(--accent-2);
+      font-size:13px;
+      font-weight:900;
+      letter-spacing:.16em;
+    }
+
+    .project-symbol{
+      width:31px;
+      height:31px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border:1px solid rgba(255,255,255,.14);
+      border-radius:999px;
+      color:var(--accent-2);
+      background:rgba(255,255,255,.055);
+      box-shadow:0 0 20px rgba(29,167,255,.10);
+      font-size:15px;
+      line-height:1;
+    }
+
+    .project-card h2{
+      position:relative;
+      z-index:1;
+      margin:34px 0 12px;
+      color:var(--white);
+      font-size:clamp(24px, 3vw, 34px);
+      line-height:1;
+      letter-spacing:-.055em;
+    }
+
+    .project-card p{
+      position:relative;
+      z-index:1;
+      margin:0 0 24px;
+      color:var(--muted);
+      font-size:15px;
+    }
+
+    .project-action{
+      position:relative;
+      z-index:1;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:44px;
+      padding:11px 16px;
+      border-radius:999px;
+      color:#06101a;
+      background:linear-gradient(135deg, var(--accent-2), var(--accent-3));
+      font-weight:800;
+      box-shadow:0 14px 34px rgba(29,167,255,.12);
+      align-self:flex-start;
+    }
+
+    footer{
+      padding:24px 0 34px;
+      margin-top:72px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+      font-size:12px;
+      color:#7f8c97;
+    }
+
+    .footer-copy{
+      font-family:Georgia,"Times New Roman",serif;
+      font-style:italic;
+      font-weight:600;
+      font-size:17px;
+      line-height:1;
+      letter-spacing:.5px;
+      color:#8d9aa5;
+    }
+
+    .footer-link{
+      color:#8d9aa5;
+    }
+
+    .reveal{
+      opacity:0;
+      transform:translateY(18px);
+      transition:opacity .75s ease, transform .75s ease;
+    }
+
+    .reveal.show{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    @media (max-width: 920px){
+      .hero-box{
+        grid-template-columns:1fr;
+        padding:38px 28px;
+        min-height:auto;
+      }
+
+      .hero-logo{
+        order:-1;
+      }
+
+      .logo-orb{
+        width:min(250px, 100%);
+      }
+
+      .linux-icon{
+        max-width:190px;
+      }
+
+      .project-grid{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width: 760px){
+      .nav{
+        align-items:flex-start;
+        flex-direction:column;
+        padding:12px 0;
+      }
+
+      .nav-links{
+        width:100%;
+        overflow-x:auto;
+        padding-bottom:3px;
+      }
+
+      .hero{
+        padding:54px 0 0;
+      }
+
+      .hero-box{
+        padding:34px 18px;
+        border-radius:28px;
+      }
+
+      .hero-frame{
+        inset:12px;
+        border-radius:22px;
+      }
+
+      h1{
+        font-size:clamp(38px, 14vw, 58px);
+      }
+
+      footer{
+        justify-content:center;
+        text-align:center;
+        padding-top:22px;
+        margin-top:54px;
+      }
+
+      .footer-copy{
+        width:100%;
+      }
+    }
+
+    @media (max-width: 480px){
+      .container{
+        width:min(1080px, calc(100% - 20px));
+      }
+
+      .brand{
+        gap:10px;
+      }
+
+      .brand-mark{
+        width:36px;
+        height:36px;
+        border-radius:13px;
+      }
+
+      .brand span{
+        font-size:14px;
+      }
+
+      .nav-links a{
+        font-size:13px;
+        padding:8px 11px;
+      }
+
+      .hero-box{
+        padding:28px 16px;
+        border-radius:24px;
+      }
+
+      .logo-orb{
+        width:min(210px, 100%);
+        border-radius:28px;
+        padding:22px;
+      }
+
+      .linux-icon{
+        max-width:165px;
+      }
+
+      .hero-actions{
+        display:grid;
+      }
+
+      .back-button{
+        width:100%;
+        justify-content:center;
+        text-align:center;
+      }
+
+      .project-card{
+        min-height:210px;
+        padding:22px;
+        border-radius:24px;
+      }
+
+      .project-action{
+        width:100%;
+      }
+
+      .footer-copy{
+        font-size:16px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      html{
+        scroll-behavior:auto;
+      }
+
+      .project-card,
+      .back-button,
+      .nav-links a,
+      .reveal,
+      .reveal.show{
+        transition:none;
+        transform:none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="nav-wrap">
+    <div class="container nav">
+      <a class="brand" href="https://alexkid.org/" target="_blank" rel="noopener">
+        <div class="brand-mark" aria-hidden="true">
+          <img src="logo.png" alt="">
+        </div>
+        <span>AXL</span>
+      </a>
+
+      <div class="nav-links" aria-label="Main navigation">
+        <a href="aistories.html">AI Stories</a>
+        <a href="main.html">Main</a>
+        <a href="https://www.youtube.com/@ScammerPayback" target="_blank" rel="noopener">SP</a>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-box reveal">
+          <div class="hero-frame"></div>
+
+          <div class="hero-content">
+            <p class="eyebrow">Linux Community</p>
+            <h1>Open systems. Open minds.</h1>
+            <p class="hero-lead">
+              A small gateway to Linux downloads and support links. Use official sources, test carefully, and support the community when possible.
+            </p>
+            <div class="hero-actions">
+              <a class="back-button" href="main.html">Back to Main</a>
+            </div>
+          </div>
+
+          <div class="hero-logo" aria-hidden="true">
+            <div class="logo-orb">
+              <svg class="linux-icon" viewBox="0 0 220 220" role="img" aria-label="Linux icon">
+                <path d="M110 20c-29 0-53 25-53 56 0 16 6 30 12 42-17 18-31 39-31 61 0 24 16 35 37 35 15 0 27-6 35-15 8 9 20 15 35 15 21 0 37-11 37-35 0-22-14-43-31-61 6-12 12-26 12-42 0-31-24-56-53-56z" fill="#101820" stroke="rgba(255,255,255,.35)" stroke-width="5"/>
+                <ellipse cx="88" cy="77" rx="10" ry="14" fill="#edf3f8"/>
+                <ellipse cx="132" cy="77" rx="10" ry="14" fill="#edf3f8"/>
+                <circle cx="91" cy="79" r="4" fill="#06080d"/>
+                <circle cx="129" cy="79" r="4" fill="#06080d"/>
+                <path d="M83 108c12 12 42 12 54 0" fill="none" stroke="#f2c94c" stroke-width="12" stroke-linecap="round"/>
+                <path d="M89 127c11 8 31 8 42 0" fill="none" stroke="#d8e2ea" stroke-width="5" stroke-linecap="round"/>
+                <path d="M68 159c-16 8-26 20-22 32 4 12 22 11 38 2 12-7 20-17 18-27-2-10-17-15-34-7z" fill="#f2c94c" stroke="rgba(255,255,255,.28)" stroke-width="4"/>
+                <path d="M152 159c16 8 26 20 22 32-4 12-22 11-38 2-12-7-20-17-18-27 2-10 17-15 34-7z" fill="#f2c94c" stroke="rgba(255,255,255,.28)" stroke-width="4"/>
+                <path d="M84 151c10 13 42 13 52 0" fill="none" stroke="#1da7ff" stroke-width="6" stroke-linecap="round"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="projects" id="projects">
+      <div class="container">
+        <div class="project-grid">
+          <a class="project-card reveal" href="https://linuxmint.com/download.php" target="_blank" rel="noopener">
+            <div class="project-top">
+              <span class="project-number">01</span>
+              <span class="project-symbol">M</span>
+            </div>
+            <div>
+              <h2>Linux Mint</h2>
+              <p>Friendly Linux for everyday use. A clean starting point for Windows users who want to try Linux safely.</p>
+            </div>
+            <span class="project-action">Download</span>
+          </a>
+
+          <a class="project-card reveal" href="https://www.kali.org/get-kali/" target="_blank" rel="noopener">
+            <div class="project-top">
+              <span class="project-number">02</span>
+              <span class="project-symbol">K</span>
+            </div>
+            <div>
+              <h2>Kali Linux</h2>
+              <p>Security-focused Linux for cybersecurity learning, testing, labs, virtual machines, live USB, and ethical hacking tools.</p>
+            </div>
+            <span class="project-action">Download</span>
+          </a>
+
+          <a class="project-card reveal" href="https://www.linuxfoundation.org/about/donate" target="_blank" rel="noopener">
+            <div class="project-top">
+              <span class="project-number">03</span>
+              <span class="project-symbol">♡</span>
+            </div>
+            <div>
+              <h2>Donate</h2>
+              <p>Support the wider Linux and open-source ecosystem through the official Linux Foundation donation page.</p>
+            </div>
+            <span class="project-action">Support</span>
+          </a>
+        </div>
+
+        <footer>
+          <span class="footer-copy">© <span id="year"></span></span>
+          <a class="footer-link" href="main.html">Back to Main</a>
+        </footer>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    (function () {
+      var items = document.querySelectorAll(".reveal");
+
+      if (!("IntersectionObserver" in window)) {
+        for (var i = 0; i < items.length; i++) {
+          items[i].classList.add("show");
+        }
+      } else {
+        var obs = new IntersectionObserver(function(entries) {
+          for (var i = 0; i < entries.length; i++) {
+            if (entries[i].isIntersecting) {
+              entries[i].target.classList.add("show");
+              obs.unobserve(entries[i].target);
+            }
+          }
+        }, { threshold: 0.12 });
+
+        for (var j = 0; j < items.length; j++) {
+          obs.observe(items[j]);
+        }
+      }
+    })();
+  </script>
+</body>
+</html>
