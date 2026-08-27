@@ -1,0 +1,714 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="AXL Lifts Access" />
+  <meta name="theme-color" content="#06080d" />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" type="image/png" href="assets/images/logo.png">
+  <title>AXL | Lifts Access</title>
+
+  <style>
+    :root{
+      --bg:#06080d;
+      --bg2:#0c111a;
+      --line:rgba(255,255,255,.10);
+      --line-strong:rgba(255,255,255,.18);
+      --text:#edf3f8;
+      --muted:#9aa8b5;
+      --white:#ffffff;
+      --accent:#1da7ff;
+      --accent-2:#8fd7ff;
+      --accent-3:#d8e2ea;
+      --accent-glow:rgba(29,167,255,.24);
+      --silver-glow:rgba(216,226,234,.12);
+      --red:#ff4d5e;
+      --red-glow:rgba(255,77,94,.32);
+      --green:#58f0a7;
+      --green-glow:rgba(88,240,167,.28);
+      --shadow:0 18px 44px rgba(0,0,0,.42);
+      --radius:28px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family:Inter,Segoe UI,Arial,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 18% 0%, rgba(29,167,255,.16), transparent 25%),
+        radial-gradient(circle at 82% 0%, rgba(216,226,234,.10), transparent 28%),
+        radial-gradient(circle at 50% 100%, rgba(29,167,255,.08), transparent 32%),
+        linear-gradient(180deg, #030509 0%, #070b12 48%, #05070c 100%);
+      line-height:1.5;
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
+    }
+
+    body:before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.16;
+      background-image:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+      background-size:46px 46px;
+      mask-image:radial-gradient(circle at center, black 35%, transparent 85%);
+    }
+
+    body:after{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.20;
+      background:
+        linear-gradient(115deg, transparent 0%, rgba(29,167,255,.07) 40%, transparent 62%),
+        linear-gradient(245deg, transparent 10%, rgba(216,226,234,.05) 48%, transparent 70%);
+    }
+
+    a{text-decoration:none;color:inherit}
+
+    .container{
+      width:min(1080px, calc(100% - 32px));
+      margin:0 auto;
+      position:relative;
+      z-index:1;
+    }
+
+    .nav-wrap{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      background:rgba(4,7,12,.78);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid var(--line);
+    }
+
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding:14px 0;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:700;
+      letter-spacing:.35px;
+      min-width:0;
+    }
+
+    .brand-mark{
+      width:44px;
+      height:44px;
+      border-radius:15px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+      flex:0 0 auto;
+      overflow:hidden;
+      background:rgba(255,255,255,.045);
+      border:1px solid rgba(255,255,255,.14);
+      filter:drop-shadow(0 0 16px rgba(29,167,255,.22));
+    }
+
+    .brand-mark img{
+      width:100%;
+      height:100%;
+      display:block;
+      object-fit:cover;
+    }
+
+    .brand span{
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      line-height:1;
+      color:var(--accent-3);
+      text-shadow:0 0 18px rgba(29,167,255,.22);
+    }
+
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+
+    .nav-links a{
+      color:var(--muted);
+      font-size:14px;
+      padding:9px 13px;
+      border:1px solid transparent;
+      border-radius:999px;
+      transition:.22s ease;
+    }
+
+    .nav-links a:hover{
+      color:var(--white);
+      border-color:var(--line);
+      background:rgba(255,255,255,.055);
+    }
+
+    .hero{
+      padding:72px 0 0;
+    }
+
+    .hero-box{
+      position:relative;
+      overflow:hidden;
+      border:1px solid var(--line);
+      border-radius:36px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.065), rgba(255,255,255,.022)),
+        rgba(255,255,255,.018);
+      box-shadow:var(--shadow);
+      padding:48px;
+      min-height:470px;
+      display:grid;
+      grid-template-columns:1fr 330px;
+      gap:34px;
+      align-items:center;
+    }
+
+    .hero-box:before{
+      content:"";
+      position:absolute;
+      right:-80px;
+      top:-70px;
+      width:260px;
+      height:260px;
+      border-radius:50%;
+      background:radial-gradient(circle, var(--accent-glow), transparent 68%);
+      pointer-events:none;
+    }
+
+    .hero-box:after{
+      content:"";
+      position:absolute;
+      left:-70px;
+      bottom:-100px;
+      width:260px;
+      height:260px;
+      border-radius:50%;
+      background:radial-gradient(circle, var(--silver-glow), transparent 72%);
+      pointer-events:none;
+    }
+
+    .hero-frame{
+      position:absolute;
+      inset:18px;
+      border-radius:28px;
+      border:1px solid rgba(255,255,255,.07);
+      pointer-events:none;
+    }
+
+    .hero-frame:before,
+    .hero-frame:after{
+      content:"";
+      position:absolute;
+      width:90px;
+      height:1px;
+      background:linear-gradient(90deg, transparent, rgba(29,167,255,.72), transparent);
+      top:28px;
+    }
+
+    .hero-frame:before{
+      left:32px;
+    }
+
+    .hero-frame:after{
+      right:32px;
+    }
+
+    .hero-content{
+      position:relative;
+      z-index:1;
+    }
+
+    .eyebrow{
+      margin:0 0 12px;
+      color:var(--accent-2);
+      font-size:12px;
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      text-shadow:0 0 16px rgba(29,167,255,.25);
+    }
+
+    h1{
+      margin:0 0 20px;
+      max-width:680px;
+      font-size:clamp(42px, 7vw, 82px);
+      line-height:.92;
+      letter-spacing:-.07em;
+      color:var(--white);
+    }
+
+    .hero-lead{
+      max-width:620px;
+      margin:0 0 28px;
+      color:var(--muted);
+      font-size:clamp(16px, 2vw, 19px);
+    }
+
+    .access-form{
+      display:grid;
+      gap:14px;
+      max-width:430px;
+    }
+
+    .pin-wrap{
+      position:relative;
+      display:flex;
+      align-items:center;
+      border:1px solid rgba(255,255,255,.13);
+      border-radius:999px;
+      background:rgba(255,255,255,.045);
+      box-shadow:0 0 24px rgba(29,167,255,.08);
+      overflow:hidden;
+    }
+
+    .pin-wrap:focus-within{
+      border-color:rgba(29,167,255,.52);
+      box-shadow:
+        0 0 20px rgba(29,167,255,.22),
+        0 0 38px rgba(29,167,255,.10);
+    }
+
+    .pin-input{
+      width:100%;
+      min-height:52px;
+      border:0;
+      outline:0;
+      padding:0 18px;
+      background:transparent;
+      color:var(--white);
+      font-size:18px;
+      font-weight:800;
+      letter-spacing:.18em;
+      font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    }
+
+    .pin-input::placeholder{
+      color:rgba(154,168,181,.72);
+      letter-spacing:.04em;
+      font-weight:600;
+    }
+
+    .form-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      align-items:center;
+    }
+
+    .unlock-button,
+    .back-button{
+      min-height:48px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:13px 22px;
+      border-radius:999px;
+      font-weight:900;
+      letter-spacing:.02em;
+      transition:.22s ease;
+      cursor:pointer;
+    }
+
+    .unlock-button{
+      border:1px solid rgba(255,255,255,.48);
+      color:#03101c;
+      background:linear-gradient(135deg, #8fd7ff, #ffffff);
+      box-shadow:
+        0 0 18px rgba(29,167,255,.42),
+        0 0 34px rgba(143,215,255,.24),
+        0 16px 38px rgba(29,167,255,.18);
+    }
+
+    .back-button{
+      color:var(--accent-3);
+      background:rgba(255,255,255,.045);
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow:0 0 24px rgba(29,167,255,.08);
+    }
+
+    .unlock-button:hover,
+    .back-button:hover{
+      transform:translateY(-2px);
+    }
+
+    .unlock-button:hover{
+      box-shadow:
+        0 0 24px rgba(29,167,255,.58),
+        0 0 48px rgba(143,215,255,.34),
+        0 20px 44px rgba(29,167,255,.24);
+    }
+
+    .back-button:hover{
+      border-color:rgba(29,167,255,.28);
+      background:rgba(255,255,255,.065);
+    }
+
+    .status-message{
+      min-height:24px;
+      color:var(--muted);
+      font-size:14px;
+      font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    }
+
+    .status-message.error{
+      color:var(--red);
+      text-shadow:0 0 16px var(--red-glow);
+    }
+
+    .status-message.success{
+      color:var(--green);
+      text-shadow:0 0 16px var(--green-glow);
+    }
+
+    .access-badge{
+      position:relative;
+      z-index:1;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .badge-orb{
+      width:min(300px, 100%);
+      aspect-ratio:1;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:12px;
+      border-radius:34px;
+      border:1px solid rgba(255,255,255,.13);
+      background:
+        radial-gradient(circle at 50% 30%, rgba(29,167,255,.15), transparent 45%),
+        linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.025));
+      box-shadow:
+        inset 0 0 36px rgba(255,255,255,.035),
+        0 24px 60px rgba(0,0,0,.34),
+        0 0 44px rgba(29,167,255,.12);
+      overflow:hidden;
+      padding:26px;
+      text-align:center;
+    }
+
+    .badge-lock{
+      width:112px;
+      height:112px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:32px;
+      border:1px solid rgba(255,255,255,.15);
+      background:
+        radial-gradient(circle at 50% 32%, rgba(143,215,255,.22), transparent 48%),
+        rgba(255,255,255,.045);
+      box-shadow:
+        inset 0 0 32px rgba(255,255,255,.035),
+        0 0 34px rgba(29,167,255,.14);
+      font-size:54px;
+      line-height:1;
+    }
+
+    .badge-orb strong{
+      color:var(--white);
+      font-size:22px;
+      line-height:1;
+      letter-spacing:-.04em;
+    }
+
+    .badge-orb span{
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    footer{
+      padding:24px 0 34px;
+      margin-top:72px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+      font-size:12px;
+      color:#7f8c97;
+    }
+
+    .footer-copy{
+      font-family:Georgia,"Times New Roman",serif;
+      font-style:italic;
+      font-weight:600;
+      font-size:17px;
+      line-height:1;
+      letter-spacing:.5px;
+      color:#8d9aa5;
+    }
+
+    .footer-link{
+      color:#8d9aa5;
+    }
+
+    .reveal{
+      opacity:0;
+      transform:translateY(18px);
+      transition:opacity .75s ease, transform .75s ease;
+    }
+
+    .reveal.show{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    @media (max-width: 920px){
+      .hero-box{
+        grid-template-columns:1fr;
+        padding:38px 28px;
+        min-height:auto;
+      }
+
+      .access-badge{
+        order:-1;
+      }
+
+      .badge-orb{
+        width:min(245px, 100%);
+      }
+
+      .badge-lock{
+        width:92px;
+        height:92px;
+        border-radius:28px;
+        font-size:46px;
+      }
+    }
+
+    @media (max-width: 760px){
+      .nav{
+        align-items:flex-start;
+        flex-direction:column;
+        padding:12px 0;
+      }
+
+      .nav-links{
+        width:100%;
+        overflow-x:auto;
+        padding-bottom:3px;
+      }
+
+      .hero{
+        padding:54px 0 0;
+      }
+
+      .hero-box{
+        padding:34px 18px;
+        border-radius:28px;
+      }
+
+      .hero-frame{
+        inset:12px;
+        border-radius:22px;
+      }
+
+      h1{
+        font-size:clamp(38px, 14vw, 58px);
+      }
+
+      footer{
+        justify-content:center;
+        text-align:center;
+        padding-top:22px;
+        margin-top:54px;
+      }
+
+      .footer-copy{
+        width:100%;
+      }
+    }
+
+    @media (max-width: 480px){
+      .container{
+        width:min(1080px, calc(100% - 20px));
+      }
+
+      .brand{
+        gap:10px;
+      }
+
+      .brand-mark{
+        width:36px;
+        height:36px;
+        border-radius:13px;
+      }
+
+      .brand span{
+        font-size:14px;
+      }
+
+      .nav-links a{
+        font-size:13px;
+        padding:8px 11px;
+      }
+
+      .hero-box{
+        padding:28px 16px;
+        border-radius:24px;
+      }
+
+      .badge-orb{
+        width:min(210px, 100%);
+        border-radius:28px;
+        padding:22px;
+      }
+
+      .badge-lock{
+        width:82px;
+        height:82px;
+        border-radius:24px;
+        font-size:40px;
+      }
+
+      .access-form,
+      .form-actions{
+        width:100%;
+      }
+
+      .unlock-button,
+      .back-button{
+        width:100%;
+      }
+
+      .pin-input{
+        font-size:16px;
+        text-align:center;
+      }
+
+      .footer-copy{
+        font-size:16px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      html{
+        scroll-behavior:auto;
+      }
+
+      .unlock-button,
+      .back-button,
+      .nav-links a,
+      .reveal,
+      .reveal.show{
+        transition:none;
+        transform:none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="nav-wrap">
+    <div class="container nav">
+      <a class="brand" href="https://alexkid.org/" target="_blank" rel="noopener">
+        <div class="brand-mark" aria-hidden="true">
+          <img src="logo.png" alt="">
+        </div>
+        <span>AXL</span>
+      </a>
+
+      <div class="nav-links" aria-label="Main navigation">
+        <a href="main.html">Main</a>
+        <a href="policies.html">Policies</a>
+        <a href="index.html">Intro</a>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-box reveal">
+          <div class="hero-frame"></div>
+
+          <div class="hero-content">
+            <p class="eyebrow">Lifts Access</p>
+            <h1>Restricted sector.</h1>
+            <p class="hero-lead">
+              Enter the access PIN to continue to the lift support area. If you are not invited, go back now.
+            </p>
+
+            <form class="access-form" id="accessForm">
+              <div class="pin-wrap">
+                <input class="pin-input" id="pinInput" type="password" inputmode="numeric" autocomplete="off" placeholder="Enter PIN" aria-label="Enter PIN" />
+              </div>
+
+              <div class="form-actions">
+                <button class="unlock-button" type="submit">Unlock</button>
+                <a class="back-button" href="main.html">Back to Main</a>
+              </div>
+
+              <div class="status-message" id="statusMessage" aria-live="polite"></div>
+            </form>
+          </div>
+
+          <div class="access-badge" aria-hidden="true">
+            <div class="badge-orb">
+              <div class="badge-lock">🔒</div>
+              <strong>Lift Menu</strong>
+              <span>PIN required</span>
+            </div>
+          </div>
+        </div>
+
+        <footer>
+          <span class="footer-copy">© <span id="year"></span></span>
+          <a class="footer-link" href="main.html">Back to Main</a>
+        </footer>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    (function () {
+      var items = document.querySelectorAll(".reveal");
+
+      if (!("IntersectionObserver" in window)) {
+        for (var i = 0; i < items.length; i++) {
+          items[i].classList.add("show");
+        }
+      } else {
+        var obs = new IntersectionObserver(function(entries) {
+          for (var i = 0; i < entries.length; i++) {
+            if (entries[i].isIntersecting) {
+              entries[i].target.classList.add("show");
+              obs.unobserve(entries[i].target);
+            }
+          }
+        }, { threshold: 0.12 });
+
+        for (var j = 0; j < items.length; j++) {
+          obs.observe(items[j]);
+        }
+      }
+    })();
+  </script>
+
+  <script src="assets/js/lifts-access.js"></script>
+</body>
+</html>
