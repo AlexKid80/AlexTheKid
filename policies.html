@@ -1,0 +1,800 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="AXL policies, privacy notes, external provider notice, donation policy, and user responsibility." />
+  <meta name="theme-color" content="#06080d" />
+  <link rel="icon" type="image/png" href="assets/images/logo.png">
+  <title>AXL | Policies</title>
+
+  <style>
+    :root{
+      --bg:#06080d;
+      --bg2:#0c111a;
+      --line:rgba(255,255,255,.10);
+      --line-strong:rgba(255,255,255,.18);
+      --text:#edf3f8;
+      --muted:#9aa8b5;
+      --white:#ffffff;
+      --accent:#1da7ff;
+      --accent-2:#8fd7ff;
+      --accent-3:#d8e2ea;
+      --accent-glow:rgba(29,167,255,.24);
+      --silver-glow:rgba(216,226,234,.12);
+      --warning:#ffcc66;
+      --warning-glow:rgba(255,204,102,.18);
+      --red:#ff4d5e;
+      --shadow:0 18px 44px rgba(0,0,0,.42);
+      --radius:28px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family:Inter,Segoe UI,Arial,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 18% 0%, rgba(29,167,255,.16), transparent 25%),
+        radial-gradient(circle at 82% 0%, rgba(216,226,234,.10), transparent 28%),
+        radial-gradient(circle at 50% 100%, rgba(29,167,255,.08), transparent 32%),
+        linear-gradient(180deg, #030509 0%, #070b12 48%, #05070c 100%);
+      line-height:1.5;
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
+    }
+
+    body:before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.16;
+      background-image:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+      background-size:46px 46px;
+      mask-image:radial-gradient(circle at center, black 35%, transparent 85%);
+    }
+
+    body:after{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.20;
+      background:
+        linear-gradient(115deg, transparent 0%, rgba(29,167,255,.07) 40%, transparent 62%),
+        linear-gradient(245deg, transparent 10%, rgba(216,226,234,.05) 48%, transparent 70%);
+    }
+
+    a{text-decoration:none;color:inherit}
+
+    .container{
+      width:min(1080px, calc(100% - 32px));
+      margin:0 auto;
+      position:relative;
+      z-index:1;
+    }
+
+    .nav-wrap{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      background:rgba(4,7,12,.78);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid var(--line);
+    }
+
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding:14px 0;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:700;
+      letter-spacing:.35px;
+      min-width:0;
+    }
+
+    .brand-mark{
+      width:44px;
+      height:44px;
+      border-radius:15px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+      flex:0 0 auto;
+      overflow:hidden;
+      background:rgba(255,255,255,.045);
+      border:1px solid rgba(255,255,255,.14);
+      filter:drop-shadow(0 0 16px rgba(29,167,255,.22));
+    }
+
+    .brand-mark img{
+      width:100%;
+      height:100%;
+      display:block;
+      object-fit:cover;
+    }
+
+    .brand span{
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      line-height:1;
+      color:var(--accent-3);
+      text-shadow:0 0 18px rgba(29,167,255,.22);
+    }
+
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+
+    .nav-links a{
+      color:var(--muted);
+      font-size:14px;
+      padding:9px 13px;
+      border:1px solid transparent;
+      border-radius:999px;
+      transition:.22s ease;
+    }
+
+    .nav-links a:hover{
+      color:var(--white);
+      border-color:var(--line);
+      background:rgba(255,255,255,.055);
+    }
+
+    .hero{
+      padding:72px 0 0;
+    }
+
+    .hero-box{
+      position:relative;
+      overflow:hidden;
+      border:1px solid var(--line);
+      border-radius:36px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.065), rgba(255,255,255,.022)),
+        rgba(255,255,255,.018);
+      box-shadow:var(--shadow);
+      padding:48px;
+      min-height:430px;
+      display:grid;
+      grid-template-columns:1fr 300px;
+      gap:34px;
+      align-items:center;
+    }
+
+    .hero-box:before{
+      content:"";
+      position:absolute;
+      right:-80px;
+      top:-70px;
+      width:260px;
+      height:260px;
+      border-radius:50%;
+      background:radial-gradient(circle, var(--accent-glow), transparent 68%);
+      pointer-events:none;
+    }
+
+    .hero-box:after{
+      content:"";
+      position:absolute;
+      left:-70px;
+      bottom:-100px;
+      width:260px;
+      height:260px;
+      border-radius:50%;
+      background:radial-gradient(circle, var(--silver-glow), transparent 72%);
+      pointer-events:none;
+    }
+
+    .hero-frame{
+      position:absolute;
+      inset:18px;
+      border-radius:28px;
+      border:1px solid rgba(255,255,255,.07);
+      pointer-events:none;
+    }
+
+    .hero-frame:before,
+    .hero-frame:after{
+      content:"";
+      position:absolute;
+      width:90px;
+      height:1px;
+      background:linear-gradient(90deg, transparent, rgba(29,167,255,.72), transparent);
+      top:28px;
+    }
+
+    .hero-frame:before{
+      left:32px;
+    }
+
+    .hero-frame:after{
+      right:32px;
+    }
+
+    .hero-content{
+      position:relative;
+      z-index:1;
+    }
+
+    .eyebrow{
+      margin:0 0 12px;
+      color:var(--accent-2);
+      font-size:12px;
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      text-shadow:0 0 16px rgba(29,167,255,.25);
+    }
+
+    h1{
+      margin:0 0 20px;
+      max-width:720px;
+      font-size:clamp(42px, 7vw, 82px);
+      line-height:.92;
+      letter-spacing:-.07em;
+      color:var(--white);
+    }
+
+    .hero-lead{
+      max-width:650px;
+      margin:0 0 28px;
+      color:var(--muted);
+      font-size:clamp(16px, 2vw, 19px);
+    }
+
+    .start-button{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:48px;
+      padding:13px 22px;
+      border-radius:999px;
+      color:#03101c;
+      background:linear-gradient(135deg, #8fd7ff, #ffffff);
+      font-weight:900;
+      letter-spacing:.02em;
+      box-shadow:
+        0 0 18px rgba(29,167,255,.42),
+        0 0 34px rgba(143,215,255,.24),
+        0 16px 38px rgba(29,167,255,.18);
+      border:1px solid rgba(255,255,255,.48);
+      transition:.22s ease;
+    }
+
+    .start-button:hover{
+      transform:translateY(-2px);
+      box-shadow:
+        0 0 24px rgba(29,167,255,.58),
+        0 0 48px rgba(143,215,255,.34),
+        0 20px 44px rgba(29,167,255,.24);
+    }
+
+    .hero-badge{
+      position:relative;
+      z-index:1;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .badge-orb{
+      width:min(260px, 100%);
+      aspect-ratio:1;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:12px;
+      border-radius:34px;
+      border:1px solid rgba(255,255,255,.13);
+      background:
+        radial-gradient(circle at 50% 30%, rgba(255,204,102,.12), transparent 45%),
+        radial-gradient(circle at 50% 70%, rgba(29,167,255,.13), transparent 48%),
+        linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.025));
+      box-shadow:
+        inset 0 0 36px rgba(255,255,255,.035),
+        0 24px 60px rgba(0,0,0,.34),
+        0 0 44px rgba(29,167,255,.12);
+      padding:26px;
+      text-align:center;
+    }
+
+    .badge-symbol{
+      font-size:68px;
+      line-height:1;
+      filter:drop-shadow(0 0 22px rgba(255,204,102,.28));
+    }
+
+    .badge-orb strong{
+      color:var(--white);
+      font-size:22px;
+      letter-spacing:-.04em;
+    }
+
+    .badge-orb span{
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .policies{
+      padding:28px 0 0;
+    }
+
+    .policy-grid{
+      display:grid;
+      grid-template-columns:repeat(2, 1fr);
+      gap:18px;
+    }
+
+    .policy-card{
+      position:relative;
+      overflow:hidden;
+      border:1px solid var(--line);
+      border-radius:28px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.058), rgba(255,255,255,.022)),
+        rgba(255,255,255,.018);
+      box-shadow:0 14px 34px rgba(0,0,0,.24);
+      padding:26px;
+    }
+
+    .policy-card:before{
+      content:"";
+      position:absolute;
+      right:-54px;
+      top:-54px;
+      width:140px;
+      height:140px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(29,167,255,.14), transparent 70%);
+      pointer-events:none;
+    }
+
+    .policy-card.warning:before{
+      background:radial-gradient(circle, var(--warning-glow), transparent 70%);
+    }
+
+    .policy-top{
+      position:relative;
+      z-index:1;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:22px;
+    }
+
+    .policy-number{
+      color:var(--accent-2);
+      font-size:13px;
+      font-weight:900;
+      letter-spacing:.16em;
+    }
+
+    .policy-icon{
+      width:34px;
+      height:34px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border:1px solid rgba(255,255,255,.14);
+      border-radius:999px;
+      color:var(--accent-2);
+      background:rgba(255,255,255,.055);
+      box-shadow:0 0 20px rgba(29,167,255,.10);
+      font-size:16px;
+      line-height:1;
+    }
+
+    .policy-card h2{
+      position:relative;
+      z-index:1;
+      margin:0 0 14px;
+      color:var(--white);
+      font-size:clamp(24px, 3vw, 34px);
+      line-height:1;
+      letter-spacing:-.055em;
+    }
+
+    .policy-card p{
+      position:relative;
+      z-index:1;
+      margin:0 0 14px;
+      color:var(--muted);
+      font-size:15px;
+    }
+
+    .policy-card p:last-child{
+      margin-bottom:0;
+    }
+
+    .policy-card strong{
+      color:var(--white);
+    }
+
+    .warning-text{
+      color:var(--warning);
+      text-shadow:0 0 16px rgba(255,204,102,.14);
+    }
+
+    .final-note{
+      margin-top:18px;
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:28px;
+      padding:26px;
+      background:
+        linear-gradient(180deg, rgba(29,167,255,.085), rgba(255,255,255,.025)),
+        rgba(255,255,255,.018);
+      box-shadow:0 14px 34px rgba(0,0,0,.24);
+    }
+
+    .final-note p{
+      margin:0;
+      color:var(--muted);
+      font-size:15px;
+    }
+
+    footer{
+      padding:24px 0 34px;
+      margin-top:72px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+      font-size:12px;
+      color:#7f8c97;
+    }
+
+    .footer-copy{
+      font-family:Georgia,"Times New Roman",serif;
+      font-style:italic;
+      font-weight:600;
+      font-size:17px;
+      line-height:1;
+      letter-spacing:.5px;
+      color:#8d9aa5;
+    }
+
+    .footer-link{
+      color:#8d9aa5;
+    }
+
+    .reveal{
+      opacity:0;
+      transform:translateY(18px);
+      transition:opacity .75s ease, transform .75s ease;
+    }
+
+    .reveal.show{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    @media (max-width: 920px){
+      .hero-box{
+        grid-template-columns:1fr;
+        padding:38px 28px;
+        min-height:auto;
+      }
+
+      .hero-badge{
+        order:-1;
+      }
+
+      .badge-orb{
+        width:min(230px, 100%);
+      }
+
+      .policy-grid{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width: 760px){
+      .nav{
+        align-items:flex-start;
+        flex-direction:column;
+        padding:12px 0;
+      }
+
+      .nav-links{
+        width:100%;
+        overflow-x:auto;
+        padding-bottom:3px;
+      }
+
+      .hero{
+        padding:54px 0 0;
+      }
+
+      .hero-box{
+        padding:34px 18px;
+        border-radius:28px;
+      }
+
+      .hero-frame{
+        inset:12px;
+        border-radius:22px;
+      }
+
+      h1{
+        font-size:clamp(38px, 14vw, 58px);
+      }
+
+      footer{
+        justify-content:center;
+        text-align:center;
+        padding-top:22px;
+        margin-top:54px;
+      }
+
+      .footer-copy{
+        width:100%;
+      }
+    }
+
+    @media (max-width: 480px){
+      .container{
+        width:min(1080px, calc(100% - 20px));
+      }
+
+      .brand{
+        gap:10px;
+      }
+
+      .brand-mark{
+        width:36px;
+        height:36px;
+        border-radius:13px;
+      }
+
+      .brand span{
+        font-size:14px;
+      }
+
+      .nav-links a{
+        font-size:13px;
+        padding:8px 11px;
+      }
+
+      .hero-box{
+        padding:28px 16px;
+        border-radius:24px;
+      }
+
+      .badge-orb{
+        width:min(210px, 100%);
+        border-radius:28px;
+        padding:22px;
+      }
+
+      .badge-symbol{
+        font-size:58px;
+      }
+
+      .start-button{
+        width:100%;
+      }
+
+      .policy-card,
+      .final-note{
+        padding:22px;
+        border-radius:24px;
+      }
+
+      .footer-copy{
+        font-size:16px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      html{
+        scroll-behavior:auto;
+      }
+
+      .start-button,
+      .nav-links a,
+      .reveal,
+      .reveal.show{
+        transition:none;
+        transform:none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="nav-wrap">
+    <div class="container nav">
+      <a class="brand" href="https://alexkid.org/" target="_blank" rel="noopener">
+        <div class="brand-mark" aria-hidden="true">
+          <img src="logo.png" alt="">
+        </div>
+        <span>AXL</span>
+      </a>
+
+      <div class="nav-links" aria-label="Main navigation">
+        <a href="main.html">Main</a>
+        <a href="index.html">Intro</a>
+        <a href="https://www.youtube.com/@ScammerPayback" target="_blank" rel="noopener">SP</a>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-box reveal">
+          <div class="hero-frame"></div>
+
+          <div class="hero-content">
+            <p class="eyebrow">Policies</p>
+            <h1>Read before you continue.</h1>
+            <p class="hero-lead">
+              This page explains privacy, future data use, donations, external providers, technical content, and user responsibility. If you do not agree, do not continue using this site.
+            </p>
+            <a class="start-button" href="main.html">Start</a>
+          </div>
+
+          <div class="hero-badge" aria-hidden="true">
+            <div class="badge-orb">
+              <div class="badge-symbol">⚠</div>
+              <strong>Policy Notice</strong>
+              <span>Last updated: 28 June 2026</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="policies" id="policies">
+      <div class="container">
+        <div class="policy-grid">
+          <article class="policy-card warning reveal">
+            <div class="policy-top">
+              <span class="policy-number">01</span>
+              <span class="policy-icon">!</span>
+            </div>
+            <h2>Current and future data use</h2>
+            <p><strong>Current status:</strong> this static website does not intentionally collect, store, sell, or process personal data by itself.</p>
+            <p><span class="warning-text">Important:</span> future tools, forms, dashboards, AI features, login systems, analytics, or connected services may collect, store, analyze, process, or use submitted information, including for AI workflows, service improvement, training, testing, or model-related use where allowed and announced.</p>
+            <p>If this possibility worries you, leave now and do not use future interactive tools.</p>
+          </article>
+
+          <article class="policy-card reveal">
+            <div class="policy-top">
+              <span class="policy-number">02</span>
+              <span class="policy-icon">↻</span>
+            </div>
+            <h2>Policy updates</h2>
+            <p>Policies may change at any time as the site grows, new pages are added, external services are connected, or AI features are introduced.</p>
+            <p>Users are responsible for checking this page regularly. Continuing to use the site after changes means that you accept the latest version.</p>
+            <p>We may not provide personal notice for every update.</p>
+          </article>
+
+          <article class="policy-card reveal">
+            <div class="policy-top">
+              <span class="policy-number">03</span>
+              <span class="policy-icon">◇</span>
+            </div>
+            <h2>External providers</h2>
+            <p>This site may link to or use external providers such as Oracle APEX, GitHub Pages, Google, AI model providers, analytics providers, payment or donation platforms, manufacturer websites, and other third-party services.</p>
+            <p>We do not control how these providers collect, store, process, secure, or use data.</p>
+            <p>You must read and accept each provider’s own privacy policy, terms, cookies policy, and data handling rules before using their services.</p>
+          </article>
+
+          <article class="policy-card reveal">
+            <div class="policy-top">
+              <span class="policy-number">04</span>
+              <span class="policy-icon">↗</span>
+            </div>
+            <h2>Manuals and manufacturer links</h2>
+            <p>The lifts section may include personal notes, technical summaries, links, and references to external manufacturer resources.</p>
+            <p>External manuals, official documents, software, downloads, or product information belong to their respective owners and providers.</p>
+            <p>When this site links to official manufacturer pages, users must follow the manufacturer’s own terms, policies, and latest official instructions.</p>
+          </article>
+
+          <article class="policy-card reveal">
+            <div class="policy-top">
+              <span class="policy-number">05</span>
+              <span class="policy-icon">⚙</span>
+            </div>
+            <h2>Technical content disclaimer</h2>
+            <p>Technical material on this site may be based on personal experience, personal notes, testing, study, and practical work.</p>
+            <p>It is provided for informational purposes only and may contain mistakes, outdated information, incomplete details, or personal interpretations.</p>
+            <p>Always check official manuals, standards, manufacturer documentation, qualified professionals, and local regulations before acting on technical information.</p>
+          </article>
+
+          <article class="policy-card reveal">
+            <div class="policy-top">
+              <span class="policy-number">06</span>
+              <span class="policy-icon">€</span>
+            </div>
+            <h2>Donations and refunds</h2>
+            <p>Any donation, support payment, or external contribution is voluntary.</p>
+            <p>Donations are not treated as a purchase of a guaranteed product, service, support contract, access right, or result.</p>
+            <p>Donations are non-refundable unless the external payment provider, donation platform, or applicable law clearly requires otherwise.</p>
+          </article>
+
+          <article class="policy-card reveal">
+            <div class="policy-top">
+              <span class="policy-number">07</span>
+              <span class="policy-icon">☰</span>
+            </div>
+            <h2>Access and availability</h2>
+            <p>Some areas may be public, hidden, restricted, experimental, password-gated, or moved without notice.</p>
+            <p>Access to any page may be changed, removed, interrupted, blocked, or limited at any time.</p>
+            <p>Hidden or restricted pages are not guaranteed security unless a real authentication provider is used.</p>
+          </article>
+
+          <article class="policy-card reveal">
+            <div class="policy-top">
+              <span class="policy-number">08</span>
+              <span class="policy-icon">✓</span>
+            </div>
+            <h2>User agreement</h2>
+            <p>By continuing to use this site, you confirm that you understand these policies and accept your own responsibility for how you use the information, links, tools, and external services.</p>
+            <p>If you do not agree with these policies, leave the site and do not use the connected pages or services.</p>
+            <p>Use this site only if you are comfortable with the current and future policy direction described here.</p>
+          </article>
+        </div>
+
+        <div class="final-note reveal">
+          <p>This policy page is a practical notice for users of this website. It is not a full legal document and may need professional legal review if the site later collects personal data, offers paid services, provides client-only tools, or becomes commercially important.</p>
+        </div>
+
+        <footer>
+          <span class="footer-copy">© <span id="year"></span></span>
+          <a class="footer-link" href="elogin.html">Start</a>
+        </footer>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    (function () {
+      var items = document.querySelectorAll(".reveal");
+
+      if (!("IntersectionObserver" in window)) {
+        for (var i = 0; i < items.length; i++) {
+          items[i].classList.add("show");
+        }
+      } else {
+        var obs = new IntersectionObserver(function(entries) {
+          for (var i = 0; i < entries.length; i++) {
+            if (entries[i].isIntersecting) {
+              entries[i].target.classList.add("show");
+              obs.unobserve(entries[i].target);
+            }
+          }
+        }, { threshold: 0.12 });
+
+        for (var j = 0; j < items.length; j++) {
+          obs.observe(items[j]);
+        }
+      }
+    })();
+  </script>
+</body>
+</html>
