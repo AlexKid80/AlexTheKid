@@ -10,6 +10,7 @@
 
   const initialLiftInfo = () => ({
     lift_id: "",
+    client_name: "",
     additional_ens: "",
     motor_power_kw: "",
     motor_current_a: "",
@@ -781,6 +782,25 @@
                 Taken from the first wizard step.
               </p>
             </div>
+
+            <div class="lift-field">
+              <label class="field-label" for="client_name">
+                Client Name
+                <span class="optional-mark">Optional</span>
+              </label>
+
+              <input
+                class="text-input"
+                id="client_name"
+                name="client_name"
+                type="text"
+                maxlength="120"
+                autocomplete="organization"
+                placeholder="Optional client / company name"
+                value="${escapeHtml(liftInfo.client_name)}"
+                data-lift-field="client_name"
+              >
+            </div>
           </div>
         </fieldset>
 
@@ -1250,6 +1270,10 @@
     ];
 
     const optionalValues = [
+      [
+        "Client Name",
+        liftInfo.client_name
+      ],
       [
         "Additional EN standards",
         liftInfo.additional_ens
@@ -1791,6 +1815,15 @@
           ? [...liftInfo.door_b_openings]
           : []
     };
+
+
+    const clientName =
+      liftInfo.client_name.trim();
+
+    if (clientName) {
+      payload.client_name =
+        clientName;
+    }
 
 
     const additionalEns =
