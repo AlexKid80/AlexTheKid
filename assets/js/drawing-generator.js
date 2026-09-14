@@ -6,7 +6,8 @@
     en8120Technical: "https://elevatorsbackend.onrender.com/generate",
     en811Technical: "https://elevatorsbackend.onrender.com/generate-en811",
     tractionComplete: "https://elevatorsbackend.onrender.com/generate-traction-complete-test",
-    hydraulicEN812Complete: "https://elevatorsbackend.onrender.com/generate-hydraulic-en812-complete-test"
+    hydraulicEN812Complete: "https://elevatorsbackend.onrender.com/generate-hydraulic-en812-complete-test",
+    hydraulicEN8120Complete: "https://elevatorsbackend.onrender.com/generate-hydraulic-en8120-complete-test"
   });
 
   const initialLiftInfo = () => ({
@@ -37,6 +38,7 @@
     gmv_unit: null,
     door_type: null,
     doors: null,
+    common_opening: false,
     side_b_lops: false,
     frame: null,
     intercom: null,
@@ -83,8 +85,18 @@
   }
 
 
+  function isHydraulicEN8120() {
+    return state.family === "hydraulic" && state.en8120 === true;
+  }
+
+
+  function isHydraulic() {
+    return isHydraulicEN812() || isHydraulicEN8120();
+  }
+
+
   function isSupportedFamily() {
-    return isEN8120() || isEN811() || isHydraulicEN812();
+    return isEN8120() || isEN811() || isHydraulic();
   }
 
 
@@ -94,6 +106,7 @@
     state.gmv_unit = null;
     state.door_type = null;
     state.doors = null;
+    state.common_opening = false;
     state.side_b_lops = false;
     state.frame = null;
     state.intercom = null;
@@ -224,8 +237,9 @@
       }
     }
 
-    // Hydraulic EN81.2 is the supported old-standard hydraulic flow.
-    if (isHydraulicEN812()) {
+    // Both Hydraulic standards share the same flow, with one
+    // EN81.20-only Common Opening question for two-door lifts.
+    if (isHydraulic()) {
       flow.push(
         "gmv_unit",
         "door_type",
@@ -233,6 +247,10 @@
       );
 
       if (state.doors === 2) {
+        if (isHydraulicEN8120()) {
+          flow.push("common_opening");
+        }
+
         flow.push("side_b_lops");
       }
 
@@ -257,14 +275,6 @@
 
 
   function nextStepFrom(stepId) {
-    if (
-      stepId === "en8120" &&
-      state.family === "hydraulic" &&
-      state.en8120 === true
-    ) {
-      return "unsupported";
-    }
-
     const flow = getFlow();
     const index = flow.indexOf(stepId);
 
@@ -477,11 +487,17 @@
         }
 
 
-        // Side B only applies to two-door elevators.
+        // Common Opening and Side B only apply to two-door elevators.
         if (config.key === "doors") {
           if (value === 1) {
+            state.common_opening = false;
             state.side_b_lops = false;
           } else if (previousValue !== 2) {
+            state.common_opening =
+              isHydraulicEN8120()
+                ? null
+                : false;
+
             state.side_b_lops = null;
           }
 
@@ -753,7 +769,7 @@
     sanitizeLiftInfo();
 
     const liftInfo = state.lift_info;
-    const hydraulic = isHydraulicEN812();
+    const hydraulic = isHydraulic();
     const floors = Array.from(
       { length: state.stops },
       (_, index) => index + 1
@@ -1270,10 +1286,15 @@
 
 
   function technicalReviewItems() {
-    if (isHydraulicEN812()) {
-      return [
+    if (isHydraulic()) {
+      const items = [
         ["Lift Type", "Hydraulic"],
-        ["Standard", "EN 81.2"],
+        [
+          "Standard",
+          isHydraulicEN8120()
+            ? "EN 81.20"
+            : "EN 81.2"
+        ],
         [
           "GMV / Valve Type",
           state.gmv_unit === "G"
@@ -1286,15 +1307,36 @@
             ? "Automatic"
             : "Bus / Semi-automatic"
         ],
-        ["Doors", String(state.doors)],
-        ["Side B LOPs", yesNo(state.side_b_lops)],
+        ["Doors", String(state.doors)]
+      ];
+
+
+      if (state.doors === 2) {
+        if (isHydraulicEN8120()) {
+          items.push([
+            "Common Opening",
+            yesNo(state.common_opening)
+          ]);
+        }
+
+        items.push([
+          "Side B LOPs",
+          yesNo(state.side_b_lops)
+        ]);
+      }
+
+
+      items.push(
         ["Intercom", yesNo(state.intercom)],
         ["GSM", yesNo(state.gsm)],
         ["Stops", String(state.stops)],
         ["VIP travel key", yesNo(state.vip)],
         ["Display Type", state.display],
         ["Voice Announcer", yesNo(state.voice)]
-      ];
+      );
+
+
+      return items;
     }
 
 
@@ -1401,7 +1443,7 @@
     ];
 
 
-    if (isHydraulicEN812()) {
+    if (isHydraulic()) {
       optionalValues.push(
         [
           "Pump Unit Power",
@@ -1668,7 +1710,7 @@
           This drawing family is not available
           in the current version.
           Traction with EN 81.20 and EN 81.1,
-          plus Hydraulic with EN 81.2,
+          plus Hydraulic with EN 81.20 and EN 81.2,
           are available now.
         </p>
 
@@ -1963,6 +2005,46 @@
   }
 
 
+  function buildHydraulicEN8120DrawingConfig() {
+    return {
+      lift_type: "HYDRAULIC",
+
+      standard: "EN81.20",
+
+      gmv_unit: state.gmv_unit,
+
+      door_type: state.door_type,
+
+      doors: state.doors,
+
+      common_opening:
+        state.doors === 2
+          ? state.common_opening
+          : false,
+
+      side_b_lops:
+        state.doors === 2
+          ? state.side_b_lops
+          : false,
+
+      intercom: state.intercom,
+
+      gsm:
+        state.intercom === true
+          ? state.gsm
+          : false,
+
+      stops: state.stops,
+
+      vip: state.vip,
+
+      display: state.display,
+
+      voice: state.voice
+    };
+  }
+
+
   function addOptionalNumber(
     target,
     field,
@@ -2015,7 +2097,7 @@
 
 
     const optionalNumberFields =
-      isHydraulicEN812()
+      isHydraulic()
         ? [
           "pump_power_kw",
           "pump_current_a",
@@ -2060,6 +2142,11 @@
 
 
   function buildDrawingConfig() {
+    if (isHydraulicEN8120()) {
+      return buildHydraulicEN8120DrawingConfig();
+    }
+
+
     if (isHydraulicEN812()) {
       return buildHydraulicEN812DrawingConfig();
     }
@@ -2262,6 +2349,73 @@
   }
 
 
+  function hydraulicEN8120ConfigIsComplete(config) {
+    return (
+      isHydraulicEN8120() &&
+
+      config.lift_type === "HYDRAULIC" &&
+
+      config.standard === "EN81.20" &&
+
+      ["G", "H"].includes(
+        config.gmv_unit
+      ) &&
+
+      ["A", "S"].includes(
+        config.door_type
+      ) &&
+
+      [1, 2].includes(
+        config.doors
+      ) &&
+
+      typeof config.common_opening === "boolean" &&
+
+      !(
+        config.doors === 1 &&
+        config.common_opening
+      ) &&
+
+      typeof config.side_b_lops === "boolean" &&
+
+      !(
+        config.doors === 1 &&
+        config.side_b_lops
+      ) &&
+
+      typeof config.intercom === "boolean" &&
+
+      typeof config.gsm === "boolean" &&
+
+      !(
+        !config.intercom &&
+        config.gsm
+      ) &&
+
+      Number.isInteger(
+        config.stops
+      ) &&
+
+      config.stops >= 2 &&
+      config.stops <= 9 &&
+
+      typeof config.vip === "boolean" &&
+
+      ["M8", "L2"].includes(
+        config.display
+      ) &&
+
+      typeof config.voice === "boolean" &&
+
+      !(
+        "contactors" in config ||
+        "machine" in config ||
+        "frame" in config
+      )
+    );
+  }
+
+
   function floorListIsValid(floors) {
     return (
       Array.isArray(floors) &&
@@ -2294,7 +2448,7 @@
         !Number.isFinite(liftInfo.car_speed) ||
         liftInfo.car_speed <= 0 ||
         (
-          !isHydraulicEN812() &&
+          !isHydraulic() &&
           liftInfo.car_speed > 1
         )
       )
@@ -2353,7 +2507,12 @@
 
     let validDrawingConfig = false;
 
-    if (isHydraulicEN812()) {
+    if (isHydraulicEN8120()) {
+      validDrawingConfig =
+        hydraulicEN8120ConfigIsComplete(
+          payload.drawing_config
+        );
+    } else if (isHydraulicEN812()) {
       validDrawingConfig =
         hydraulicEN812ConfigIsComplete(
           payload.drawing_config
@@ -2389,9 +2548,13 @@
 
     return {
       endpoint:
-        isHydraulicEN812()
-          ? API_ENDPOINTS.hydraulicEN812Complete
-          : API_ENDPOINTS.tractionComplete,
+        isHydraulicEN8120()
+          ? API_ENDPOINTS.hydraulicEN8120Complete
+          : (
+            isHydraulicEN812()
+              ? API_ENDPOINTS.hydraulicEN812Complete
+              : API_ENDPOINTS.tractionComplete
+          ),
 
       filename:
         `${liftId}.pdf`
@@ -2781,6 +2944,32 @@
         break;
 
 
+      case "common_opening":
+        renderChoiceStep({
+          key: "common_opening",
+
+          title:
+            "Common opening?",
+
+          description:
+            "Choose whether the two door sides share a common opening.",
+
+          type: "boolean",
+
+          options: [
+            {
+              label: "Yes",
+              value: true
+            },
+            {
+              label: "No",
+              value: false
+            }
+          ]
+        });
+        break;
+
+
       case "side_b_lops":
         renderChoiceStep({
           key: "side_b_lops",
@@ -2900,7 +3089,7 @@
 
           options:
             (
-              isHydraulicEN812()
+              isHydraulic()
                 ? [2, 3, 4, 5, 6, 7, 8, 9]
                 : [2, 3, 4, 5, 6, 7, 8]
             )
