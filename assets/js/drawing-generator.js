@@ -5,7 +5,8 @@
   const API_ENDPOINTS = Object.freeze({
     en8120Technical: "https://elevatorsbackend.onrender.com/generate",
     en811Technical: "https://elevatorsbackend.onrender.com/generate-en811",
-    tractionComplete: "https://elevatorsbackend.onrender.com/generate-traction-complete-test"
+    tractionComplete: "https://elevatorsbackend.onrender.com/generate-traction-complete-test",
+    hydraulicEN812Complete: "https://elevatorsbackend.onrender.com/generate-hydraulic-en812-complete-test"
   });
 
   const initialLiftInfo = () => ({
@@ -16,6 +17,8 @@
     motor_current_a: "",
     motor_rpm: "",
     pulley_diameter: "",
+    pump_power_kw: "",
+    pump_current_a: "",
     car_speed: "",
     load_persons: "",
     load_kg: "",
@@ -31,6 +34,8 @@
     en8120: null,
     machine: null,
     contactors: null,
+    gmv_unit: null,
+    door_type: null,
     doors: null,
     side_b_lops: false,
     frame: null,
@@ -38,6 +43,8 @@
     gsm: false,
     stops: null,
     vip: null,
+    display: null,
+    voice: null,
     lift_info: initialLiftInfo()
   });
 
@@ -71,14 +78,21 @@
   }
 
 
+  function isHydraulicEN812() {
+    return state.family === "hydraulic" && state.en8120 === false;
+  }
+
+
   function isSupportedFamily() {
-    return isEN8120() || isEN811();
+    return isEN8120() || isEN811() || isHydraulicEN812();
   }
 
 
   function clearDrawingSelections() {
     state.machine = null;
     state.contactors = null;
+    state.gmv_unit = null;
+    state.door_type = null;
     state.doors = null;
     state.side_b_lops = false;
     state.frame = null;
@@ -86,6 +100,10 @@
     state.gsm = false;
     state.stops = null;
     state.vip = null;
+    state.display = null;
+    state.voice = null;
+    state.lift_info.pump_power_kw = "";
+    state.lift_info.pump_current_a = "";
     sanitizeLiftInfo();
   }
 
@@ -206,6 +224,34 @@
       }
     }
 
+    // Hydraulic EN81.2 is the supported old-standard hydraulic flow.
+    if (isHydraulicEN812()) {
+      flow.push(
+        "gmv_unit",
+        "door_type",
+        "doors"
+      );
+
+      if (state.doors === 2) {
+        flow.push("side_b_lops");
+      }
+
+      flow.push("intercom");
+
+      if (state.intercom === true) {
+        flow.push("gsm");
+      }
+
+      flow.push(
+        "stops",
+        "vip",
+        "display",
+        "voice",
+        "lift-info",
+        "review"
+      );
+    }
+
     return flow;
   }
 
@@ -213,7 +259,8 @@
   function nextStepFrom(stepId) {
     if (
       stepId === "en8120" &&
-      state.family !== "traction"
+      state.family === "hydraulic" &&
+      state.en8120 === true
     ) {
       return "unsupported";
     }
@@ -706,6 +753,7 @@
     sanitizeLiftInfo();
 
     const liftInfo = state.lift_info;
+    const hydraulic = isHydraulicEN812();
     const floors = Array.from(
       { length: state.stops },
       (_, index) => index + 1
@@ -838,33 +886,70 @@
         <fieldset class="lift-info-group">
           <legend>
             <span>3</span>
-            Drive / Motor
+            ${hydraulic
+              ? "Pump Unit Details"
+              : "Drive / Motor"
+            }
           </legend>
 
           <div class="lift-field-grid">
-            ${numberInputMarkup({
-              field: "motor_power_kw",
-              label: "Motor Power P",
-              unit: "kW"
-            })}
+            ${hydraulic
+              ? `
+                <div class="lift-field readonly-field">
+                  <span class="field-label">
+                    GMV / Valve Type
+                  </span>
 
-            ${numberInputMarkup({
-              field: "motor_current_a",
-              label: "Motor Current I",
-              unit: "A"
-            })}
+                  <span class="readonly-value">
+                    ${state.gmv_unit === "G"
+                      ? "S + A3"
+                      : "2CH + A3"
+                    }
+                  </span>
 
-            ${numberInputMarkup({
-              field: "motor_rpm",
-              label: "Motor RPM",
-              unit: "rpm"
-            })}
+                  <p class="field-help">
+                    Taken from the hydraulic wizard selection.
+                  </p>
+                </div>
 
-            ${numberInputMarkup({
-              field: "pulley_diameter",
-              label: "Pulley Diameter PD",
-              unit: "mm"
-            })}
+                ${numberInputMarkup({
+                  field: "pump_power_kw",
+                  label: "Pump Unit Power",
+                  unit: "kW"
+                })}
+
+                ${numberInputMarkup({
+                  field: "pump_current_a",
+                  label: "Pump Unit Current",
+                  unit: "A"
+                })}
+              `
+              : `
+                ${numberInputMarkup({
+                  field: "motor_power_kw",
+                  label: "Motor Power P",
+                  unit: "kW"
+                })}
+
+                ${numberInputMarkup({
+                  field: "motor_current_a",
+                  label: "Motor Current I",
+                  unit: "A"
+                })}
+
+                ${numberInputMarkup({
+                  field: "motor_rpm",
+                  label: "Motor RPM",
+                  unit: "rpm"
+                })}
+
+                ${numberInputMarkup({
+                  field: "pulley_diameter",
+                  label: "Pulley Diameter PD",
+                  unit: "mm"
+                })}
+              `
+            }
           </div>
         </fieldset>
 
@@ -881,7 +966,7 @@
               label: "Car Speed",
               unit: "m/s",
               min: "0.0001",
-              max: "1",
+              max: hydraulic ? "" : "1",
               errorId: "car-speed-error"
             })}
 
@@ -1055,13 +1140,20 @@
         (
           Number.isFinite(speed) &&
           speed > 0 &&
-          speed <= 1
+          (
+            hydraulic ||
+            speed <= 1
+          )
         )
       );
 
       carSpeedError.textContent = validSpeed
         ? ""
-        : "Car speed must be greater than 0 and not exceed 1.0 m/s.";
+        : (
+          hydraulic
+            ? "Car speed must be greater than 0 m/s."
+            : "Car speed must be greater than 0 and not exceed 1.0 m/s."
+        );
 
       carSpeedInput.setAttribute(
         "aria-invalid",
@@ -1178,6 +1270,34 @@
 
 
   function technicalReviewItems() {
+    if (isHydraulicEN812()) {
+      return [
+        ["Lift Type", "Hydraulic"],
+        ["Standard", "EN 81.2"],
+        [
+          "GMV / Valve Type",
+          state.gmv_unit === "G"
+            ? "S + A3"
+            : "2CH + A3"
+        ],
+        [
+          "Door Type",
+          state.door_type === "A"
+            ? "Automatic"
+            : "Bus / Semi-automatic"
+        ],
+        ["Doors", String(state.doors)],
+        ["Side B LOPs", yesNo(state.side_b_lops)],
+        ["Intercom", yesNo(state.intercom)],
+        ["GSM", yesNo(state.gsm)],
+        ["Stops", String(state.stops)],
+        ["VIP travel key", yesNo(state.vip)],
+        ["Display Type", state.display],
+        ["Voice Announcer", yesNo(state.voice)]
+      ];
+    }
+
+
     const items = [
       ["Family", "Traction"],
       ["Standard", isEN8120() ? "EN 81.20" : "EN 81.1"]
@@ -1277,27 +1397,50 @@
       [
         "Additional EN standards",
         liftInfo.additional_ens
-      ],
-      [
-        "Motor Power P",
-        liftInfo.motor_power_kw,
-        "kW"
-      ],
-      [
-        "Motor Current I",
-        liftInfo.motor_current_a,
-        "A"
-      ],
-      [
-        "Motor RPM",
-        liftInfo.motor_rpm,
-        "rpm"
-      ],
-      [
-        "Pulley Diameter PD",
-        liftInfo.pulley_diameter,
-        "mm"
-      ],
+      ]
+    ];
+
+
+    if (isHydraulicEN812()) {
+      optionalValues.push(
+        [
+          "Pump Unit Power",
+          liftInfo.pump_power_kw,
+          "kW"
+        ],
+        [
+          "Pump Unit Current",
+          liftInfo.pump_current_a,
+          "A"
+        ]
+      );
+    } else {
+      optionalValues.push(
+        [
+          "Motor Power P",
+          liftInfo.motor_power_kw,
+          "kW"
+        ],
+        [
+          "Motor Current I",
+          liftInfo.motor_current_a,
+          "A"
+        ],
+        [
+          "Motor RPM",
+          liftInfo.motor_rpm,
+          "rpm"
+        ],
+        [
+          "Pulley Diameter PD",
+          liftInfo.pulley_diameter,
+          "mm"
+        ]
+      );
+    }
+
+
+    optionalValues.push(
       [
         "Car Speed",
         liftInfo.car_speed,
@@ -1313,7 +1456,7 @@
         liftInfo.load_kg,
         "kg"
       ]
-    ];
+    );
 
 
     optionalValues.forEach(([
@@ -1524,7 +1667,8 @@
         <p class="step-intro">
           This drawing family is not available
           in the current version.
-          Traction with EN 81.20 and EN 81.1
+          Traction with EN 81.20 and EN 81.1,
+          plus Hydraulic with EN 81.2,
           are available now.
         </p>
 
@@ -1784,6 +1928,41 @@
   }
 
 
+  function buildHydraulicEN812DrawingConfig() {
+    return {
+      lift_type: "HYDRAULIC",
+
+      standard: "EN81.2",
+
+      gmv_unit: state.gmv_unit,
+
+      door_type: state.door_type,
+
+      doors: state.doors,
+
+      side_b_lops:
+        state.doors === 2
+          ? state.side_b_lops
+          : false,
+
+      intercom: state.intercom,
+
+      gsm:
+        state.intercom === true
+          ? state.gsm
+          : false,
+
+      stops: state.stops,
+
+      vip: state.vip,
+
+      display: state.display,
+
+      voice: state.voice
+    };
+  }
+
+
   function addOptionalNumber(
     target,
     field,
@@ -1835,15 +2014,27 @@
     }
 
 
-    [
-      "motor_power_kw",
-      "motor_current_a",
-      "motor_rpm",
-      "pulley_diameter",
-      "car_speed",
-      "load_persons",
-      "load_kg"
-    ].forEach((field) => {
+    const optionalNumberFields =
+      isHydraulicEN812()
+        ? [
+          "pump_power_kw",
+          "pump_current_a",
+          "car_speed",
+          "load_persons",
+          "load_kg"
+        ]
+        : [
+          "motor_power_kw",
+          "motor_current_a",
+          "motor_rpm",
+          "pulley_diameter",
+          "car_speed",
+          "load_persons",
+          "load_kg"
+        ];
+
+
+    optionalNumberFields.forEach((field) => {
       addOptionalNumber(
         payload,
         field,
@@ -1869,6 +2060,11 @@
 
 
   function buildDrawingConfig() {
+    if (isHydraulicEN812()) {
+      return buildHydraulicEN812DrawingConfig();
+    }
+
+
     return isEN8120()
       ? buildEN8120DrawingConfig()
       : buildEN811DrawingConfig();
@@ -2006,6 +2202,66 @@
   }
 
 
+  function hydraulicEN812ConfigIsComplete(config) {
+    return (
+      isHydraulicEN812() &&
+
+      config.lift_type === "HYDRAULIC" &&
+
+      config.standard === "EN81.2" &&
+
+      ["G", "H"].includes(
+        config.gmv_unit
+      ) &&
+
+      ["A", "S"].includes(
+        config.door_type
+      ) &&
+
+      [1, 2].includes(
+        config.doors
+      ) &&
+
+      typeof config.side_b_lops === "boolean" &&
+
+      !(
+        config.doors === 1 &&
+        config.side_b_lops
+      ) &&
+
+      typeof config.intercom === "boolean" &&
+
+      typeof config.gsm === "boolean" &&
+
+      !(
+        !config.intercom &&
+        config.gsm
+      ) &&
+
+      Number.isInteger(
+        config.stops
+      ) &&
+
+      config.stops >= 2 &&
+      config.stops <= 9 &&
+
+      typeof config.vip === "boolean" &&
+
+      ["M8", "L2"].includes(
+        config.display
+      ) &&
+
+      typeof config.voice === "boolean" &&
+
+      !(
+        "contactors" in config ||
+        "machine" in config ||
+        "frame" in config
+      )
+    );
+  }
+
+
   function floorListIsValid(floors) {
     return (
       Array.isArray(floors) &&
@@ -2037,7 +2293,10 @@
       (
         !Number.isFinite(liftInfo.car_speed) ||
         liftInfo.car_speed <= 0 ||
-        liftInfo.car_speed > 1
+        (
+          !isHydraulicEN812() &&
+          liftInfo.car_speed > 1
+        )
       )
     ) {
       return false;
@@ -2071,6 +2330,8 @@
       "motor_current_a",
       "motor_rpm",
       "pulley_diameter",
+      "pump_power_kw",
+      "pump_current_a",
       "load_persons",
       "load_kg"
     ].every((field) => (
@@ -2090,14 +2351,24 @@
     }
 
 
-    const validDrawingConfig =
-      isEN8120()
-        ? en8120ConfigIsComplete(
-          payload.drawing_config
-        )
-        : en811ConfigIsComplete(
+    let validDrawingConfig = false;
+
+    if (isHydraulicEN812()) {
+      validDrawingConfig =
+        hydraulicEN812ConfigIsComplete(
           payload.drawing_config
         );
+    } else if (isEN8120()) {
+      validDrawingConfig =
+        en8120ConfigIsComplete(
+          payload.drawing_config
+        );
+    } else if (isEN811()) {
+      validDrawingConfig =
+        en811ConfigIsComplete(
+          payload.drawing_config
+        );
+    }
 
 
     return (
@@ -2118,7 +2389,9 @@
 
     return {
       endpoint:
-        API_ENDPOINTS.tractionComplete,
+        isHydraulicEN812()
+          ? API_ENDPOINTS.hydraulicEN812Complete
+          : API_ENDPOINTS.tractionComplete,
 
       filename:
         `${liftId}.pdf`
@@ -2410,6 +2683,54 @@
         break;
 
 
+      case "gmv_unit":
+        renderChoiceStep({
+          key: "gmv_unit",
+
+          title:
+            "GMV Unit / Valve type",
+
+          description:
+            "Select the hydraulic GMV unit and valve arrangement.",
+
+          options: [
+            {
+              label: "S + A3",
+              value: "G"
+            },
+            {
+              label: "2CH + A3",
+              value: "H"
+            }
+          ]
+        });
+        break;
+
+
+      case "door_type":
+        renderChoiceStep({
+          key: "door_type",
+
+          title:
+            "Door type",
+
+          description:
+            "Choose the door type used throughout this lift.",
+
+          options: [
+            {
+              label: "Automatic",
+              value: "A"
+            },
+            {
+              label: "Bus / Semi-automatic",
+              value: "S"
+            }
+          ]
+        });
+        break;
+
+
       case "contactors":
         renderChoiceStep({
           key: "contactors",
@@ -2578,7 +2899,11 @@
             "stops-grid",
 
           options:
-            [2, 3, 4, 5, 6, 7, 8]
+            (
+              isHydraulicEN812()
+                ? [2, 3, 4, 5, 6, 7, 8, 9]
+                : [2, 3, 4, 5, 6, 7, 8]
+            )
               .map((number) => ({
                 label: String(number),
                 value: number
@@ -2596,6 +2921,56 @@
 
           description:
             "Choose whether VIP travel key operation is required.",
+
+          type: "boolean",
+
+          options: [
+            {
+              label: "Yes",
+              value: true
+            },
+            {
+              label: "No",
+              value: false
+            }
+          ]
+        });
+        break;
+
+
+      case "display":
+        renderChoiceStep({
+          key: "display",
+
+          title:
+            "Display type",
+
+          description:
+            "M8 = dot-matrix display. L2 = TFT 5 inch display.",
+
+          options: [
+            {
+              label: "M8",
+              value: "M8"
+            },
+            {
+              label: "L2",
+              value: "L2"
+            }
+          ]
+        });
+        break;
+
+
+      case "voice":
+        renderChoiceStep({
+          key: "voice",
+
+          title:
+            "Voice announcer",
+
+          description:
+            "Choose whether a voice announcer is required.",
 
           type: "boolean",
 
