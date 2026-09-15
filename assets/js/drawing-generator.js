@@ -10,6 +10,57 @@
     hydraulicEN8120Complete: "https://elevatorsbackend.onrender.com/generate-hydraulic-en8120-complete-test"
   });
 
+
+  const ACCESS_SESSION = Object.freeze({
+    tokenKey: "axl_lifts_token",
+    expiresKey: "axl_lifts_token_expires",
+    loginPage: "elogin.html"
+  });
+
+
+  function clearAccessAndRedirect() {
+    sessionStorage.removeItem(
+      ACCESS_SESSION.tokenKey
+    );
+
+    sessionStorage.removeItem(
+      ACCESS_SESSION.expiresKey
+    );
+
+    window.location.replace(
+      ACCESS_SESSION.loginPage
+    );
+  }
+
+
+  function getAccessToken() {
+    const token =
+      sessionStorage.getItem(
+        ACCESS_SESSION.tokenKey
+      );
+
+    const expiresAt =
+      Number(
+        sessionStorage.getItem(
+          ACCESS_SESSION.expiresKey
+        )
+      );
+
+    if (!token) {
+      return "";
+    }
+
+    if (
+      Number.isFinite(expiresAt) &&
+      expiresAt > 0 &&
+      Date.now() >= expiresAt
+    ) {
+      return "";
+    }
+
+    return token;
+  }
+
   const initialLiftInfo = () => ({
     lift_id: "",
     client_name: "",
@@ -2654,6 +2705,16 @@
     }
 
 
+    const accessToken =
+      getAccessToken();
+
+
+    if (!accessToken) {
+      clearAccessAndRedirect();
+      return;
+    }
+
+
     const payload =
       buildCompletePayload();
 
@@ -2689,12 +2750,24 @@
               "application/json",
 
             "Accept":
-              "application/pdf, application/json"
+              "application/pdf, application/json",
+
+            "Authorization":
+              `Bearer ${accessToken}`
           },
 
           body:
             JSON.stringify(payload)
         });
+
+
+      if (
+        response.status === 401 ||
+        response.status === 403
+      ) {
+        clearAccessAndRedirect();
+        return;
+      }
 
 
       if (!response.ok) {

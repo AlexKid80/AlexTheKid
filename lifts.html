@@ -10,9 +10,80 @@
   <title>AXL | Lifts</title>
 
   <script>
-    if (sessionStorage.getItem("axl_lifts_access") !== "ok") {
-      window.location.replace("lifts-login.html");
-    }
+    (function () {
+      "use strict";
+
+      var AUTH_VERIFY_ENDPOINT =
+        "https://elevatorsbackend.onrender.com/auth/verify";
+
+      var TOKEN_KEY =
+        "axl_lifts_token";
+
+      var TOKEN_EXPIRES_KEY =
+        "axl_lifts_token_expires";
+
+      var LOGIN_PAGE =
+        "elogin.html";
+
+      document.documentElement.style.visibility = "hidden";
+
+      function denyAccess() {
+        sessionStorage.removeItem(TOKEN_KEY);
+        sessionStorage.removeItem(TOKEN_EXPIRES_KEY);
+        window.location.replace(LOGIN_PAGE);
+      }
+
+      var token =
+        sessionStorage.getItem(TOKEN_KEY);
+
+      var expiresAt =
+        Number(
+          sessionStorage.getItem(
+            TOKEN_EXPIRES_KEY
+          )
+        );
+
+      if (
+        !token ||
+        (
+          Number.isFinite(expiresAt) &&
+          expiresAt > 0 &&
+          Date.now() >= expiresAt
+        )
+      ) {
+        denyAccess();
+        return;
+      }
+
+      fetch(AUTH_VERIFY_ENDPOINT, {
+        method: "GET",
+
+        headers: {
+          "Accept":
+            "application/json",
+
+          "Authorization":
+            "Bearer " + token
+        }
+      })
+        .then(function (response) {
+          if (!response.ok) {
+            throw new Error("unauthorized");
+          }
+
+          return response.json();
+        })
+        .then(function (data) {
+          if (!data || data.ok !== true) {
+            throw new Error("unauthorized");
+          }
+
+          document.documentElement.style.visibility = "";
+        })
+        .catch(function () {
+          denyAccess();
+        });
+    })();
   </script>
 
   <style>

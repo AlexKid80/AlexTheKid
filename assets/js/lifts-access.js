@@ -1,38 +1,33 @@
 (function () {
-  var acceptedHashes = [
-    "e0bc60c82713f64ef8a57c0c40d02ce24fd0141d5cc3086259c19b1e62a62bea",
-    "87f9fa18aa8627ef9b012db905a96651a9d49c891899e268c44468e9a854960c",
-    "d12a292854352113e316d0e472f556ba3ef08ddcec759dcd26dd7e295ad85898"
-  ];
+  "use strict";
 
-  var redirectPage = "lifts.html";
-  var form = document.getElementById("accessForm");
-  var input = document.getElementById("pinInput");
-  var status = document.getElementById("statusMessage");
+  var AUTH_ENDPOINT =
+    "https://elevatorsbackend.onrender.com/auth/login";
+
+  var TOKEN_KEY =
+    "axl_lifts_token";
+
+  var TOKEN_EXPIRES_KEY =
+    "axl_lifts_token_expires";
+
+  var redirectPage =
+    "lifts.html";
+
+  var form =
+    document.getElementById("accessForm");
+
+  var input =
+    document.getElementById("pinInput");
+
+  var status =
+    document.getElementById("statusMessage");
 
   if (!form || !input || !status) {
     return;
   }
 
-  function toHex(buffer) {
-    var bytes = new Uint8Array(buffer);
-    var result = "";
-
-    for (var i = 0; i < bytes.length; i++) {
-      result += bytes[i].toString(16).padStart(2, "0");
-    }
-
-    return result;
-  }
-
-  function sha256(text) {
-    var encoder = new TextEncoder();
-    var data = encoder.encode(text);
-
-    return crypto.subtle.digest("SHA-256", data).then(function (hashBuffer) {
-      return toHex(hashBuffer);
-    });
-  }
+  var submitButton =
+    form.querySelector('button[type="submit"]');
 
   function setStatus(message, type) {
     status.textContent = message;
@@ -43,6 +38,21 @@
     }
   }
 
+  function setBusy(isBusy) {
+    if (submitButton) {
+      submitButton.disabled = isBusy;
+    }
+
+    input.disabled = isBusy;
+  }
+
+  function clearOldAccessState() {
+    sessionStorage.removeItem("axl_lifts_access");
+    sessionStorage.removeItem(TOKEN_KEY);
+    sessionStorage.removeItem(TOKEN_EXPIRES_KEY);
+  }
+
+  clearOldAccessState();
   input.focus();
 
   form.addEventListener("submit", function (event) {
@@ -50,36 +60,80 @@
 
     var pin = input.value.trim();
 
-    if (!pin) {
-      setStatus("Enter PIN first.", "error");
-      input.focus();
-      return;
-    }
+    setStatus("", "");
+    setBusy(true);
 
-    if (!/^[0-9]{6}$/.test(pin)) {
-      setStatus("PIN must be 6 digits.", "error");
-      input.value = "";
-      input.focus();
-      return;
-    }
+    fetch(AUTH_ENDPOINT, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({ pin: pin })
+    })
+      .then(function (response) {
+        if (response.status === 401) {
+          throw new Error("wrong-pin");
+        }
 
-    sha256(pin).then(function (pinHash) {
-      if (acceptedHashes.indexOf(pinHash) !== -1) {
-        sessionStorage.setItem("axl_lifts_access", "ok");
-        setStatus("Access accepted. Opening lift menu...", "success");
+        if (!response.ok) {
+          throw new Error("service-error");
+        }
 
-        setTimeout(function () {
+        return response.json();
+      })
+      .then(function (data) {
+        if (
+          !data ||
+          typeof data.token !== "string" ||
+          !data.token.trim()
+        ) {
+          throw new Error("service-error");
+        }
+
+        sessionStorage.setItem(
+          TOKEN_KEY,
+          data.token
+        );
+
+        if (Number.isFinite(Number(data.expires_in))) {
+          sessionStorage.setItem(
+            TOKEN_EXPIRES_KEY,
+            String(
+              Date.now() +
+              Number(data.expires_in) * 1000
+            )
+          );
+        }
+
+        setStatus(
+          "Access accepted. Opening lift menu...",
+          "success"
+        );
+
+        window.setTimeout(function () {
           window.location.href = redirectPage;
         }, 650);
-      } else {
-        setStatus("Wrong PIN. Access denied.", "error");
+      })
+      .catch(function (error) {
+        if (
+          error &&
+          error.message === "wrong-pin"
+        ) {
+          setStatus(
+            "Wrong PIN.",
+            "error"
+          );
+        } else {
+          setStatus(
+            "Unable to verify access. Try again later.",
+            "error"
+          );
+        }
+
         input.value = "";
+        setBusy(false);
         input.focus();
-      }
-    }).catch(function () {
-      setStatus("Access check failed. Try again.", "error");
-      input.value = "";
-      input.focus();
-    });
+      });
   });
 })();
