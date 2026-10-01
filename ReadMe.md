@@ -22,13 +22,6 @@ A rule-based web application for automatically generating standard elevator elec
 
 
 
-The project currently supports the first drawing family:
-
-
-
-**Traction / MRL / EN 81.20**
-
-
 
 The generator uses a guided frontend configuration process and a Python backend to select and merge the correct engineering PDF modules.
 
