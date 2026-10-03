@@ -404,6 +404,24 @@
       gap:18px;
     }
 
+    @media (min-width: 1101px){
+      .project-grid{
+        grid-template-columns:repeat(6, 1fr);
+      }
+
+      .project-card{
+        grid-column:span 2;
+      }
+
+      .project-card:nth-child(7){
+        grid-column:2 / span 2;
+      }
+
+      .project-card:nth-child(8){
+        grid-column:4 / span 2;
+      }
+    }
+
     .project-card{
       position:relative;
       overflow:hidden;
@@ -789,10 +807,32 @@
             </div>
             <div>
               <h2>LC100 Designer</h2>
-              <p>Needs lots work.</p>
+              <p>Traction and Hydraulic drawings generator. Based on LC100 boards.</p>
             </div>
             <span class="project-action">Open</span>
           </a>
+
+          <a class="project-card reveal" href="display-generator.html">
+            <div class="project-top">
+              <span class="card-icon" aria-label="L2 Files">▤</span>
+            </div>
+            <div>
+              <h2>L2 Files</h2>
+              <p>MLC L2 displays. Simple and complex or by client display files generator.</p>
+            </div>
+            <span class="project-action">Open</span>
+          </a>
+
+          <div class="project-card reveal" aria-label="Coming Soon">
+            <div class="project-top">
+              <span class="card-icon" aria-label="Coming Soon">…</span>
+            </div>
+            <div>
+              <h2>Coming Soon</h2>
+              <p>Coming Soon</p>
+            </div>
+            <span class="project-action">Coming Soon</span>
+          </div>
         </div>
 
         <footer>
