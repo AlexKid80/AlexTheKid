@@ -314,7 +314,8 @@
     }
 
     .unlock-button,
-    .back-button{
+    .back-button,
+    .wake-button{
       min-height:48px;
       display:inline-flex;
       align-items:center;
@@ -344,8 +345,16 @@
       box-shadow:0 0 24px rgba(29,167,255,.08);
     }
 
+    .wake-button{
+      color:var(--accent-2);
+      background:rgba(29,167,255,.07);
+      border:1px solid rgba(29,167,255,.24);
+      box-shadow:0 0 24px rgba(29,167,255,.10);
+    }
+
     .unlock-button:hover,
-    .back-button:hover{
+    .back-button:hover,
+    .wake-button:hover{
       transform:translateY(-2px);
     }
 
@@ -359,6 +368,18 @@
     .back-button:hover{
       border-color:rgba(29,167,255,.28);
       background:rgba(255,255,255,.065);
+    }
+
+    .wake-button:hover{
+      border-color:rgba(29,167,255,.48);
+      background:rgba(29,167,255,.11);
+    }
+
+    .wake-button:disabled{
+      cursor:wait;
+      opacity:.55;
+      transform:none;
+      box-shadow:none;
     }
 
     .status-message{
@@ -589,7 +610,8 @@
       }
 
       .unlock-button,
-      .back-button{
+      .back-button,
+      .wake-button{
         width:100%;
       }
 
@@ -610,6 +632,7 @@
 
       .unlock-button,
       .back-button,
+      .wake-button,
       .nav-links a,
       .reveal,
       .reveal.show{
@@ -659,6 +682,7 @@
               <div class="form-actions">
                 <button class="unlock-button" type="submit">Unlock</button>
                 <a class="back-button" href="main.html">Back to Main</a>
+                <button class="wake-button" id="wakeServerButton" type="button">Wake Server</button>
               </div>
 
               <div class="status-message" id="statusMessage" aria-live="polite"></div>

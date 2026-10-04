@@ -4,6 +4,9 @@
   var AUTH_ENDPOINT =
     "https://elevatorsbackend.onrender.com/auth/login";
 
+  var WAKE_ENDPOINT =
+    "https://elevatorsbackend.onrender.com/wake";
+
   var TOKEN_KEY =
     "axl_lifts_token";
 
@@ -21,6 +24,9 @@
 
   var status =
     document.getElementById("statusMessage");
+
+  var wakeButton =
+    document.getElementById("wakeServerButton");
 
   if (!form || !input || !status) {
     return;
@@ -54,6 +60,64 @@
 
   clearOldAccessState();
   input.focus();
+
+  if (wakeButton) {
+    wakeButton.addEventListener("click", function () {
+      var controller = null;
+      var timeoutId = null;
+
+      setStatus("Server loading...", "");
+      wakeButton.disabled = true;
+
+      if (typeof AbortController !== "undefined") {
+        controller = new AbortController();
+      }
+
+      timeoutId = window.setTimeout(function () {
+        if (controller) {
+          controller.abort();
+        }
+        setStatus("Server did not respond. Try again.", "error");
+        wakeButton.disabled = false;
+      }, 90000);
+
+      var options = {
+        method: "GET",
+        cache: "no-store"
+      };
+
+      if (controller) {
+        options.signal = controller.signal;
+      }
+
+      fetch(WAKE_ENDPOINT, options)
+        .then(function (response) {
+          if (!response.ok) {
+            throw new Error("wake-failed");
+          }
+
+          return response.json();
+        })
+        .then(function (data) {
+          if (!data || data.ok !== true) {
+            throw new Error("wake-failed");
+          }
+
+          window.clearTimeout(timeoutId);
+          setStatus("Server ready.", "success");
+          wakeButton.disabled = false;
+        })
+        .catch(function (error) {
+          if (error && error.name === "AbortError") {
+            return;
+          }
+
+          window.clearTimeout(timeoutId);
+          setStatus("Server did not respond. Try again.", "error");
+          wakeButton.disabled = false;
+        });
+    });
+  }
 
   form.addEventListener("submit", function (event) {
     event.preventDefault();
