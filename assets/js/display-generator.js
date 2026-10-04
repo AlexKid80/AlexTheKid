@@ -39,6 +39,7 @@
     photo_indicator: null,
     door_obstacle_indicator: null,
     real_time_clock: null,
+    display_location: null,
     show_car_speed: null,
     nominal_speed: "",
     time_color: "#808040",
@@ -105,6 +106,7 @@
         "overload-indicator",
         "door-obstacle-indicator",
         "real-time-clock",
+        "display-location",
         "review"
       ];
     }
@@ -837,7 +839,8 @@
       ["Stop Indicator", yesNo(state.stop_indicator)],
       ["Overload Indicator", yesNo(state.overload_indicator)],
       ["Door Obstacle Indicator", yesNo(state.door_obstacle_indicator)],
-      ["Real Time Clock", yesNo(state.real_time_clock)]
+      ["Real Time Clock", yesNo(state.real_time_clock)],
+      ["Display Location", state.display_location]
     ];
   }
 
@@ -859,7 +862,7 @@
       <div class="step-header">
         <p class="eyebrow">Final check</p>
         <h2 id="step-title">Review configuration</h2>
-        <p class="step-intro">Confirm the selections below before generating config.ini.</p>
+        <p class="step-intro">Confirm the selections below before generating the display package.</p>
       </div>
 
       ${reviewListMarkup(reviewItems())}
@@ -868,12 +871,12 @@
         <button class="secondary-button" type="button" data-action="back" ${isGenerating ? "disabled" : ""}>Back</button>
         <button class="text-button cancel" type="button" data-action="cancel" ${isGenerating ? "disabled" : ""}>Cancel</button>
         <button class="primary-button" type="button" data-action="generate" ${isGenerating ? "disabled" : ""}>
-          ${isGenerating ? "Generating config.ini..." : "Generate config.ini"}
+          ${isGenerating ? "Generating files..." : "Generate Files"}
         </button>
       </div>
 
       ${isGenerating ? `
-        <p class="session-note" role="status">Generating display configuration&hellip; Please keep this page open.</p>
+        <p class="session-note" role="status">Generating the display package&hellip; Please keep this page open.</p>
       ` : ""}
     `;
   }
@@ -883,7 +886,7 @@
   }
 
   function renderGenerationError() {
-    const target = state.display_type === "complex" ? "display package" : "config.ini";
+    const target = "display package";
 
     content.innerHTML = `
       <div class="success-panel" role="alert">
@@ -904,10 +907,7 @@
   }
 
   function renderSuccess() {
-    const isComplex = state.display_type === "complex";
-    const filename = isComplex
-      ? `${state.project_id.trim().toUpperCase()}_L2.zip`
-      : "config.ini";
+    const filename = `${state.project_id.trim().toUpperCase()}_L2.zip`;
 
     content.innerHTML = `
       <div class="success-panel">
@@ -958,7 +958,8 @@
     return {
       ...common,
       door_obstacle_indicator: state.door_obstacle_indicator,
-      real_time_clock: state.real_time_clock
+      real_time_clock: state.real_time_clock,
+      display_location: state.display_location
     };
   }
 
@@ -1007,7 +1008,8 @@
       payload.stops >= 1 &&
       payload.stops <= 99 &&
       typeof payload.door_obstacle_indicator === "boolean" &&
-      typeof payload.real_time_clock === "boolean"
+      typeof payload.real_time_clock === "boolean" &&
+      (payload.display_location === "LOP" || payload.display_location === "COP")
     );
   }
 
@@ -1085,9 +1087,7 @@
 
     const isComplex = state.display_type === "complex";
     const endpoint = isComplex ? API_ENDPOINTS.complex : API_ENDPOINTS.simple;
-    const filename = isComplex
-      ? `${payload.project_id}_L2.zip`
-      : "config.ini";
+    const filename = `${payload.project_id}_L2.zip`;
 
     isGenerating = true;
     generationError = "";
@@ -1274,6 +1274,18 @@
           options: [
             { label: "Yes", value: true },
             { label: "No", value: false }
+          ]
+        });
+        break;
+
+      case "display-location":
+        renderChoiceStep({
+          key: "display_location",
+          title: "Display Location",
+          description: "Will this Simple Display be used as a landing (LOP) or cabin (COP) display?",
+          options: [
+            { label: "LOP", value: "LOP" },
+            { label: "COP", value: "COP" }
           ]
         });
         break;
