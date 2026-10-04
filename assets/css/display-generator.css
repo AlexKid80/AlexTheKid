@@ -820,6 +820,265 @@ h2 {
   font-size: 12px;
 }
 
+
+
+.color-step-header,
+.preview-step-header {
+  margin-bottom: 24px;
+}
+
+.color-form {
+  width: min(720px, 100%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.color-field {
+  min-width: 0;
+  padding: 15px 16px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: rgba(3, 6, 11, 0.38);
+}
+
+.color-copy .field-label {
+  margin-bottom: 3px;
+}
+
+.color-copy p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.35;
+}
+
+.color-control {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.color-swatch {
+  width: 28px;
+  height: 28px;
+  flex: 0 0 auto;
+  border: 2px solid rgba(255, 255, 255, 0.38);
+  border-radius: 50%;
+  background: var(--swatch);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.04);
+}
+
+.color-select {
+  min-width: 118px;
+  min-height: 42px;
+  padding: 8px 34px 8px 11px;
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+  color: var(--white);
+  background: #0b111b;
+  outline: none;
+}
+
+.color-select:focus {
+  border-color: rgba(29, 167, 255, 0.68);
+  box-shadow: 0 0 0 3px rgba(29, 167, 255, 0.10);
+}
+
+.color-actions {
+  margin-top: 22px;
+}
+
+.display-preview-wrap {
+  width: min(800px, 100%);
+  margin: 0 auto;
+  padding: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 22px;
+  background: rgba(0, 0, 0, 0.30);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.36);
+}
+
+.display-preview {
+  position: relative;
+  aspect-ratio: 5 / 3;
+  overflow: hidden;
+  border-radius: 15px;
+  background: #061127;
+  isolation: isolate;
+}
+
+.display-preview > img {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  filter: brightness(0.74) saturate(0.88);
+}
+
+.display-preview-idload,
+.display-preview-speed,
+.display-preview-time,
+.display-preview-floor,
+.display-preview-stop {
+  position: absolute;
+  z-index: 2;
+}
+
+.display-preview-idload {
+  top: 3.5%;
+  left: 2%;
+  min-width: 29%;
+  padding: 8px 12px 10px;
+  border-radius: 10px;
+  background: rgba(2, 9, 22, 0.92);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.30);
+}
+
+.display-preview-id {
+  font-size: clamp(15px, 3vw, 31px);
+  line-height: 1.12;
+  font-weight: 500;
+}
+
+.display-preview-load {
+  margin-top: 8px;
+  font-size: clamp(14px, 2.7vw, 29px);
+  line-height: 1.1;
+  font-weight: 500;
+}
+
+.display-preview-speed {
+  top: 3%;
+  right: 1.5%;
+  width: 48%;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: rgba(2, 9, 22, 0.92);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.30);
+}
+
+.display-preview-speed.is-mask-only {
+  height: 22%;
+}
+
+.display-preview-speed-row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: baseline;
+  gap: 8px;
+  font-size: clamp(12px, 2.2vw, 24px);
+  line-height: 1.12;
+}
+
+.display-preview-speed-row + .display-preview-speed-row {
+  margin-top: 7px;
+}
+
+.display-preview-speed-row strong {
+  font-size: 1.04em;
+  font-weight: 600;
+}
+
+.preview-speed-label,
+.preview-speed-unit {
+  white-space: nowrap;
+}
+
+.display-preview-stop {
+  top: 34%;
+  left: 7%;
+  width: clamp(82px, 20%, 160px);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border: clamp(3px, 0.55vw, 6px) solid var(--indicator);
+  border-radius: 50%;
+  color: var(--indicator);
+  background: rgba(2, 9, 22, 0.94);
+  box-shadow: 0 0 22px rgba(0, 0, 0, 0.44);
+}
+
+.display-preview-stop::before {
+  content: "";
+  position: absolute;
+  inset: 11%;
+  border: 1px solid var(--indicator);
+  border-radius: 50%;
+  opacity: 0.45;
+}
+
+.display-preview-stop span {
+  position: relative;
+  z-index: 1;
+  font-size: clamp(15px, 3.7vw, 39px);
+  font-weight: 800;
+  letter-spacing: 0.025em;
+}
+
+.display-preview-floor {
+  top: 29%;
+  left: 50%;
+  width: 24%;
+  height: 46%;
+  display: grid;
+  place-items: center;
+  transform: translateX(-50%);
+  border-radius: 24px;
+  background: rgba(2, 9, 22, 0.90);
+  font-size: clamp(70px, 18vw, 180px);
+  font-weight: 650;
+  line-height: 1;
+  text-shadow: 0 6px 16px rgba(0, 0, 0, 0.42);
+}
+
+.display-preview-time {
+  right: 3%;
+  min-width: 18%;
+  text-align: center;
+  bottom: 5%;
+  padding: 5px 10px;
+  border-radius: 9px;
+  background: rgba(2, 9, 22, 0.92);
+  font-size: clamp(16px, 3.8vw, 38px);
+  font-weight: 650;
+  line-height: 1;
+}
+
+.preview-note {
+  width: min(800px, 100%);
+  margin: 14px auto 0;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.preview-note span {
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.03);
+  font-size: 11px;
+}
+
+.preview-note strong {
+  color: var(--silver);
+}
+
+.preview-actions {
+  margin-top: 20px;
+}
+
 @media (max-width: 760px) {
   .wizard-page {
     align-items: start;
@@ -961,6 +1220,71 @@ h2 {
   .success-actions .primary-button,
   .success-actions .secondary-button {
     width: 100%;
+  }
+}
+
+
+
+@media (max-width: 760px) {
+  .color-form {
+    grid-template-columns: 1fr;
+  }
+
+  .display-preview-speed {
+    width: 52%;
+  }
+
+  .display-preview-speed-row {
+    gap: 5px;
+  }
+}
+
+@media (max-width: 520px) {
+  .color-field {
+    grid-template-columns: 1fr;
+  }
+
+  .color-control {
+    justify-content: space-between;
+  }
+
+  .color-select {
+    flex: 1;
+  }
+
+  .display-preview-idload {
+    min-width: 34%;
+    padding: 5px 7px 7px;
+  }
+
+  .display-preview-load {
+    margin-top: 4px;
+  }
+
+  .display-preview-speed {
+    width: 57%;
+    padding: 5px 6px;
+  }
+
+  .display-preview-speed-row {
+    gap: 3px;
+  }
+
+  .display-preview-speed-row + .display-preview-speed-row {
+    margin-top: 4px;
+  }
+
+  .display-preview-stop {
+    left: 5%;
+  }
+
+  .display-preview-floor {
+    width: 26%;
+    border-radius: 14px;
+  }
+
+  .preview-note {
+    gap: 6px;
   }
 }
 
