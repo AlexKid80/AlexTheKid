@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Configure and generate MLC W2/L2 voice announcer files.">
+  <meta name="theme-color" content="#06080d">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <link rel="icon" type="image/png" href="assets/images/logo.png">
+  <title>AXL Voice Announcer Generator</title>
+  <link rel="stylesheet" href="assets/css/w2.css">
+  <script>
+    (function () {
+      "use strict";
+
+      var AUTH_VERIFY_ENDPOINT =
+        "https://elevatorsbackend.onrender.com/auth/verify";
+
+      var TOKEN_KEY =
+        "axl_lifts_token";
+
+      var TOKEN_EXPIRES_KEY =
+        "axl_lifts_token_expires";
+
+      var LOGIN_PAGE =
+        "elogin.html";
+
+      document.documentElement.style.visibility = "hidden";
+
+      function denyAccess() {
+        sessionStorage.removeItem(TOKEN_KEY);
+        sessionStorage.removeItem(TOKEN_EXPIRES_KEY);
+        window.location.replace(LOGIN_PAGE);
+      }
+
+      var token = sessionStorage.getItem(TOKEN_KEY);
+      var expiresAt = Number(sessionStorage.getItem(TOKEN_EXPIRES_KEY));
+
+      if (
+        !token ||
+        (
+          Number.isFinite(expiresAt) &&
+          expiresAt > 0 &&
+          Date.now() >= expiresAt
+        )
+      ) {
+        denyAccess();
+        return;
+      }
+
+      fetch(AUTH_VERIFY_ENDPOINT, {
+        method: "GET",
+        headers: {
+          "Accept": "application/json",
+          "Authorization": "Bearer " + token
+        }
+      })
+        .then(function (response) {
+          if (!response.ok) {
+            throw new Error("unauthorized");
+          }
+          return response.json();
+        })
+        .then(function (data) {
+          if (!data || data.ok !== true) {
+            throw new Error("unauthorized");
+          }
+          document.documentElement.style.visibility = "";
+        })
+        .catch(function () {
+          denyAccess();
+        });
+    })();
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="w2.html" aria-label="AXL Voice Announcer Generator home">
+        <span class="brand-mark" aria-hidden="true">
+          <img src="assets/images/logo.png" alt="">
+        </span>
+        <span class="brand-copy">
+          <strong>AXL</strong>
+          <small>Voice Announcer Generator</small>
+        </span>
+      </a>
+
+      <a class="main-site-link" href="lifts.html">
+        <span aria-hidden="true">&larr;</span>
+        Return to Main Site
+      </a>
+    </div>
+  </header>
+
+  <main class="wizard-page">
+    <div class="container wizard-container voice-wizard-container">
+      <section class="wizard-card voice-wizard-card" aria-labelledby="step-title">
+        <div class="card-glow" aria-hidden="true"></div>
+
+        <div class="progress-region" id="progress-region" hidden>
+          <div class="progress-copy">
+            <span id="progress-label">Step 1 of 8</span>
+            <span id="progress-percent">12%</span>
+          </div>
+          <div class="progress-track" role="progressbar" aria-label="Voice announcer configuration progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="12">
+            <span id="progress-bar"></span>
+          </div>
+        </div>
+
+        <div id="wizard-content" class="wizard-content" aria-live="polite"></div>
+      </section>
+
+      <p class="session-note">
+        The original voice library remains unchanged. Selected files are copied and renamed only inside the generated ZIP.
+      </p>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <span>&copy; <span id="year"></span> AXL</span>
+      <span>MLC W2 / L2 Voice Announcer Files</span>
+    </div>
+  </footer>
+
+  <script src="assets/js/w2.js"></script>
+</body>
+</html>
