@@ -309,6 +309,19 @@ h2 {
   margin-bottom: 30px;
 }
 
+.landing-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.landing-actions .secondary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .landing-logo {
   aspect-ratio: 1;
   display: flex;
@@ -1117,6 +1130,10 @@ h2 {
   .landing-copy {
     margin-right: auto;
     margin-left: auto;
+  }
+
+  .landing-actions {
+    justify-content: center;
   }
 
   .choice-grid.stops-grid {

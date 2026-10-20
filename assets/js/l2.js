@@ -288,8 +288,12 @@
           <h1 id="step-title">Client L2 Generator</h1>
           <p class="landing-copy">
             Select an approved client layout, enter the project values and generate the complete L2 display package.
+            View or download the user manual using the Manual button below.
           </p>
-          <button class="primary-button" type="button" data-action="start">Start</button>
+          <div class="landing-actions">
+            <button class="primary-button" type="button" data-action="start">Start</button>
+            <a class="secondary-button" href="assets/manual/l2_manual.pdf" target="_blank" rel="noopener noreferrer">Manual</a>
+          </div>
         </div>
 
         <div class="landing-logo" aria-hidden="true">
