@@ -283,8 +283,12 @@
           <h1 id="step-title">Display Generator</h1>
           <p class="landing-copy">
             Build a ready-to-use lift display configuration through a short, guided setup.
+            View or download the user manual using the Manual button below.
           </p>
-          <button class="primary-button" type="button" data-action="start">Start</button>
+          <div class="landing-actions">
+            <button class="primary-button" type="button" data-action="start">Start</button>
+            <a class="secondary-button" href="assets/manual/l2_manual.pdf" target="_blank" rel="noopener noreferrer">Manual</a>
+          </div>
         </div>
 
         <div class="landing-logo" aria-hidden="true">
