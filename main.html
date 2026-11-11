@@ -155,6 +155,33 @@
       background:rgba(255,255,255,.055);
     }
 
+    .nav-links .stats-lock-link{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      flex:0 0 auto;
+      width:39px;
+      height:39px;
+      padding:0;
+      border-radius:999px;
+      color:#8fd7ff;
+      border-color:rgba(143,215,255,.28);
+      background:linear-gradient(135deg, rgba(29,167,255,.16), rgba(143,215,255,.055));
+      box-shadow:0 0 15px rgba(29,167,255,.10);
+    }
+
+    .nav-links .stats-lock-link:hover{
+      border-color:rgba(143,215,255,.65);
+      background:linear-gradient(135deg, rgba(29,167,255,.26), rgba(143,215,255,.12));
+      box-shadow:0 0 20px rgba(29,167,255,.24);
+    }
+
+    .stats-lock-link svg{
+      display:block;
+      width:21px;
+      height:21px;
+    }
+
     .hero{
       padding:72px 0 0;
     }
@@ -655,6 +682,20 @@
         <a href="aistories.html">AI Stories</a>
         <a href="contact.html">Contact</a>
         <a href="https://www.youtube.com/@ScammerPayback" target="_blank" rel="noopener">SP</a>
+        <a class="stats-lock-link" href="slogin.html" aria-label="Administrator statistics login" title="Statistics">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <defs>
+              <linearGradient id="stats-lock-gradient" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#8fd7ff" />
+                <stop offset="100%" stop-color="#1da7ff" />
+              </linearGradient>
+            </defs>
+            <path d="M7.5 10V7a4.5 4.5 0 0 1 9 0v3" fill="none" stroke="#bdeaff" stroke-width="2.6" stroke-linecap="round" />
+            <rect x="4.5" y="10" width="15" height="11" rx="2.6" fill="url(#stats-lock-gradient)" />
+            <circle cx="12" cy="14.5" r="1.35" fill="#06416b" />
+            <path d="M12 15.5v2" stroke="#06416b" stroke-width="1.6" stroke-linecap="round" />
+          </svg>
+        </a>
       </div>
     </div>
   </div>
