@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="AXL Statistics Access" />
+  <meta name="theme-color" content="#06080d" />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" type="image/png" href="assets/images/logo.png">
+  <title>AXL | Statistics Access</title>
+
+  <link rel="stylesheet" href="assets/css/slogin.css" />
+</head>
+<body>
+
+  <div class="nav-wrap">
+    <div class="container nav">
+      <a class="brand" href="https://alexkid.org/" target="_blank" rel="noopener">
+        <div class="brand-mark" aria-hidden="true">
+          <img src="logo.png" alt="">
+        </div>
+        <span>AXL</span>
+      </a>
+
+      <div class="nav-links" aria-label="Main navigation">
+        <a href="main.html">Main</a>
+        <a href="policies.html">Policies</a>
+        <a href="index.html">Intro</a>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-box reveal">
+          <div class="hero-frame"></div>
+
+          <div class="hero-content">
+            <p class="eyebrow">Statistics Access</p>
+            <h1>Restricted sector.</h1>
+            <p class="hero-lead">
+              Enter the administrator PIN.
+            </p>
+
+            <form class="access-form" id="accessForm">
+              <div class="pin-wrap">
+                <input class="pin-input" id="pinInput" type="password" autocomplete="off" placeholder="Administrator PIN" aria-label="Administrator PIN" inputmode="numeric" />
+              </div>
+
+              <div class="form-actions">
+                <button class="unlock-button" type="submit">Unlock Statistics</button>
+                <a class="back-button" href="main.html">Back to Main</a>
+                <div class="wake-action-row">
+                  <button class="wake-button" id="wakeServerButton" type="button">Wake Server</button>
+                </div>
+              </div>
+
+              <div class="status-message" id="statusMessage" aria-live="polite"></div>
+            </form>
+          </div>
+
+          <div class="access-badge" aria-hidden="true">
+            <div class="badge-orb">
+              <div class="badge-lock">🔒</div>
+              <strong>Statistics</strong>
+              <span>Administrator access only</span>
+            </div>
+          </div>
+        </div>
+
+        <footer>
+          <span class="footer-copy">© <span id="year"></span></span>
+          <a class="footer-link" href="main.html">Back to Main</a>
+        </footer>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/js/slogin.js"></script>
+</body>
+</html>

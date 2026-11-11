@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="AXL Statistics Dashboard — successful generator outputs and production activity.">
+  <meta name="theme-color" content="#06080d">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <link rel="icon" type="image/png" href="assets/images/logo.png">
+  <link rel="stylesheet" href="assets/css/stats.css">
+  <title>AXL | Statistics Dashboard</title>
+  <script src="assets/js/stats.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#dashboard">Skip to dashboard</a>
+
+  <header class="nav-wrap">
+    <div class="container nav">
+      <a class="brand" href="main.html" aria-label="Dashboard — back to Main">
+        <span class="brand-mark" aria-hidden="true">
+          <img src="assets/images/logo.png" alt="" width="44" height="44">
+        </span>
+        <span class="brand-name"><span class="brand-section">Dashboard</span></span>
+      </a>
+      <nav aria-label="Main navigation">
+        <a class="back-link" href="main.html"><span aria-hidden="true">←</span> Back to Main</a>
+        <button class="back-link logout-button" id="stats-logout" type="button" hidden>Logout</button>
+      </nav>
+    </div>
+  </header>
+
+  <section class="container connection-gate" id="connection-gate" aria-labelledby="connection-title" aria-busy="true">
+    <div class="panel connection-panel">
+      <p class="eyebrow">Administrator access</p>
+      <h1 id="connection-title">Connecting to Statistics</h1>
+      <p class="page-lead" id="connection-message" role="status" aria-live="polite">Checking your Statistics session. The server may take a minute to wake up.</p>
+      <button class="refresh-button" id="retry-connection" type="button" hidden>Retry Connection</button>
+      <noscript><p class="notice">Enable JavaScript and <a href="slogin.html">sign in</a> to view Statistics.</p></noscript>
+    </div>
+  </section>
+
+  <main class="container dashboard" id="dashboard" tabindex="-1" aria-busy="true" hidden inert>
+    <section class="page-heading" aria-labelledby="page-title">
+      <div>
+        <p class="eyebrow">Generation analytics</p>
+        <h1 id="page-title">Statistics overview<span class="accent-period">.</span></h1>
+        <p class="page-lead">Generator Activity.</p>
+      </div>
+      <div class="heading-actions">
+        <div class="heading-controls">
+          <span class="connection-badge" id="connection-badge" data-state="busy"><span class="status-dot" aria-hidden="true"></span> <span id="connection-label">Connecting</span></span>
+          <button class="refresh-button" id="refresh-statistics" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 8a8 8 0 1 0 1 7M19 3v5h-5"/></svg>
+            Refresh Statistics
+          </button>
+        </div>
+        <span class="timezone-detail">Event dates: <span id="timezone-label">UTC</span> · Refresh time: local</span>
+        <p class="last-refreshed">Last refreshed <time id="last-refreshed">—</time> <span>(local)</span></p>
+        <p class="connection-feedback" id="refresh-status" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <dl class="date-strip" aria-label="System and tracking dates">
+      <div><dt>Launched</dt><dd><time datetime="2026-10">October 2026</time></dd></div>
+      <div><dt>Statistics Started</dt><dd><time datetime="2026-11-09">9 November 2026</time></dd></div>
+      <div><dt>System Up</dt><dd><span id="system-uptime" title="Calendar duration since 9 November 2026, including today">—</span></dd></div>
+      <div><dt>Today <span>(local)</span></dt><dd><time id="today-local">—</time></dd></div>
+    </dl>
+
+    <section class="overview-grid" aria-label="All-time generation totals">
+      <article class="stat-card total-card">
+        <div class="stat-card-heading">
+          <h2>Total Generations</h2>
+          <span class="stat-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 19V11h4v8m2 0V5h4v14m2 0v-11h4v11M3 20h18"/></svg>
+          </span>
+        </div>
+        <p class="stat-number" id="total-generations">—</p>
+        <p class="stat-detail">All-time successful outputs</p>
+        <span class="card-accent" aria-hidden="true"></span>
+      </article>
+      <article class="stat-card">
+        <div class="stat-card-heading">
+          <h2>Electrical Drawings</h2>
+          <span class="stat-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6zM14 3v5h4M9 12h6m-6 4h6"/></svg>
+          </span>
+        </div>
+        <p class="stat-number" id="drawing-total">—</p>
+        <p class="stat-detail" id="drawing-share">Share of all generations</p>
+      </article>
+      <article class="stat-card">
+        <div class="stat-card-heading">
+          <h2>Display Configurations</h2>
+          <span class="stat-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8m-4-4v4M7 8h4m-4 4h8"/></svg>
+          </span>
+        </div>
+        <p class="stat-number" id="display-total">—</p>
+        <p class="stat-detail" id="display-share">Share of all generations</p>
+      </article>
+      <article class="stat-card">
+        <div class="stat-card-heading">
+          <h2>Voice Configurations</h2>
+          <span class="stat-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4zM16 8a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/></svg>
+          </span>
+        </div>
+        <p class="stat-number" id="voice-total">—</p>
+        <p class="stat-detail" id="voice-share">Share of all generations</p>
+      </article>
+    </section>
+
+    <section class="panel activity-panel" aria-labelledby="activity-title">
+      <div class="panel-heading">
+        <div>
+          <p class="eyebrow">Output over time</p>
+          <h2 id="activity-title">Generation Activity</h2>
+        </div>
+        <div class="period-switch" role="group" aria-label="Activity period">
+          <button type="button" data-period="daily" aria-pressed="true" aria-controls="activity-chart">Daily</button>
+          <button type="button" data-period="monthly" aria-pressed="false" aria-controls="activity-chart">Monthly</button>
+          <button type="button" data-period="annual" aria-pressed="false" aria-controls="activity-chart">Annual</button>
+        </div>
+      </div>
+      <div class="activity-meta">
+        <div>
+          <p class="activity-window" id="activity-window">Daily activity</p>
+          <p class="activity-range" id="activity-range">UTC reporting window</p>
+          <p class="last-recorded">Last Recorded Generation: <time id="last-recorded-generation">—</time></p>
+        </div>
+        <p class="period-total"><strong id="period-total">—</strong><span>in this view</span></p>
+      </div>
+      <div class="activity-chart" id="activity-chart"></div>
+      <div class="chart-caption">
+        <span class="chart-legend"><span aria-hidden="true"></span> Successful generations</span>
+        <span class="chart-note" id="chart-note">Daily activity is not the all-time total.</span>
+      </div>
+      <p class="visually-hidden" id="activity-announcement" role="status" aria-live="polite"></p>
+      <details class="chart-data">
+        <summary>View data table</summary>
+        <table>
+          <caption id="data-caption">Daily generation counts · UTC</caption>
+          <thead><tr><th scope="col" id="period-column">Date</th><th scope="col">Generations</th></tr></thead>
+          <tbody id="activity-table-body"></tbody>
+        </table>
+      </details>
+    </section>
+
+    <section class="growth-section" aria-labelledby="growth-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Comparable periods</p>
+          <h2 id="growth-title">Production Growth</h2>
+        </div>
+        <p>Completed UTC periods only</p>
+      </div>
+      <div class="growth-grid" id="production-growth"></div>
+    </section>
+
+    <section class="panel trend-panel" aria-labelledby="trend-title">
+      <div class="panel-heading">
+        <div>
+          <p class="eyebrow">Cumulative tracked output</p>
+          <h2 id="trend-title">Total Production Trend</h2>
+        </div>
+        <span class="tracked-badge">Tracked production</span>
+      </div>
+      <div class="activity-meta">
+        <div>
+          <p class="activity-window">Latest 6 calendar months</p>
+          <p class="activity-range" id="trend-range">UTC reporting window</p>
+        </div>
+        <p class="period-total"><strong id="trend-total">—</strong><span>tracked to date</span></p>
+      </div>
+      <div class="activity-chart" id="trend-chart"></div>
+      <div class="chart-caption">
+        <span class="chart-legend"><span aria-hidden="true"></span> Cumulative generations</span>
+        <span class="chart-note" id="trend-note">Monthly totals accumulated since tracking began.</span>
+      </div>
+      <details class="chart-data">
+        <summary>View trend data table</summary>
+        <table>
+          <caption>Monthly cumulative tracked production · UTC</caption>
+          <thead><tr><th scope="col">Month</th><th scope="col">Tracked total</th></tr></thead>
+          <tbody id="trend-table-body"></tbody>
+        </table>
+      </details>
+    </section>
+
+    <section class="breakdown-section" aria-labelledby="breakdown-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">By generator</p>
+          <h2 id="breakdown-title">Generator Breakdown</h2>
+        </div>
+        <p>Supported generator subtypes · all-time totals</p>
+      </div>
+      <div class="breakdown-grid" id="generator-breakdown"></div>
+      <p class="breakdown-note">Bars show each subtype’s share of its category total.</p>
+    </section>
+
+    <aside class="stats-notice" aria-label="Statistics information">
+      <span class="notice-mark" aria-hidden="true">i</span>
+      <p>Statistics are collected automatically from successful generator outputs. Tracking started on 9 November 2026.</p>
+    </aside>
+  </main>
+
+  <footer class="container site-footer">
+    <span class="footer-copy">© <span id="year"></span> AXL</span>
+    <span>Statistics Dashboard · Administrator access</span>
+    <a class="footer-link" href="main.html">Back to Main <span aria-hidden="true">↗</span></a>
+  </footer>
+</body>
+</html>
